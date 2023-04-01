@@ -1,0 +1,38 @@
+@import url(style.css);
+
+body {
+    overflow:hidden;
+}
+nav {
+    border: 1px solid black;
+    display: flex;
+    margin-left: auto;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+main {
+    display: flex;
+    border: 1px solid red;
+    height: 100vh;
+}
+
+.background-image {
+    width: 60vw;
+    height: 100vh;
+    border: 1px solid blue;
+}
+
+.login-form-section {
+    padding: 50px;
+    border: 2px solid brown;
+    width: 100%;
+}
+
+.login-form-section form {
+    border: 1px solid green;
+    width: 100%;
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+}
