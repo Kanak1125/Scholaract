@@ -11,28 +11,62 @@ nav {
     padding: 20px;
 }
 
+.btn {
+    border-radius: 100px;
+    cursor: pointer;
+    border: none;
+}
+
+.sign-up-btn {
+    padding: 5px 10px;
+    margin-left: 1rem;
+}
+
 main {
     display: flex;
-    border: 1px solid red;
     height: 100vh;
 }
 
 .background-image {
-    width: 60vw;
-    height: 100vh;
-    border: 1px solid blue;
+    width: 80vw;
+    height: 100%;
 }
 
 .login-form-section {
-    padding: 50px;
-    border: 2px solid brown;
+    padding: 50px 100px;
     width: 100%;
+    position: relative;
 }
 
 .login-form-section form {
-    border: 1px solid green;
     width: 100%;
     margin: 50px 0;
     display: flex;
     flex-direction: column;
+    row-gap: 2rem;
+    line-height: 2rem;
+}
+
+.login-form-section input {
+    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+}
+
+#login-btn {
+    width: 40%;
+}
+
+.footer {
+    position: absolute;
+    display: flex;
+    column-gap: 1rem;
+    bottom: 100px;
+}
+
+/* responsive design starts here */
+@media (max-width: 800px) {
+    .login-form-section {
+        padding: 35px 50px;
+    }
 }
