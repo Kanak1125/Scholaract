@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
 
     <!-- font awesome cdn -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-<body>
-    
-</body>
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    /> -->
+
+    <!-- linking stylesheet to the html -->
+    <link rel="stylesheet" href="../../styles/signup.css" />
+  </head>
+  <body>
+    <nav>
+      <img src="" alt="" class="logo" />
+      <form action="" method="post" class="sign-in-option">
+        <label for="sign-in-btn">Already a user?</label>
+        <input type="submit" class="btn sign-in-btn" value="Sign in" />
+      </form>
+    </nav>
+
+    <main>
+      <div class="background-image"></div>
+
+      <div class="signup-form-section">
+        <h2>Main message</h2>
+        <p>Create an account</p>
+
+        <form action="">
+          <label for="name"
+            >Name <br />
+            <input type="text" name="name" id="name" />
+          </label>
+
+          <label for="email"
+            >Email <br />
+            <input type="email" name="email" id="email" />
+          </label>
+
+          <label for="password"
+            >Password <br />
+            <input type="password" name="password" id="password" />
+          </label>
+
+          <label for="confirm_password"
+            >Confirm Password <br />
+            <input
+              type="password"
+              name="confirm_password"
+              id="confirm_password"
+            />
+          </label>
+
+          <input type="submit" id="login-btn" class="btn" value="Login" />
+        </form>
+        
+      </div>
+    </main>
+  </body>
 </html>
