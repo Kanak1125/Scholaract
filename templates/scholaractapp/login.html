@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- font awesome cdn -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-
+    <title>Login</title>
     <!-- linking stylesheet to the html -->
     <link rel="stylesheet" href="/static/css/login.css">
-    <title>Login</title>
+
+    <!-- link to user_validation script -->
+    <script src="../../static/script/user_validate.js" defer></script>
 </head>
 <body>
     <nav>
@@ -25,13 +25,18 @@
         <div class="form-section">
             <h2>Main message</h2>
             <p>Create an account</p>
-            <form action="">
-                <label for="name">Name <br>
+            <form action="" id="form">
+                <div class="name-container">
+                    <label for="name">Name </label><br>
                     <input type="text" name="name" id="name">
-                </label>
-                <label for="password">Password <br>
+                    <div class="error"></div>
+                </div>
+                <div class="password-container">
+                    <label for="password">Password </label><br>
                     <input type="password" name="password" id="password">
-                </label>
+                    <div class="error"></div>
+                </div>
+                
                 <input type="submit" id="login-btn" class="btn" value="Login">
             </form>
             
