@@ -1,7 +1,7 @@
 @import url(style.css);
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 nav {
   border: 1px solid black;
@@ -12,30 +12,36 @@ nav {
 }
 
 .btn {
-  border-radius: 100px;
+  border-radius: 5px;
   cursor: pointer;
   border: none;
 }
 
 .sign-in-btn {
-  padding: 5px 10px;
+  padding: 7.5px 20px;
   margin-left: 1rem;
 }
 
 main {
   display: flex;
   height: 100vh;
+  max-width: 1200px;
+  margin: auto;
 }
 
 .background-image {
-  width: 80vw;
+  width: 100%;
   height: 100%;
 }
 
 .signup-form-section {
-  padding: 50px 100px;
+  padding: 40px 75px;
   width: 100%;
   position: relative;
+}
+
+.signup-form-section p {
+  margin-top: 10px;
 }
 
 .signup-form-section form {
@@ -43,7 +49,7 @@ main {
   margin: 20px 0;
   display: flex;
   flex-direction: column;
-  row-gap: 2rem;
+  row-gap: 1.75rem;
   line-height: 2rem;
 }
 
@@ -55,6 +61,7 @@ main {
 
 #login-btn {
   width: 40%;
+  margin-top: 20px;
 }
 
 .footer {
