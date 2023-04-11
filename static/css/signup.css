@@ -6,6 +6,11 @@
   margin-left: 1rem;
 }
 
+.background-image {
+  background: url('../../assets/signup-page-vector-img.jpg') no-repeat right;
+  background-size: contain;
+}
+
 #login-btn {
   width: 40%;
   margin-top: 20px;

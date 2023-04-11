@@ -1,12 +1,17 @@
 body {
-    overflow-x: hidden;
+    overflow: hidden;
 }
 nav {
     /* border: 1px solid black; */
     display: flex;
-    margin-left: auto;
+    margin: auto;
     justify-content: space-between;
     padding: 20px;
+    max-width: 1200px;
+}
+
+.logo {
+    width: 60px;
 }
   
 .btn {
@@ -28,7 +33,7 @@ main {
 }
   
 .form-section {
-    padding: 2rem 5rem;
+    padding: 1.5rem 5rem;
     width: 100%;
     position: relative;
 }
@@ -42,7 +47,7 @@ main {
     margin: 20px 0;
     display: flex;
     flex-direction: column;
-    row-gap: 1.75rem;
+    row-gap: 1.25rem;
     line-height: 2rem;
 }
   
@@ -54,7 +59,7 @@ main {
 .error {
     position: absolute;
     font-size: 14px;
-    margin: 0px;
+    margin-top: -5px;
     color: lightcoral;
 }
 
