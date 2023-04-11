@@ -15,8 +15,13 @@
       referrerpolicy="no-referrer"
     /> -->
 
+      <link rel="stylesheet" href="../../static/css/user_validate.css">
+
     <!-- linking stylesheet to the html -->
     <link rel="stylesheet" href="/static/css/signup.css" />
+
+    <!-- link to user_validation script -->
+    <script src="../../static/script/user_validate.js" defer></script>
   </head>
   <body>
     <nav>
@@ -34,34 +39,37 @@
         <h2>Main message</h2>
         <p>Create an account</p>
 
-        <form action="">
-          <label for="name"
-            >Name <br />
-            <input type="text" name="name" id="name" />
-          </label>
+        <form action = "" id="form" >
+          <div class="name-container">
+            <label for="name">Name </label> <br />
+          
+              <input type="text" name="name" id="name" />
+            <div class="error"></div>
+        </div>
+        <div class="email-container">
+          <label for="email">Email </label><br />
+          <input type="email" name="email" id="email" />
+          <div class="error"></div>
 
-          <label for="email"
-            >Email <br />
-            <input type="email" name="email" id="email" />
-          </label>
-
-          <label for="password"
-            >Password <br />
+        </div>
+        <div class="password-container">
+          <label for="password">Password </label> <br />
             <input type="password" name="password" id="password" />
-          </label>
+            <div class="error"></div>
 
-          <label for="confirm_password"
-            >Confirm Password <br />
+    </div>
+    <div class="c-password-container">
+      <label for="confirm_password">Confirm Password </label><br />
             <input
               type="password"
-              name="confirm_password"
-              id="confirm_password"
+              name="c_password"
+              id="c_password"
             />
-          </label>
+            <div class="error"></div>
 
-          <input type="submit" id="login-btn" class="btn" value="Create" />
+    </div>
+          <input type="submit" id="login-btn" class="btn" value="Create"/>
         </form>
-        
       </div>
     </main>
   </body>
