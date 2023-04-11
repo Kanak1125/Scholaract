@@ -7,7 +7,7 @@
 }
 
 .background-image {
-  background: url('../../assets/signup-page-vector-img.jpg') no-repeat right;
+  background: url('../../assets/signup-page-vector-img.jpg') no-repeat 0 70px;  /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties...*/
   background-size: contain;
 }
 
