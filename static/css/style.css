@@ -6,6 +6,20 @@
 
 :root {
     /* css variables will be here */
+    --accent-color: hsl(219, 44%, 49%);
+    --primary-color: hsl(0, 0%, 100%);
+    --secondary-color: hsl(222, 11%, 18%); 
+    --ternary-color: hsl(210, 61%, 65%);
+    --btn-on-hover-color: hsl(219, 44%, 40%);
+
+    --fnt-size-l: 30px;
+    --fnt-size-m: 20px;
+    --fnt-size-s: 16px; 
+
+    --fnt-wght-b: 900;
+    --fnt-wght-sb: 700;
+    --fnt-wght-m: 500;
+    --fnt-wght-thin: 200;
 }
 
 body {
