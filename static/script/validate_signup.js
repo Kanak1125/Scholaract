@@ -1,5 +1,6 @@
 const form = document.getElementById('form');
-const userName = document.getElementById('name');
+const fName = document.getElementById('fname');
+const lName = document.getElementById('lname');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('c_password');
@@ -27,17 +28,18 @@ function removeError(element) {
 }
 
 function validateInputs() {
-    validateUserName();
+    validateUserName(fName, "Please enter firstname!");
+    validateUserName(lName, "Please enter lastname!");
     validateEmail();
     validatePassword();
     validateConfirmPassword();
 }
 
-function validateUserName() {
+function validateUserName(userName, errMsg) {
     if (userName.value === "") {
-        setError(userName, "Please enter username !");
+        setError(userName, errMsg);
     } else if (/\d/.test(userName.value)) {
-        setError(userName, "Username shouldn't contain a number");  // here '\d' is a regular expression equivalent to [0-9] and test() will return true if the string contains any numbers otherwise false...
+        setError(userName, "Shouldn't contain number!");  // here '\d' is a regular expression equivalent to [0-9] and test() will return true if the string contains any numbers otherwise false...
     } else {
         removeError(userName);
     }

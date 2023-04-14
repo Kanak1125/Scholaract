@@ -11,6 +11,12 @@
   background-size: contain;
 }
 
+.name-container {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 40px;
+}
+
 #login-btn {
   width: 40%;
   margin-top: 20px;
