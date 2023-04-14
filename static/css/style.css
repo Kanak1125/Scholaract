@@ -1,3 +1,6 @@
+/* importing the font-family from google fonts... */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;1,200&display=swap');
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -11,17 +14,21 @@
     --secondary-color: hsl(222, 11%, 18%); 
     --ternary-color: hsl(210, 61%, 65%);
     --btn-on-hover-color: hsl(219, 44%, 40%);
+    --error-color: hsl(0, 79%, 72%);
+
+    --default-txt-color: hsl(0, 0%, 0%);
+    --secondary-txt-color: var(--secondary-color);
+    --btn-txt-color: var(--primary-color);
 
     --fnt-size-l: 30px;
     --fnt-size-m: 20px;
     --fnt-size-s: 16px; 
 
-    --fnt-wght-b: 900;
-    --fnt-wght-sb: 700;
+    --fnt-wght-b: 700;
     --fnt-wght-m: 500;
     --fnt-wght-thin: 200;
 }
 
 body {
-    
+    font-family: 'Poppins', sans-serif;
 }
