@@ -2,14 +2,24 @@
 @import url(login-signup.css);
 
 .sign-up-btn {
-    padding: 5px 10px;
+    padding: 7.5px 20px;
     margin-left: 1rem;
 }
 
 .form-section {
-    padding: 50px 100px;
+    padding: 100px 100px;
     width: 100%;
     position: relative;
+}
+
+.form-section form {
+    row-gap: 2rem;
+}
+
+.background-image {
+    background: url('../../assets/login_page_img.jpg') no-repeat 0px 80px;  /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties...*/
+    background-size: contain;
+    /* margin-top: 70px; */
 }
 
 #login-btn {

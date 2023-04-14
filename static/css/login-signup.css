@@ -1,5 +1,5 @@
 body {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .nav-bar-container {
@@ -36,14 +36,13 @@ nav {
 
 main {
     display: flex;
-    height: 100vh;
+    height: 85vh;
     max-width: 1200px;
     margin: auto;
 }
   
 .background-image {
-    width: 100%;
-    height: 100%;
+    width: 120%;
 }
   
 .form-section {
