@@ -9,6 +9,12 @@ const confirmPassword = document.getElementById('c_password');
 form.addEventListener('submit', function(e){
     e.preventDefault();
     validateInputs();
+
+
+    if (validateInputs()){
+        var validated = document.getElementById('form')
+        validated.submit(); //if the function returns true, then submit the data
+    }
 })
 
 // helper function to setError to the specific element container...
@@ -28,20 +34,28 @@ function removeError(element) {
 }
 
 function validateInputs() {
-    validateUserName(fName, "Please enter firstname!");
-    validateUserName(lName, "Please enter lastname!");
-    validateEmail();
-    validatePassword();
-    validateConfirmPassword();
+    let isValid = true; // added to let the function return true if all the fields are validated
+
+    // checks if both the conditions are satisfied an returns true if satisfied
+    // performing this step with all of the functions in order to not submit data unless each and every field is validated and doesn't return an error
+    isValid = validateUserName(fName, "Please enter firstname!") && isValid;
+    isValid = validateUserName(lName, "Please enter lastname!") && isValid;
+    isValid = validateEmail() && isValid;
+    isValid = validatePassword() && isValid;
+    isValid = validateConfirmPassword() && isValid;
+    return isValid;
 }
 
 function validateUserName(userName, errMsg) {
     if (userName.value === "") {
         setError(userName, errMsg);
+        return false;
     } else if (/\d/.test(userName.value)) {
         setError(userName, "Shouldn't contain number!");  // here '\d' is a regular expression equivalent to [0-9] and test() will return true if the string contains any numbers otherwise false...
+        return false;
     } else {
         removeError(userName);
+        return true;
     }
 }
 
@@ -50,11 +64,14 @@ function validateEmail() {
 
     if (email.value === "") {
         setError(email, "Please enter your email !");
+        return false;
     } else if (!email.value.match(pattern)) {
         // console.log(email.value.match(pattern));
         setError(email, "Invalid Email !");
+        return false;
     } else {
         removeError(email);
+        return true;
     }
 }
 
@@ -63,23 +80,30 @@ function validatePassword() {
 
     if(password.value === "") {
         setError(password, "Please enter the password !");
+        return false;
     } else if (password.value.split("").length < 8) {  // split() the string to the array of characters...
         setError(password, "Minimum 8 charaters required!");
+        return false;
     }
     else if (!password.value.match(patternForPass)) {
         setError(password, "Password must contain at least 1 letter & 1 number");
+        return false;
     } else {
         removeError(password);
+        return true;
     }
 }
 
 function validateConfirmPassword() {
     if(confirmPassword.value === "") {
         setError(confirmPassword, "Please enter the password !");
+        return false;
     } else if (confirmPassword.value != password.value) {  // split() the string to the array of characters...
         setError(password, "Password not match!");
         setError(confirmPassword, "Password not match!");
+        return false;
     } else {
         removeError(confirmPassword);
+        return true;
     }
 }

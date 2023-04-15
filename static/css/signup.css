@@ -1,3 +1,4 @@
+/* {% load static %} */
 @import url(style.css);
 @import url(login-signup.css);
 
@@ -7,7 +8,7 @@
 }
 
 .background-image {
-  background: url('../../assets/signup-page-vector-img.jpg') no-repeat 0 80px; /* 0 70px */ /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties...*/
+  background: url('../../static/images/signup-page-vector-img.jpg') no-repeat 0 80px;   /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties... */
   background-size: contain;
 }
 
@@ -17,7 +18,7 @@
   column-gap: 40px;
 }
 
-#login-btn {
+#sign-up-btn {
   width: 40%;
   margin-top: 20px;
 }
