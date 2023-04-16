@@ -41,10 +41,13 @@ function removeError(element) {
 function validateUserName(userName, errMsg) {
     if (userName.value === "") {
         setError(userName, errMsg);
+        return false;
     } else if (/\d/.test(userName.value)) {
         setError(userName, "Shouldn't contain number!");  // here '\d' is a regular expression equivalent to [0-9] and test() will return true if the string contains any numbers otherwise false...
+        return false;
     } else {
         removeError(userName);
+        return true;
     }
 }
 
@@ -53,11 +56,14 @@ function validateEmail() {
 
     if (email.value === "") {
         setError(email, "Please enter your email !");
+        return false;
     } else if (!email.value.match(pattern)) {
         // console.log(email.value.match(pattern));
         setError(email, "Invalid Email !");
+        return false;
     } else {
         removeError(email);
+        return true;
     }
 }
 
@@ -66,23 +72,30 @@ function validatePassword() {
 
     if(password.value === "") {
         setError(password, "Please enter the password !");
+        return false;
     } else if (password.value.split("").length < 8) {  // split() the string to the array of characters...
         setError(password, "Minimum 8 charaters required!");
+        return false;
     }
     else if (!password.value.match(patternForPass)) {
         setError(password, "Password must contain at least 1 letter & 1 number");
+        return false;
     } else {
         removeError(password);
+        return true;
     }
 }
 
 function validateConfirmPassword() {
     if(confirmPassword.value === "") {
         setError(confirmPassword, "Please enter the password !");
+        return false;
     } else if (confirmPassword.value != password.value) {  // split() the string to the array of characters...
         setError(password, "Password not match!");
         setError(confirmPassword, "Password not match!");
+        return false;
     } else {
         removeError(confirmPassword);
+        return true;
     }
 }

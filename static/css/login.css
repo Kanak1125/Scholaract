@@ -17,7 +17,7 @@
 }
 
 .background-image {
-    background: url('../../assets/login_page_img.jpg') no-repeat 0px 80px;  /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties...*/
+    background: url('../../static/images/login_page_img.jpg') no-repeat 0px 80px;  /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties...*/
     background-size: contain;
     /* margin-top: 70px; */
 }

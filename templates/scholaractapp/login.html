@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,15 @@
 
     <title>Login</title>
     <!-- linking stylesheet to the html -->
-    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="{% static '/css/login.css' %}">
 
     <!-- link to user_validation script -->
-    <script src="../../static/script/validate_login.js" defer></script>
+    <script src="{% static '/script/validate_login.js' %}" defer></script>
 </head>
 <body>
     <div class="nav-bar-container">
         <nav>
-            <img src="../../assets/logo.svg" alt="" class="logo">
+            <img src="{% static '/images/logo.svg' %}" alt="" class="logo">
             <form action="./signup.html" method="get" class="sign-up-option">
                 <label for="sign-up-btn">Don't have an account?</label>
                 <input type="submit" class="btn sign-up-btn" value="Sign up">

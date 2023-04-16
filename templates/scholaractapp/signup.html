@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
     
     <!-- linking stylesheet to the html -->
-    <link rel="stylesheet" href="/static/css/signup.css" />
-    <link rel="stylesheet" href="../../static/css/user_validate.css">
-
+    <link rel="stylesheet" href="{% static '/css/signup.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static '/css/validate_signup.css' %}"> -->
+    
     <!-- link to user_validation script -->
-    <script src="../../static/script/validate_signup.js" defer></script>
+    <script src="{% static '/script/validate_signup.js' %}" defer></script>
   </head>
   <body>
     <div class="nav-bar-container">
       <nav>
-        <img src="../../assets/logo.svg" alt="" class="logo" />
+        <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
         <form action="" method="post" class="sign-in-option">
+          {% csrf_token%}
           <label for="sign-in-btn">Already a user?</label>
           <input type="submit" class="btn sign-in-btn" id="sign-in-btn" value="Sign in" />
         </form>
       </nav>
     </div>
+    
 
     <main>
-      <div class="background-image"></div>
+      <div class="background-image">
+      </div>
       <div class="form-section">
         <h2>Explore Scholaract</h2>
         <p>Create an account</p>
 
-        <form action="" id="form" >
+        <form action="" id="form" method="POST" >
+          {% csrf_token %}
+          {{ success }}
           <div class="name-container">
             <div class="firstName">
               <label for="fname">First Name </label><br />

@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "*"
 mysqlclient = "*"
+argon2-cffi = "*"
 
 [dev-packages]
 
