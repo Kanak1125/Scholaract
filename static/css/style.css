@@ -14,6 +14,7 @@
     --secondary-color: hsl(222, 11%, 18%); 
     --ternary-color: hsl(210, 61%, 65%);
     --btn-on-hover-color: hsl(219, 44%, 40%);
+    --btn-on-hover-dark: hsl(222, 11%, 10%); 
     --error-color: hsl(0, 79%, 72%);
 
     --default-txt-color: hsl(0, 0%, 0%);
