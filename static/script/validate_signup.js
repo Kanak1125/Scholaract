@@ -4,15 +4,19 @@ const lName = document.getElementById('lname');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('c_password');
-const submitBtn = document.getElementById('login-btn');
+// const submitBtn = document.getElementById('login-btn');
 
 
-submitBtn.setAttribute('disabled');
+// submitBtn.setAttribute('disabled');
 // fires when the form is submitted...
-// form.addEventListener('submit', function(e){
-//     e.preventDefault();
-//     validateInputs();
-// })
+form.addEventListener('submit', function(e){
+    e.preventDefault();
+    validateInputs();
+
+    if (validateInputs()) {
+        form.submit();      // if the function returns true, then submits the data...
+    }
+})
 
 // helper function to setError to the specific element container...
 function setError(element, msg) {
@@ -30,13 +34,16 @@ function removeError(element) {
     errorNode.textContent = ""; // js property: textContent
 }
 
-// function validateInputs() {
-//     validateUserName(fName, "Please enter firstname!");
-//     validateUserName(lName, "Please enter lastname!");
-//     validateEmail();
-//     validatePassword();
-//     validateConfirmPassword();
-// }
+function validateInputs() {
+    let isValid = true; // added to let the function return true if all fields are validated...
+    
+    isValid = isValid && validateUserName(fName, "Please enter firstname!");
+    isValid = validateUserName(lName, "Please enter lastname!") && isValid;
+    isValid = validateEmail() && isValid;
+    isValid = validatePassword() && isValid;
+    isValid = validateConfirmPassword() && isValid;
+    return isValid;
+}
 
 function validateUserName(userName, errMsg) {
     if (userName.value === "") {

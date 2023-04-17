@@ -11,13 +11,16 @@
     <link rel="stylesheet" href="{% static '/css/signup.css' %}" />
     <!-- <link rel="stylesheet" href="{% static '/css/validate_signup.css' %}"> -->
     
+    <!-- <link rel="stylesheet" href="/static/css/signup.css"> -->
     <!-- link to user_validation script -->
+    <!-- <script src="/static/script/validate_signup.js"></script> -->
     <script src="{% static '/script/validate_signup.js' %}" defer></script>
   </head>
   <body>
     <div class="nav-bar-container">
       <nav>
         <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
+        <!-- <img src="/static/images/logo.svg" alt="" class="logo"> -->
         <form action="" method="post" class="sign-in-option">
           {% csrf_token%}
           <label for="sign-in-btn">Already a user?</label>
@@ -36,35 +39,35 @@
 
         <form action="" id="form" method="POST" >
           {% csrf_token %}
-          {{ success }}
+          <!-- <p class="submission-status">{{ success }}</p>  -->
           <div class="name-container">
             <div class="firstName">
               <label for="fname">First Name </label><br />
-              <input type="text" name="fname" id="fname" onkeyup="validateUserName(fname, 'Please enter firstname!')"/>
+              <input type="text" name="fname" id="fname" />
               <div class="error"></div>
             </div>
             <div class="lastName">
               <label for="lname">Last Name </label><br />
-              <input type="text" name="lname" id="lname" onkeyup="validateUserName(lname, 'Please enter lastname!')"/>
+              <input type="text" name="lname" id="lname" />
               <div class="error"></div>
             </div>
           </div>
           <div class="email-container">
             <label for="email">Email </label><br />
-            <input type="email" name="email" id="email" onkeyup="validateEmail()"/>
+            <input type="email" name="email" id="email" novalidate/>
             <div class="error"></div>
           </div>
           <div class="password-container">
             <label for="password">Password </label> <br />
-              <input type="password" name="password" id="password" onkeyup="validatePassword()"/>
+              <input type="password" name="password" id="password" />
               <div class="error"></div>
           </div>
           <div class="c-password-container">
-            <label for="confirm_password">Confirm Password </label><br />
-            <input type="password" name="c_password" id="c_password" onkeyup="validateConfirmPassword()"/>
+            <label for="c_password">Confirm Password </label><br />
+            <input type="password" name="c_password" id="c_password" />
             <div class="error"></div>
           </div>
-          <input type="submit" id="login-btn" class="btn" value="Create" disabled/>
+          <input type="submit" id="login-btn" class="btn create-btn" value="Create"/>
         </form>
       </div>
     </main>
