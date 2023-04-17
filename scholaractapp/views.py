@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Users # importing Users model from the models.py file
 from django.contrib.auth.hashers import make_password, check_password
+# from django.core.exceptions import ValidationError
 
 # Create your views here.
 
 # view for signup page
 def signup(request):
     success = ''
+    error_message = ''
     if request.method == 'POST':
         print(request.POST)
 
@@ -17,13 +19,19 @@ def signup(request):
         password = request.POST.get('password')
         hashed_pwd = make_password(password)
         # check_pwd = check_password(password,hashed_pwd)
+        email_exits = Users.objects.filter(email=email).exists() # query which checks if the email entered by the user already exists in yhe db, if it exists it will return true else it will return false
 
-        user_data = Users(firstName=firstName,lastName=lastName,email=email,password=hashed_pwd) # passes the data received from form to the User model
-        
-        user_data.save() # saves data into the database into their respective columns
+        if email_exits:
+            error_message = "This email already exists please use another email"
+        else:
 
-        success = 'Data Inserted successfully'
-    return render(request, 'scholaractapp/signup.html', {'success': success})
+
+            user_data = Users(firstName=firstName,lastName=lastName,email=email,password=hashed_pwd) # passes the data received from form to the User model
+            
+            user_data.save() # saves data into the database into their respective columns
+
+            success = 'Data Inserted successfully'
+    return render(request, 'scholaractapp/signup.html', {'error_message': error_message, 'success':success })
 
 # view for login page
 def login(request):
