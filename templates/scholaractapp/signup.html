@@ -21,7 +21,7 @@
       <nav>
         <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
         <!-- <img src="/static/images/logo.svg" alt="" class="logo"> -->
-        <form action="" method="post" class="sign-in-option">
+        <form action="{% url 'login' %}" method="" class="sign-in-option">
           {% csrf_token%}
           <label for="sign-in-btn">Already a user?</label>
           <input type="submit" class="btn sign-in-btn" id="sign-in-btn" value="Sign in" />
