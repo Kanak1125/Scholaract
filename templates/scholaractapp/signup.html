@@ -11,13 +11,16 @@
     <link rel="stylesheet" href="{% static '/css/signup.css' %}" />
     <!-- <link rel="stylesheet" href="{% static '/css/validate_signup.css' %}"> -->
     
+    <!-- <link rel="stylesheet" href="/static/css/signup.css"> -->
     <!-- link to user_validation script -->
+    <!-- <script src="/static/script/validate_signup.js"></script> -->
     <script src="{% static '/script/validate_signup.js' %}" defer></script>
   </head>
   <body>
     <div class="nav-bar-container">
       <nav>
         <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
+        <!-- <img src="/static/images/logo.svg" alt="" class="logo"> -->
         <form action="" method="post" class="sign-in-option">
           {% csrf_token%}
           <label for="sign-in-btn">Already a user?</label>
@@ -36,7 +39,7 @@
 
         <form action="" id="form" method="POST" >
           {% csrf_token %}
-          {{ success }}
+          <!-- <p class="submission-status">{{ success }}</p>  -->
           <div class="name-container">
             <div class="firstName">
               <label for="fname">First Name </label><br />
@@ -60,11 +63,11 @@
               <div class="error"></div>
           </div>
           <div class="c-password-container">
-            <label for="confirm_password">Confirm Password </label><br />
-            <input type="password" name="c_password" id="c_password"/>
+            <label for="c_password">Confirm Password </label><br />
+            <input type="password" name="c_password" id="c_password" />
             <div class="error"></div>
           </div>
-          <input type="submit" name = "sign-up-btn" id="sign-up-btn" class="btn" value="Create"/>
+          <input type="submit" id="login-btn" class="btn create-btn" value="Create"/>
         </form>
       </div>
     </main>

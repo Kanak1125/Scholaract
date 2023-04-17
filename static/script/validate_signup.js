@@ -4,7 +4,10 @@ const lName = document.getElementById('lname');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('c_password');
+// const submitBtn = document.getElementById('login-btn');
 
+
+// submitBtn.setAttribute('disabled');
 // fires when the form is submitted...
 form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -12,8 +15,8 @@ form.addEventListener('submit', function(e){
 
 
     if (validateInputs()){
-        var validated = document.getElementById('form')
-        validated.submit(); //if the function returns true, then submit the data
+        // var validated = document.getElementById('form')
+        form.submit(); //if the function returns true, then submit the data
     }
 })
 
@@ -34,11 +37,9 @@ function removeError(element) {
 }
 
 function validateInputs() {
-    let isValid = true; // added to let the function return true if all the fields are validated
-
-    // checks if both the conditions are satisfied an returns true if satisfied
-    // performing this step with all of the functions in order to not submit data unless each and every field is validated and doesn't return an error
-    isValid = validateUserName(fName, "Please enter firstname!") && isValid;
+    let isValid = true; // added to let the function return true if all fields are validated...
+    
+    isValid = isValid && validateUserName(fName, "Please enter firstname!");
     isValid = validateUserName(lName, "Please enter lastname!") && isValid;
     isValid = validateEmail() && isValid;
     isValid = validatePassword() && isValid;

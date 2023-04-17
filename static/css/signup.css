@@ -1,5 +1,4 @@
 /* {% load static %} */
-@import url(style.css);
 @import url(login-signup.css);
 
 .sign-in-btn {
@@ -18,7 +17,21 @@
   column-gap: 40px;
 }
 
+.form-section .name-container div {
+  width: 100%;
+}
+
 #sign-up-btn {
   width: 40%;
   margin-top: 20px;
+}
+
+/* responsive design starts here */
+
+/* styles for tablet screens */
+@media (max-width: 834px) {
+  .name-container {
+    flex-direction: column;
+    row-gap: 1.25rem;
+  }
 }
