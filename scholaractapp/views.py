@@ -30,8 +30,13 @@ def signup(request):
             
             user_data.save() # saves data into the database into their respective columns
 
-            success = 'Data Inserted successfully'
-    return render(request, 'scholaractapp/signup.html', {'error_message': error_message, 'success':success })
+            return redirect('success')
+            
+    return render(request, 'scholaractapp/signup.html', {'error_message': error_message})
+
+# view for temporary solution of redirecting users to a success page after creatig an account to overcome resubmitting of previously submitter data
+def success(request):
+    return render(request, 'scholaractapp/success.html')
 
 # view for login page
 def login(request):
