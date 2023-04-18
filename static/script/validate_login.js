@@ -6,6 +6,10 @@ const password = document.getElementById('password');
 form.addEventListener('submit', function(e){
     e.preventDefault();
     validateInputs();
+
+    if (validateInputs()){
+        form.submit();
+    }
 })
 
 // helper function to setError to the specific element container...
@@ -25,8 +29,10 @@ function removeError(element) {
 }
 
 function validateInputs() {
-    validateEmail();
-    validatePassword();
+    let isValid = true;
+    isValid = validateEmail() && isValid;
+    isValid = validatePassword() && isValid;
+    return isValid;
 }
 
 function validateEmail() {
@@ -34,11 +40,14 @@ function validateEmail() {
 
     if (email.value === "") {
         setError(email, "Please enter your email !");
+        return false;
     } else if (!email.value.match(pattern)) {
         // console.log(email.value.match(pattern));
         setError(email, "Invalid Email !");
+        return false;
     } else {
         removeError(email);
+        return true;
     }
 }
 
@@ -47,12 +56,16 @@ function validatePassword() {
 
     if(password.value === "") {
         setError(password, "Please enter the password !");
+        return false;
     } else if (password.value.split("").length < 8) {  // split() the string to the array of characters...
         setError(password, "Minimum 8 charaters required!");
+        return false;
     }
     else if (!password.value.match(patternForPass)) {
         setError(password, "Password must contain at least 1 letter & 1 number");
+        return false;
     } else {
         removeError(password);
+        return true;
     }
 }

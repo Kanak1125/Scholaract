@@ -18,7 +18,7 @@ def signup(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         hashed_pwd = make_password(password)
-        # check_pwd = check_password(password,hashed_pwd)
+        
         email_exits = Users.objects.filter(email=email).exists() # query which checks if the email entered by the user already exists in yhe db, if it exists it will return true else it will return false
 
         if email_exits:
@@ -36,8 +36,29 @@ def signup(request):
 
 # view for temporary solution of redirecting users to a success page after creatig an account to overcome resubmitting of previously submitter data
 def success(request):
+    
     return render(request, 'scholaractapp/success.html')
 
 # view for login page
 def login(request):
-    return render(request, 'scholaractapp/login.html')
+    print(request.POST)
+    error_email =''
+    pass_error = ''
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password') 
+        print(Users.password)
+        try:
+            user = Users.objects.get(email = email) 
+        except Users.DoesNotExist:
+            error_email = 'Email does not exist'
+        else:
+            if not check_password(password, user.password):
+                error_password = 'Password does not match'
+            else:
+                return redirect('classes')
+            
+    return render(request, 'scholaractapp/login.html',{'error_email' : error_email, 'error_password': error_password})
+
+def classes(request):
+    return render(request, 'scholaractapp/classes.html')
