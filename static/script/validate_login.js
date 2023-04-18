@@ -34,14 +34,11 @@ function validateEmail() {
 
     if (email.value === "") {
         setError(email, "Please enter your email !");
-        return false;
     } else if (!email.value.match(pattern)) {
         // console.log(email.value.match(pattern));
         setError(email, "Invalid Email !");
-        return false;
     } else {
         removeError(email);
-        return true;
     }
 }
 

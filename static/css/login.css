@@ -6,7 +6,6 @@
 }
 
 .form-section {
-    padding: 100px 100px;
     width: 100%;
     position: relative;
 }
@@ -19,9 +18,4 @@
     background: url('../../static/images/login_page_img.jpg') no-repeat 0px 80px;  /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties...*/
     background-size: contain;
     /* margin-top: 70px; */
-}
-
-#login-btn {
-    width: 40%;
-    margin-top: 20px;
 }

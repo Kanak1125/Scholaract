@@ -91,6 +91,12 @@ main {
     transition: all 300ms linear;
 }
 
+.create-btn,
+.login-btn {
+    width: 40% !important;
+    margin-top: 24px;
+}
+
 .form-section input:focus {
     border-color: var(--accent-color);
 }
@@ -117,7 +123,7 @@ main {
         display: none;
     }
     .form-section {
-        padding: 35px 50px;
+        padding: 35px 50px !important;
     }
     .form-section input {
         border: 2px solid var(--secondary-color);
@@ -125,6 +131,7 @@ main {
     .create-btn,
     .login-btn
      {
+        width: 100% !important;
         background-color: var(--secondary-color);
     }
     .create-btn:hover,
