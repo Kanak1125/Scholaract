@@ -116,6 +116,10 @@ main {
 
 /* responsive design starts here */
 @media (max-width: 834px) {
+    .sign-up-option label,
+    .sign-in-option label {
+        font-size: var(--fnt-size-v-s);
+    }
     main {
         padding: 10px 10vw;
     }
@@ -157,7 +161,7 @@ main {
     }
     /* already a user? will be not be displayed in mobile version... */
     .sign-up-option label,
-    .sign-in-option label{
+    .sign-in-option label {
         display: none;
     }
     .btn {
