@@ -43,7 +43,7 @@ def success(request):
 def login(request):
     print(request.POST)
     error_email =''
-    pass_error = ''
+    error_password = ''
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password') 
