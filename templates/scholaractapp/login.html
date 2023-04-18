@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{% static '/css/login.css' %}">
 
     <!-- link to user_validation script -->
-    <script src="{% static '/script/validate_login.js' %}" defer></script>
+    <!-- <script src="{% static '/script/validate_login.js' %}" defer></script> -->
+    <script src="/static/script/validate_login.js" defer></script>
 </head>
 <body>
     <div class="nav-bar-container">
@@ -29,9 +30,9 @@
             <h2>Main message</h2>
             <p>Create an account</p>
             <form action="" id="form">
-                <div class="name-container">
-                    <label for="name">Name </label><br>
-                    <input type="text" name="name" id="name">
+                <div class="email-container">
+                    <label for="email">Email </label><br>
+                    <input type="email" name="email" id="email">
                     <div class="error"></div>
                 </div>
                 <div class="password-container">

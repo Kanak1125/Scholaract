@@ -122,7 +122,9 @@ main {
     .form-section input {
         border: 2px solid var(--secondary-color);
     }
-    .create-btn {
+    .create-btn,
+    .login-btn
+     {
         background-color: var(--secondary-color);
     }
     .create-btn:hover,

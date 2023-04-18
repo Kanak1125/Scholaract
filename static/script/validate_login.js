@@ -1,5 +1,5 @@
 const form = document.getElementById('form');
-const userName = document.getElementById('name');
+const email = document.getElementById('email');
 const password = document.getElementById('password');
 
 // fires when the form is submitted...
@@ -25,17 +25,23 @@ function removeError(element) {
 }
 
 function validateInputs() {
-    validateUserName();
+    validateEmail();
     validatePassword();
 }
 
-function validateUserName() {
-    if (userName.value === "") {
-        setError(userName, "Please enter username !");
-    } else if (/\d/.test(userName.value)) {
-        setError(userName, "Username shouldn't contain a number");  // here '\d' is a regular expression equivalent to [0-9] and test() will return true if the string contains any numbers otherwise false...
+function validateEmail() {
+    const pattern = /^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/;    // regular expression pattern to validate the existence of the characters in the email...
+
+    if (email.value === "") {
+        setError(email, "Please enter your email !");
+        return false;
+    } else if (!email.value.match(pattern)) {
+        // console.log(email.value.match(pattern));
+        setError(email, "Invalid Email !");
+        return false;
     } else {
-        removeError(userName);
+        removeError(email);
+        return true;
     }
 }
 
