@@ -21,7 +21,7 @@
             <form action="{% url 'signup' %}" method="get" class="sign-up-option">
                 {% csrf_token %}
                 <label for="sign-up-btn">Don't have an account?</label>
-                <input type="submit" class="btn sign-up-btn" value="Sign up">
+                <button class="btn sign-up-btn" id="sign-up-btn">Sign up</button>
             </form>
         </nav>
     </div>

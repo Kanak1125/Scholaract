@@ -1,11 +1,6 @@
 /* {% load static %} */
 @import url(login-signup.css);
 
-.sign-in-btn {
-  padding: 7.5px 20px;
-  margin-left: 1rem;
-}
-
 .background-image {
   background: url('../../static/images/signup-page-vector-img.jpg') no-repeat 0 80px;   /* shorthand for 'background-img', 'background-repeat', and 'background-position' properties... */
   background-size: contain;

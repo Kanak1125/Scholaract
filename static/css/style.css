@@ -34,3 +34,17 @@
 body {
     font-family: 'Poppins', sans-serif;
 }
+
+.btn {
+    border-radius: 5px;
+    cursor: pointer;
+    border: none !important;
+    background-color: var(--accent-color);
+    color: var(--btn-txt-color);
+    transition: all 300ms linear;
+    padding: 7.5px 20px;
+}
+
+.btn:hover {
+    background-color: var(--btn-on-hover-color);
+}

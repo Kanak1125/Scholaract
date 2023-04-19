@@ -1,0 +1,112 @@
+@import url('./style.css');
+
+.nav-bar-container {
+    background-color: var(--secondary-color);
+    color: white;
+    height: 72px;
+}
+
+nav {
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.logo {
+    width: 60px;
+}
+
+.nav-links {
+    list-style-type: none;
+}
+
+.nav-links li {
+    display: inline-block;
+}
+
+.nav-links a {
+    position: relative;
+    color: var(--primary-color);
+    display: block;
+    padding: 5px 20px;
+    text-decoration: none;
+    transition: all 600ms ease-out;
+    background-clip: text;
+}
+
+.nav-links a:hover {
+    opacity: 0.5;
+}
+
+.hero {
+    max-width: 1200px;
+    display: flex;
+    margin: 50px auto;
+    padding: 0px 10px;
+    justify-content: center;
+}
+
+.hero-description {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.hero-description cite {
+    font-size: var(--fnt-size-l);
+    font-weight: var(--fnt-wght-b);
+}
+
+.hero-para {
+    font-size: var(--fnt-size-m);
+}
+
+.hero-para,
+.btn-container {
+    margin-left: 20px;
+}
+
+.landing-page-img {
+    width: 50vw;
+    animation: animateImg 3s linear infinite;
+    max-width: 640px;
+}
+
+.get-started-btn {
+    padding: 15px 24px;
+}
+
+.get-started-btn i {
+    margin-left: 5px;
+    transition: all 300ms ease-in;
+}
+
+.get-started-btn:hover i {
+    transform: translateX(10px);
+}
+
+/* animation for images in landing page */
+@keyframes animateImg {
+    25% {transform: translateY(-5px);}
+    50% {transform: translateY(0px);}
+    75% {transform: translateY(5px);}
+    100% {transform: translateY(0px);}
+}
+
+.people-img-container {
+    max-width: 1200px;
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.img-container {
+    width: 300px;
+    height: 400px;
+    background-color: var(--ternary-color);
+    border-radius: 0 25px 0 25px;
+}
