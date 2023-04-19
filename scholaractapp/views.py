@@ -6,6 +6,10 @@ from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 
+
+# view for landing page
+def landingPage(request):
+    return render(request, 'scholaractapp/landingPage.html')
 # view for signup page
 def signup(request):
     success = ''
