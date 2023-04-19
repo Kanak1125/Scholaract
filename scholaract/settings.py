@@ -1,3 +1,4 @@
+# we edited this file
 """
 Django settings for scholaract project.
 

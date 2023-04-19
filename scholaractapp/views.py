@@ -1,3 +1,4 @@
+# we edited this file
 from django.shortcuts import render,redirect
 from .models import Users # importing Users model from the models.py file
 from django.contrib.auth.hashers import make_password, check_password
@@ -50,10 +51,17 @@ def login(request):
         print(Users.password)
         try:
             user = Users.objects.get(email = email) 
+            # Users: model defined in models.py file or can also be seen as table
+            # objects: manager for the Users model automatically created by django. It is used to query the db and retrieve instances of the model
+            # get: method provided by django ORM(Object Relational Mapping) that retrives a single object from the db that matches the given lookup parameter
+            # email = email: keyword argument that specifies the lookup parameter for the query. It filters the 'Users' model based in the 'email' field. The value of 'email' field is provided as 'email' variable which is obtained from the 'request.POST' data
         except Users.DoesNotExist:
+            # 'Users.DoesNot Exist' is an exception class that is raised by the Django ORM when a query using the 'get()' method does not return any object from the database
             error_email = 'Email does not exist'
         else:
-            if not check_password(password, user.password):
+        # the following code will be executed if there are no errors
+            # check_password: function provided by Django's 'make_password' module. It is used to verify whether a gicen plain text password matches the encrypted password stored in the database
+            if not check_password(password, user.password): # password: passsword obtained from the 'request.POST' data (entered by the user). user.password: corresponding password of the entered email
                 error_password = 'Password does not match'
             else:
                 return redirect('classes')
