@@ -16,9 +16,14 @@
         <nav>
           <!-- <img src="{% static '/images/logo.svg' %}" alt="" class="logo" /> -->
           <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
           <form action="{% url 'login' %}" method="" class="sign-in-option">
             <!-- {% csrf_token%} -->
-            <input type="submit" class="btn sign-up-btn" id="sign-up-btn" value="Login" />
+            <button class="btn login-btn" id="login-btn">Login</button>
           </form>
         </nav>
     </div>
@@ -28,13 +33,15 @@
             <p class="hero-para">
                 Welcome to our Learning Management System! We believe that everyone has the potential to learn, grow, and achieve greatness. That's why we've created a platform that makes learning easy, fun, and accessible to all.
             </p>
-            <button class="btn get-started-btn">
-                Get started 
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
+            <div class="btn-container">
+                <button class="btn get-started-btn">
+                    Get started 
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
         <div class="hero-img-container">
-            <img src="../../static/images/hero_pg_img.jpg" alt="vector image reading and writing">
+            <img src="../../static/images/hero_pg_img.jpg" alt="vector image reading and writing" class="landing-page-img">
         </div>
     </section>
     <section class="people-img-container">
@@ -55,7 +62,7 @@
             <button class="btn create-class-btn">Create class</button>
         </div>
         <div class="img-container">
-            <img src="../../static/images/landingPage img 2.jpg" alt="vector image studying">
+            <img src="../../static/images/landingPage img 2.jpg" alt="vector image studying" class="landing-page-img">
         </div>
     </section>
     <section class="new-class-section join-new">
@@ -65,7 +72,7 @@
             <button class="btn join-class-btn">Join class</button>
         </div>
         <div class="img-container">
-            <img src="../../static/images/join-class-landingPage-img.jpg" alt="vector image with books and magnifying glass">
+            <img src="../../static/images/join-class-landingPage-img.jpg" alt="vector image with books and magnifying glass" class="landing-page-img">
         </div>
     </section>
     <section class="generate-a-report-section">

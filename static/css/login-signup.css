@@ -21,18 +21,10 @@ nav {
 .logo {
     width: 60px;
 }
-  
-.btn {
-    border-radius: 5px;
-    cursor: pointer;
-    border: none !important;
-    background-color: var(--accent-color);
-    color: var(--btn-txt-color);
-    transition: all 300ms linear;
-}
 
-.btn:hover {
-    background-color: var(--btn-on-hover-color);
+.sign-up-btn,
+.sign-in-btn {
+    margin-left: 1rem;
 }
 
 main {
