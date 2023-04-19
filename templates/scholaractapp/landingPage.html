@@ -9,18 +9,19 @@
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link rel="stylesheet" href="../../static/css/landingPage.css">
 </head>
 <body>
     <div class="nav-bar-container">
         <nav>
           <!-- <img src="{% static '/images/logo.svg' %}" alt="" class="logo" /> -->
-          <img src="/static/images/logo.svg" width="60" alt="" class="logo">
+          <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
           <form action="{% url 'login' %}" method="" class="sign-in-option">
-            {% csrf_token%}
+            <!-- {% csrf_token%} -->
             <input type="submit" class="btn sign-up-btn" id="sign-up-btn" value="Login" />
           </form>
         </nav>
-      </div>
+    </div>
     <section class="hero">
         <div class="hero-description">
             <cite>"Transform the way you learn!"</cite>
@@ -31,6 +32,9 @@
                 Get started 
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
+        </div>
+        <div class="hero-img-container">
+            <img src="../../static/images/hero_pg_img.jpg" alt="vector image reading and writing">
         </div>
     </section>
     <section class="people-img-container">
@@ -51,7 +55,7 @@
             <button class="btn create-class-btn">Create class</button>
         </div>
         <div class="img-container">
-            <img src="" alt="">
+            <img src="../../static/images/landingPage img 2.jpg" alt="vector image studying">
         </div>
     </section>
     <section class="new-class-section join-new">
@@ -61,9 +65,70 @@
             <button class="btn join-class-btn">Join class</button>
         </div>
         <div class="img-container">
-            <img src="" alt="">
+            <img src="../../static/images/join-class-landingPage-img.jpg" alt="vector image with books and magnifying glass">
         </div>
     </section>
-    
+    <section class="generate-a-report-section">
+        <p class="title">Generate a report</p>
+        <p class="description"><i>Just feed in the marks it will generate the report for you</i></p>
+    </section>
+    <footer>
+        <div class="links">
+            <div class="short_description">
+            <img src="/static/images/logo.svg" width="60" alt="Scholaract Logo" />
+            <p>
+                Scholaract is the web-based learning management system. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel, error.
+            </p>
+            </div>
+            <div class="quick_links">
+            <p class="sub_heading">Quick Links</p>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Our services</a></li>
+                <li><a href="#">Authors</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            </div>
+            <div class="customer_area">
+            <p class="sub_heading">Customer Area</p>
+            <ul>
+                <li><a href="#">My Account</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy policy</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+            </div>
+            <div class="category">
+            <p class="sub_heading">Category</p>
+            <ul>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">Children</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Fiction</a></li>
+                <li><a href="#">Romance & erotic</a></li>
+                <li><a href="#">Toys & games</a></li>
+            </ul>
+            </div>
+            <div class="social_media">
+            <ul>
+                <li>
+                <a href="#" class="social-media-icon"><i class="fab fa-github"></i></a>
+                </li>
+                <li>
+                <a href="#" class="social-media-icon"><i class="fab fa-facebook"></i></a>
+                </li>
+                <li>
+                <a href="#" class="social-media-icon"><i class="fab fa-linkedin"></i></a>
+                </li>
+                <li>
+                <a href="#" class="social-media-icon"><i class="fab fa-instagram"></i></a>
+                </li>
+            </ul>
+            </div>
+        </div>
+        <div class="copyright_sec">xxx - All rights Reserved</div>
+    </footer>
 </body>
 </html>
