@@ -1,5 +1,13 @@
 @import url('./style.css');
 
+nav,
+.people-img-container,
+.new-class-section,
+footer .links {
+    max-width: 1200px;
+    margin: auto;
+}
+
 .nav-bar-container {
     background-color: var(--secondary-color);
     color: white;
@@ -8,11 +16,9 @@
 
 nav {
     display: flex;
-    margin: auto;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    max-width: 1200px;
 }
 
 .logo {
@@ -98,10 +104,6 @@ nav {
 }
 
 .people-img-container {
-    /* width: 100%; */
-    max-width: 1200px;
-    /* border: 2px solid black; */
-    margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     /* align-items: center; */
@@ -130,8 +132,6 @@ nav {
 .new-class-section {
     display: flex;
     padding: 24px;
-    max-width: 1200px;
-    margin: auto;
 }
 
 .main-body-text {
@@ -175,8 +175,6 @@ footer .links {
     grid-template-columns: repeat(5, 1fr);
     padding: 120px 100px 20px 100px;
     column-gap: 2rem;
-    max-width: 1200px;
-    margin: auto;
   }
   
   .short_description {
