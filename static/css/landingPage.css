@@ -12,6 +12,37 @@ footer .links {
     background-color: var(--secondary-color);
     color: white;
     height: 72px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+.hamburger-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 5px auto;
+    transition: all 300ms ease-in-out;
+    border-radius: 2px;
+}
+
+.hamburger-icon.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-icon.active .bar:first-child {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-icon.active .bar:last-child {
+    transform: translateY(-8px) rotate(-45deg);
 }
 
 nav {
@@ -23,6 +54,12 @@ nav {
 
 .logo {
     width: 60px;
+}
+
+.nav-sub-container {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .nav-links {
@@ -51,7 +88,7 @@ nav {
     max-width: 1200px;
     display: flex;
     margin: 50px auto;
-    padding: 0px 10px;
+    padding: 50px 10px;
     justify-content: center;
 }
 
@@ -60,10 +97,11 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    row-gap: 2.5rem;
 }
 
 .hero-description cite {
-    font-size: var(--fnt-size-l);
+    font-size: var(--fnt-size-xl);
     font-weight: var(--fnt-wght-b);
 }
 
@@ -80,6 +118,13 @@ nav {
     width: 50vw;
     animation: animateImg 3s linear infinite;
     max-width: 640px;
+}
+
+.hero-img-container,
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .get-started-btn {
@@ -139,10 +184,11 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    row-gap: 2.5rem;
 }
 
 .title {
-    font-size: var(--fnt-size-l);
+    font-size: var(--fnt-size-xl);
     font-weight: var(--fnt-wght-b);
 }
 
@@ -163,7 +209,7 @@ nav {
     margin: 40px 0;
     width: 100%;
     background-color: var(--secondary-color);
-    padding: 60px 0;
+    padding: 60px 10px;
     line-height: 3rem;
     text-align: center;
     color: var(--primary-color);
@@ -186,7 +232,7 @@ footer .links {
     margin-top: 1rem;
     color: var(--secondary-color);
     font-size: var(--fnt-size-s);
-    /* align-self: center; */
+    padding-left: 10px;
   }
   
   /* div.short_description ~ div > .sub_heading {
@@ -252,4 +298,150 @@ footer .links {
     text-align: center;
     color: var(--primary-color);
     background-color: var(--secondary-color);
+}
+
+/* responsive design starts here */
+@media (max-width: 834px) {
+    .hamburger-icon {
+        display: block;
+    }
+
+    .nav-sub-container {
+        position: fixed;
+        flex-direction: column;
+        background-color: var(--secondary-color);
+        backdrop-filter: blur(5px);
+        padding: 30px 60px;
+        top: 72px;
+        right: 0;
+        transform: translateX(100%);
+        justify-content: space-around;
+        height: 100vh;
+        z-index: 1;
+        transition: all 300ms ease-in-out;
+    }
+
+    .nav-sub-container.active{
+        transform: translateX(0%);
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nav-links li {
+        width: 100%;
+        margin: 1.5rem auto;
+    }
+
+    .login-btn {
+        margin-left: 1rem;
+    }
+
+    .hero {
+        margin: 50px auto;
+        padding: 40px 10px;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .hero-description {
+        padding: 15px 30px;
+        text-align: center;
+    }
+
+    .hero-para,
+    .btn-container {
+        margin-left: 0px;
+    }
+
+    .hero-img-container img {
+        width: 100%;
+    }
+
+    .new-class-section {
+        flex-direction: column;
+    }
+
+    .new-class-section .main-body-text {
+        text-align: justify;
+    }
+
+    .new-class-section .img-container img {
+        width: 100%;
+    }
+
+    footer .links {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 96px 84px 12px 84px;   /* reduced each by 40% of desktop version... */
+        row-gap: 2rem;
+    }
+    .short_description {
+        grid-column: 1/-1;
+    } 
+      
+    .short_description p {
+        padding-left: 0px;
+    }
+
+    .copyright_sec {
+        padding: 1.25rem 0;
+    }
+}
+
+@media (max-width: 375px) {
+    .logo {
+        width: 50px;
+    }
+
+    .hero {
+        padding: 40px 5px;
+    }
+
+    .hero-description cite {
+        font-size: var(--fnt-size-l);
+    }
+    
+    .hero-para {
+        font-size: var(--fnt-size-s);
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: var(--fnt-size-v-s);
+    }
+    .people-img-container {
+        padding: 50px 10px;
+    }
+    .p-img-container {
+        width: 200px;
+        height: 300px;
+    }
+    
+    .p-img-container img {
+        width: 250%;
+        transform: translateX(-32%);
+    }
+    
+    .title {
+        font-size: var(--fnt-size-l);
+    }
+
+    .description {
+        font-size: var(--fnt-size-v-s);
+    }
+
+    .new-class-section {
+        padding: 24px 0px;
+    }
+
+    footer .links {
+        padding: 60px 24px 20px 24px;
+        column-gap: 1.75rem;
+    }
+
+    .copyright_sec {
+        font-size: var(--fnt-size-v-s);
+    }
 }

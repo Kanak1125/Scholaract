@@ -21,7 +21,8 @@
     --secondary-txt-color: var(--secondary-color);
     --btn-txt-color: var(--primary-color);
 
-    --fnt-size-l: 30px;
+    --fnt-size-xl: 30px;
+    --fnt-size-l: 24px;
     --fnt-size-m: 20px;
     --fnt-size-s: 16px; 
     --fnt-size-v-s: 12px;
