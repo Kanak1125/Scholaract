@@ -3,6 +3,7 @@
 .form-section {
     width: 100%;
     position: relative;
+    padding-top: 7.5vh;
 }
 
 .form-section form {
