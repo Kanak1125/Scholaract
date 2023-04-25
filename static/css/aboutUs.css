@@ -1,0 +1,162 @@
+@import url('./style.css');
+@import url('./landingPage.css');
+
+
+.aboutUs-page-img {
+    width: 50vw;
+    animation: animateImg 3s linear infinite;
+    max-width: 640px;
+}
+
+ /* cards */
+.features-container{
+    display: flex;
+    /* flex-direction: row; */
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.feature-card {
+    width: 265px;
+    height: 250px;
+    background-color: var(--ternary-color);
+    border-radius: 20px;
+    margin-bottom: auto; 
+    text-align: center;
+}
+
+.feature-card img {
+    text-align: center;
+    display: block;
+    margin:auto;
+    padding-top: 50px;
+    width: 150px;
+    height: 160px;
+}
+
+.feature-card p{
+    color: aliceblue;
+    padding-top: 40px;
+}
+
+
+/* reviews */
+.reviews-section{
+    padding: 20px 40px;
+    margin-top: 20px; /* maile chai yo section mathi space rakhna yesto gare hai yo hbhanda ramro tarika xah bhane use gara hai */
+}
+
+.reviews-container{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 40px; /* yeta ni tei hai*/
+}
+
+.review {
+    width: 350px;
+    height: 350px;
+
+    background-color: var(--ternary-color);
+    border-radius: 20px;
+    margin-bottom: auto; 
+    /* text-align: center; */
+}
+
+.review{
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-right: 30px;
+    position: relative;
+}
+
+.review-description{
+    text-align: left;
+}
+.review-name{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-right: 50px;
+    padding-bottom: 10px;
+}
+
+/* Meet our team */
+.team-section{
+    padding: 20px 40px;
+    margin-top: 20px;
+    
+}
+.team-container{
+    display: flex;
+    position: relative;
+
+}
+.team-image{
+    width: 50vw;
+    animation: animateImg 3s linear infinite;
+    max-width: 640px;
+}
+
+.team-developer{
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 0;
+    display: grid;
+    grid-template-areas: 
+    'member-1 member-1 circle-1'
+    'member-2 member-2 circle-2';
+    gap: 50px;
+}
+
+.member-1 {
+    /* position: absolute; */
+    height: 264px;
+    width: 264px;
+    border-radius: 50%;
+    right: 0;
+    background: url('/static/images/kanak.png') no-repeat 95% 40%;
+    background-size: 460px;
+    grid-area: circle-1;
+}
+
+.member-2 {
+    
+    /* position: absolute; */
+    height: 264px;
+    width: 264px;
+    border-radius: 50%;
+    right: 0;
+    bottom: 0;
+    background: url('/static/images/shrijan.png') no-repeat 55% 22% ;
+    background-size: 610px;
+    grid-area: circle-2;
+}
+
+.team-member-name-1{
+    position: absolute;
+    right: 0;
+    display: block;
+    grid-area: member-1;
+    padding-top: 115px;
+    padding-right: 40px;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.team-member-name-2{
+    position: absolute;
+    right: 0;
+    display: block;
+    grid-area: member-2;
+    margin: auto;
+    padding-top: 115px;
+    padding-right: 40px;
+    font-weight: bold;
+    
+}
+
+
