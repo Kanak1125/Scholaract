@@ -12,7 +12,7 @@ class UsersAdmin(admin.ModelAdmin):
     ordering = ('firstName', ) # ordering name display order in ascending order by referencing firstName
 
     actions = ['assign_role']
-    def assign_role(self, request, queryset, gender):
+    def assign_role(self, request, queryset, role):
         queryset.update(role=role)
 
     assign_role.short_description = "Assign selected people a role"
