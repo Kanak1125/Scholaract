@@ -32,6 +32,7 @@ section {
     margin-bottom: auto; 
     text-align: center;
     align-self: center;
+    transition: transform 0.25s;
 }
 
 .feature-card img {
@@ -46,6 +47,10 @@ section {
 .feature-card p{
     color: aliceblue;
     padding-top: 40px;
+}
+
+.feature-card:hover{
+    transform: scale(1.1);
 }
 
 /* reviews */

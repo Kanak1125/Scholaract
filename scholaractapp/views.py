@@ -10,6 +10,9 @@ from django.contrib.auth.hashers import make_password, check_password
 # view for landing page
 def landingPage(request):
     return render(request, 'scholaractapp/landingPage.html')
+
+def aboutUs(request):
+    return render(request, 'scholaractapp/aboutUs.html')
 # view for signup page
 def signup(request):
     success = ''

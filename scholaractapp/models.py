@@ -14,11 +14,11 @@ class Users(models.Model):
     email = models.EmailField(max_length=300,null=False, blank=False)
     password = models.CharField(max_length=300,null=False, blank=False)
 
-    roles_choices = [
-        ('Student', 'Student'), #('Student', 'Student'), the first element in the tuple, 'Student', represents the value that will be stored in the database when the user selects the "Student" option in the form. The second element in the tuple, 'Student', is the human-readable label that will be displayed to the user in the form.
-        ('Teacher', 'Teacher'),
+    ROLES_CHOICES = [
+        ('S', 'Student'), #('Student', 'Student'), the first element in the tuple, 'S', represents the value that will be stored in the database when the admin selects the "Student" option. The second element in the tuple, 'Student', is the human-readable label that will be displayed to the admin.
+        ('T', 'Teacher'),
     ]
-    role = models.CharField(max_length=7, choices=roles_choices, null=False, blank=False,)
+    role = models.CharField(max_length=7, choices=ROLES_CHOICES, null=False, blank=False,)
 
     # for django admin panel so that the entries can be displayed with the users first and lastname in the admin panel
     # def __str__(self):

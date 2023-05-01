@@ -20,12 +20,12 @@
           <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
           <div class="nav-sub-container">
               <ul class="nav-links">
-                  <li><a href="#">About</a></li>
+                  <li><a href="{% url 'aboutUs' %}">About</a></li>
                   <li><a href="#">Support</a></li>
                   <li><a href="#">FAQ</a></li>
               </ul>
               <!-- {% csrf_token%} -->
-              <a href="{%url 'login'%}">
+              <a href="{% url 'login' %}">
                   <button class="btn login-btn" id="login-btn">Login</button>
               </a>
           </div>
