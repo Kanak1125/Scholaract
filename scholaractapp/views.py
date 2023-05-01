@@ -33,7 +33,6 @@ def signup(request):
             error_message = "This email already exists please use another email"
         else:
 
-
             user_data = Users(firstName=firstName,lastName=lastName,email=email,password=hashed_pwd) # passes the data received from form to the User model
             
             user_data.save() # saves data into the database into their respective columns
@@ -71,9 +70,19 @@ def login(request):
             if not check_password(password, user.password): # password: passsword obtained from the 'request.POST' data (entered by the user). user.password: corresponding password of the entered email
                 error_password = 'Password does not match'
             else:
+                # creating session, the created session will be stored in db in table 'django_session'
+                request.session['user']= {
+                    'id': user.id,
+                    'email': user.email,
+                    'fname': user.firstName,
+                }
+                # By storing this information in the session dictionary, we can access it from any view that is associated with the same session. This allows us to easily retrieve information about the currently logged-in user without having to query the database every time.
+
+                # user_id = request.session['user']['id']
+                # print(user_id)
                 return redirect('classes')
             
-    return render(request, 'scholaractapp/login.html',{'error_email' : error_email, 'error_password': error_password})
+    return render(request, 'scholaractapp/login.html',{'error_email' : error_email, 'error_password': error_password,})
 
 def classes(request):
     return render(request, 'scholaractapp/classes.html')
