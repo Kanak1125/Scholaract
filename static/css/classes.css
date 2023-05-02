@@ -1,0 +1,146 @@
+@import url('./style.css');
+
+nav,
+.classes
+/* .people-img-container,
+.new-class-section,
+footer .links*/ { 
+    max-width: 1200px;
+    margin: auto;
+}
+
+.nav-bar-container {
+    background-color: var(--secondary-color);
+    color: white;
+    height: 72px;
+    /* position: fixed; */
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.nav-links {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a,
+.nav-links .profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.nav-links i {
+    cursor: pointer;
+}
+
+.nav-links a {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links > a {
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin-right: 40px;
+    transition: all 600ms ease-out;
+}
+
+.profile-img {
+    position: relative;
+    border: 1px solid white;
+    background: url('');
+    margin-right: 20px;
+}
+
+/* .profile-img::after {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: 35%;
+    width: 0;
+    height: 0;
+    border-left: 7.5px solid transparent;
+    border-right: 7.5px solid transparent;
+    border-top: 15px solid var(--primary-color);
+    cursor: pointer;
+} */
+
+.classes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 100px 50px;
+    column-gap: 2.5rem;
+    row-gap: 4.5rem;
+}
+
+.class-card {
+    width: 300px;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: .5px 1px 5px var(--secondary-color);
+    transition: all 300ms ease-out;
+}
+
+.class-card:hover {
+    box-shadow: 1px 1px 7.5px var(--secondary-color);
+    scale: 1.01; 
+}
+
+.class-bg-img {
+    width: 100%;
+    height: 180px;
+    /* height: 120px; */
+    background: url('../../static/images/class\ card\ bg\ img\ try.jpg') no-repeat center ;
+    background-size: cover;
+    padding-bottom: 20px;
+}
+
+.class-info {
+    padding: 20px 15px;
+}
+
+.drop-down {
+    display: none;
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    top: 45px;
+    right: 0;
+    background-color: hsla(222, 11%, 18%, 0.6); 
+    /* border: 2px solid black; */
+    border-radius: 10px;
+    z-index: 1;
+    /* display: flex; */
+    padding: 20px 40px;
+    /* flex-direction: column; */
+    backdrop-filter: blur(5px);
+}
+
+.drop-down a {
+    transition: opacity 600ms ease-out;
+}
+.drop-down a:hover {
+    opacity: 0.6;
+}
+
+.drop-btn {
+    transition: transform 300ms ease-out;
+}
+.drop-btn.active {
+    transform: rotate(180deg);
+}
