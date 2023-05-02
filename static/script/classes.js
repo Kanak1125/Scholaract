@@ -1,9 +1,4 @@
 const dropBtn = document.querySelector('.drop-btn');
-// const dropDownModal = document.querySelector('.drop-down');
-
-// dropBtn.addEventListener('click', () => {
-//     dropDownModal.classList.toggle('active');
-// })
 
 // when the document is ready run the function inside of it...
 $(document).ready(function() {

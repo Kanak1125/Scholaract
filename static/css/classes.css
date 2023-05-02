@@ -118,7 +118,7 @@ nav {
     display: none;
     position: absolute;
     width: 200px;
-    height: 200px;
+    height: 120px;
     top: 45px;
     right: 0;
     background-color: hsla(222, 11%, 18%, 0.6); 
