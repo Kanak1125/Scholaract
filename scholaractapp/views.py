@@ -1,6 +1,6 @@
 # we edited this file
 from django.shortcuts import render,redirect
-from .models import Users # importing Users model from the models.py file
+from .models import User # importing Users model from the models.py file
 from django.contrib.auth.hashers import make_password, check_password
 # from django.core.exceptions import ValidationError
 
@@ -27,13 +27,13 @@ def signup(request):
         password = request.POST.get('password')
         hashed_pwd = make_password(password)
         
-        email_exits = Users.objects.filter(email=email).exists() # query which checks if the email entered by the user already exists in yhe db, if it exists it will return true else it will return false
+        email_exits = User.objects.filter(email=email).exists() # query which checks if the email entered by the user already exists in yhe db, if it exists it will return true else it will return false
 
         if email_exits:
             error_message = "This email already exists please use another email"
         else:
 
-            user_data = Users(firstName=firstName,lastName=lastName,email=email,password=hashed_pwd) # passes the data received from form to the User model
+            user_data = User(firstName=firstName,lastName=lastName,email=email,password=hashed_pwd) # passes the data received from form to the User model
             
             user_data.save() # saves data into the database into their respective columns
 
@@ -54,14 +54,14 @@ def login(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password') 
-        print(Users.password)
+        print(User.password)
         try:
-            user = Users.objects.get(email = email) 
+            user = User.objects.get(email = email) 
             # Users: model defined in models.py file or can also be seen as table
             # objects: manager for the Users model automatically created by django. It is used to query the db and retrieve instances of the model
             # get: method provided by django ORM(Object Relational Mapping) that retrives a single object from the db that matches the given lookup parameter
             # email = email: keyword argument that specifies the lookup parameter for the query. It filters the 'Users' model based in the 'email' field. The value of 'email' field is provided as 'email' variable which is obtained from the 'request.POST' data
-        except Users.DoesNotExist:
+        except User.DoesNotExist:
             # 'Users.DoesNot Exist' is an exception class that is raised by the Django ORM when a query using the 'get()' method does not return any object from the database
             error_email = 'Email does not exist'
         else:
