@@ -23,3 +23,18 @@ $(document).ready(function() {
         dropBtn.classList.remove('active');
     })
 });
+
+// code for joining the toggling the modal create-class here...
+const createJoinBtn = document.querySelector('.create-join-btn');
+const modalContainer = document.querySelector('.modal-container');
+const closeModal = document.querySelector('.close-modal');
+
+createJoinBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    modalContainer.classList.add('active');
+})
+
+closeModal.addEventListener('click', (e) => {
+    e.preventDefault();
+    modalContainer.classList.remove('active');
+})

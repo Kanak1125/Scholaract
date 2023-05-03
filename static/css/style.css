@@ -16,6 +16,7 @@
     --btn-on-hover-color: hsl(219, 44%, 40%);
     --btn-on-hover-dark: hsl(222, 11%, 10%); 
     --error-color: hsl(0, 79%, 72%);
+    --bg-color-op6: hsla(222, 11%, 18%, 0.75);   /*mostly used for the background color that is 60% transparent...*/
 
     --default-txt-color: hsl(0, 0%, 0%);
     --secondary-txt-color: var(--secondary-color);

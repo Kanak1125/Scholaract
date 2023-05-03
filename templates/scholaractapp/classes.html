@@ -18,11 +18,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+    <section class="modal-container">
+        <div class="modal">
+            <div class="modal-nav">
+                <i class="fas fa-times close-modal"></i>
+            </div>
+            <form action="" id="create-class-form" class="modal-form">
+                <div class="class-name-container">
+                    <label for="classname">Classname</label><br>
+                    <input type="text" name="classname" id="classname">
+                </div>
+                <div class="subject-name-container">
+                    <label for="subject">Subject</label><br>
+                    <input type="text" name="subject" id="subject">
+                </div>
+                <input type="submit" value="Create" class="btn create-class-btn">
+            </form>
+        </div>
+    </section>
     <section class="nav-bar-container">
         <nav>
             <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
             <div class="nav-links">
-                <a href="#">+</a>
+                <button class="btn create-join-btn">+</button>
                 <div class="profile-img"></div>
                 <i class="fas fa-caret-down drop-btn"></i>
                 <div class="drop-down">

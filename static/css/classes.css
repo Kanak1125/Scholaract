@@ -1,5 +1,9 @@
 @import url('./style.css');
 
+body {
+    position: relative;
+}
+
 nav,
 .classes
 /* .people-img-container,
@@ -32,10 +36,11 @@ nav {
     align-items: center;
 }
 
-.nav-links a,
+.nav-links button,
 .nav-links .profile-img {
     width: 36px;
     height: 36px;
+    padding: 0;
     border-radius: 50%;
 }
 
@@ -43,15 +48,15 @@ nav {
     cursor: pointer;
 }
 
-.nav-links a {
+.nav-links button {
     color: var(--primary-color);
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border: none;
+    cursor: pointer;
+    font-size: var(--fnt-size-m);
 }
 
-.nav-links > a {
+.nav-links > button {
     background-color: var(--accent-color);
     border-radius: 50%;
     margin-right: 40px;
@@ -121,7 +126,7 @@ nav {
     height: 120px;
     top: 45px;
     right: 0;
-    background-color: hsla(222, 11%, 18%, 0.6); 
+    background-color: var(--bg-color-op6);
     /* border: 2px solid black; */
     border-radius: 10px;
     z-index: 1;
@@ -143,4 +148,69 @@ nav {
 }
 .drop-btn.active {
     transform: rotate(180deg);
+}
+
+.modal-container {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-color-op6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-container.active {
+    display: flex;
+}
+
+.modal {
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    width: 60vw;
+    border-radius: 5px;
+    box-shadow: .5px 1px 5px var(--secondary-color);
+}
+
+.modal-nav {
+    padding: 10px;
+}
+
+.modal-nav i{
+    float: right;
+    font-size: var(--fnt-size-m);
+    cursor: pointer;
+}
+
+.modal-form {
+    margin: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.modal-form > div,
+.modal-form > div input {
+    font-size: var(--fnt-size-m);
+    font-weight: var(--fnt-wght-m);
+    outline: none;
+}
+
+.modal-form > div {
+    line-height: 2rem;
+}
+
+.modal-form > div input {
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.modal-form > div input:focus {
+    border: 2px solid var(--secondary-color);
+    border-radius: 5px;
+}
+
+.create-class-btn {
+    width: 100px;
+    height: 40px;
 }
