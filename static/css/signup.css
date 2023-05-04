@@ -16,6 +16,12 @@
   width: 100%;
 }
 
+.role-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* responsive design starts here */
 
 /* styles for tablet screens */
