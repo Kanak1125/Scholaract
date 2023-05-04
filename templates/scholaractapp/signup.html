@@ -19,7 +19,9 @@
   <body>
     <div class="nav-bar-container">
       <nav>
-        <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
+        <a href="{% url 'landingPage' %}">
+          <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
+        </a>
         <!-- <img src="/static/images/logo.svg" alt="" class="logo"> -->
         <form action="{% url 'login' %}" method="" class="sign-in-option">
           {% csrf_token%}
