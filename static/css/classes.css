@@ -158,9 +158,11 @@ nav {
     display: none;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
 }
 
 .modal-container.active {
+    /* overflow: hidden !important; */
     display: flex;
 }
 

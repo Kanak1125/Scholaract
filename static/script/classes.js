@@ -38,3 +38,26 @@ closeModal.addEventListener('click', (e) => {
     e.preventDefault();
     modalContainer.classList.remove('active');
 })
+
+const classesObj = JSON.parse(document.querySelector('.classes').dataset.classes);
+const classesArray = classesObj.classes;
+console.log(classesArray);
+
+// checking browser support...
+if ('content' in document.createElement('template')) {
+    classesArray.map(cl => {
+        const classTemplate = document.querySelector(".class-template");
+            // console.log(bookTemplate)
+            // Clone the new book card and insert it into the book container of a slider...
+            const clone = classTemplate.content.cloneNode(true);
+            let className = clone.querySelector('.class-name');
+            let teacherName = clone.querySelector('.teacher-name');
+
+            className.textContent = `${cl.class_name}`;
+
+            const classes = document.querySelector('.classes');
+            classes.appendChild(clone);
+    })
+} else {
+    console.log("template not found!");
+}
