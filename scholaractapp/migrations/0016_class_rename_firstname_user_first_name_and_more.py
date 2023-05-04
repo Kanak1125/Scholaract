@@ -29,10 +29,4 @@ class Migration(migrations.Migration):
             old_name='lastName',
             new_name='last_name',
         ),
-        migrations.AddField(
-            model_name='teacher',
-            name='class_taught',
-            field=models.OneToOneField(default=1, on_delete=django.db.models.deletion.PROTECT, to='scholaractapp.class'),
-            preserve_default=False,
-        ),
     ]

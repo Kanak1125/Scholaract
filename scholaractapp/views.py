@@ -1,6 +1,6 @@
 # we edited this file
 from django.shortcuts import render,redirect
-from .models import User # importing Users model from the models.py file
+from .models import User, Class # importing Users model from the models.py file
 from django.contrib.auth.hashers import make_password, check_password
 # from django.core.exceptions import ValidationError
 
@@ -21,8 +21,8 @@ def signup(request):
         print(request.POST)
 
         # gets the data of their respective fields
-        firstName = request.POST.get('fname')
-        lastName = request.POST.get('lname')
+        first_name = request.POST.get('fname')
+        last_name = request.POST.get('lname')
         email = request.POST.get('email')
         password = request.POST.get('password')
         hashed_pwd = make_password(password)
@@ -33,7 +33,7 @@ def signup(request):
             error_message = "This email already exists please use another email"
         else:
 
-            user_data = User(firstName=firstName,lastName=lastName,email=email,password=hashed_pwd) # passes the data received from form to the User model
+            user_data = User(first_name=first_name,last_name=last_name,email=email,password=hashed_pwd) # passes the data received from form to the User model
             
             user_data.save() # saves data into the database into their respective columns
 
@@ -51,6 +51,7 @@ def login(request):
     print(request.POST)
     error_email =''
     error_password = ''
+    error_role = ''
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password') 
@@ -69,12 +70,14 @@ def login(request):
             # check_password: function provided by Django's 'make_password' module. It is used to verify whether a gicen plain text password matches the encrypted password stored in the database
             if not check_password(password, user.password): # password: passsword obtained from the 'request.POST' data (entered by the user). user.password: corresponding password of the entered email
                 error_password = 'Password does not match'
+            if not user.role: # checks if the user is assgned a role, if not the the 
+                error_role = 'Wait till admin assigns you a role'
             else:
                 # creating session, the created session will be stored in db in table 'django_session'
                 request.session['user']= {
                     'id': user.id,
                     'email': user.email,
-                    'fname': user.firstName,
+                    'fname': user.first_name,
                 }
                 # By storing this information in the session dictionary, we can access it from any view that is associated with the same session. This allows us to easily retrieve information about the currently logged-in user without having to query the database every time.
 
@@ -82,7 +85,24 @@ def login(request):
                 # print(user_id)
                 return redirect('classes')
             
-    return render(request, 'scholaractapp/login.html',{'error_email' : error_email, 'error_password': error_password,})
+    return render(request, 'scholaractapp/login.html',{'error_email' : error_email, 'error_password': error_password, 'error_role': error_role})
+
+
+# def send_email(request):
 
 def classes(request):
+    print(request.POST)
+    if request.method == 'POST':
+        class_name = request.POST.get('classname')
+        subject_name = request.POST.get('subject')
+        class_data = Class(class_name=class_name,subject_name=subject_name)
+        
+        class_data.save()
+        
+
+
     return render(request, 'scholaractapp/classes.html')
+
+
+
+    

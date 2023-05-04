@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,10 +10,10 @@
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="stylesheet" href="../../static/css/classes.css">
+    <link rel="stylesheet" href="{% static '/css/classes.css' %}">
 
     <!-- link to classes.js file -->
-    <script src="../../static/script/classes.js" defer></script>
+    <script src="{% static '/script/classes.js' %}" defer></script>
 
     <!-- jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -23,7 +24,8 @@
             <div class="modal-nav">
                 <i class="fas fa-times close-modal"></i>
             </div>
-            <form action="" id="create-class-form" class="modal-form">
+            <form action="" id="create-class-form" class="modal-form" method="POST">
+                {% csrf_token %}
                 <div class="class-name-container">
                     <label for="classname">Classname</label><br>
                     <input type="text" name="classname" id="classname">

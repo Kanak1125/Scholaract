@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = Path(BASE_DIR/'templates')
@@ -29,10 +30,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#Add SMTP server here
+# For sending welcome emails via ElasticEmail
+
+
+
+DEFAULT_FROM_EMAIL = 'mailsender227@gmail.com'
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,3 +147,22 @@ STATICFILES_DIRS = [STATIC_DIR,]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGIN_REDIRECT_URL = '/admin'
+
+# settings for admin panel
+JAZZMIN_SETTINGS = {
+    'site_title': "Scholaract Admin",
+    'site_header': "Scholaract Admin",
+    "site_brand": "Scholaract Admin",
+
+    'site_logo': "/images/logo.svg",
+    'site_logo_classes': "img-square",
+    "hide_apps": ['auth'],
+    "icons": {
+        "scholaractapp.User": "fas fa-user",
+        "scholaractapp.Student": "fas fa-users",
+        "scholaractapp.Teacher": "fas fa-user-tie",
+        "scholaractapp.Class": "fas fa-chalkboard",
+    },
+    "order_with_respect_to": ["scholaractapp.User", "scholaractapp.Student", "scholaracapp.Teacher",],
+    
+}
