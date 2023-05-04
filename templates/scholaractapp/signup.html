@@ -19,7 +19,9 @@
   <body>
     <div class="nav-bar-container">
       <nav>
-        <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
+        <a href="{% url 'landingPage' %}">
+          <img src="{% static '/images/logo.svg' %}" alt="" class="logo" />
+        </a>
         <!-- <img src="/static/images/logo.svg" alt="" class="logo"> -->
         <form action="{% url 'login' %}" method="" class="sign-in-option">
           {% csrf_token%}
@@ -34,8 +36,7 @@
       <div class="background-image">
       </div>
       <div class="form-section">
-        <h2>Explore Scholaract</h2>
-        <p>Create an account</p>
+        <h2>Create an account</h2>
 
         <form action="" id="form" method="POST" >
           {% csrf_token %}
@@ -57,6 +58,17 @@
             <input type="email" name="email" id="email" novalidate/>
             <div class="error">{{ error_message }}</div>
           </div>
+          <!-- <div class="role-container">
+            <label for="teacher">Role </label>
+            <div>
+              <input type="radio" name="user_role" id="teacher" checked>
+              <label for="teacher">Teacher</label>
+            </div>
+            <div>
+              <input type="radio" name="user_role" id="student">
+              <label for="student">Student</label>  
+            </div>
+          </div> -->
           <div class="password-container">
             <label for="password">Password </label> <br />
               <input type="password" name="password" id="password" />

@@ -6,6 +6,17 @@ section {
     margin: 40px auto;
 }
 
+.nav-links li:first-child a:after {
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 2px;
+    bottom: 5px;
+    left: 18px;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
 .aboutUs-page-img {
     width: 50vw;
     animation: animateImg 3s linear infinite;

@@ -83,6 +83,11 @@ main {
     transition: all 300ms linear;
 }
 
+.form-section input[type="radio"] {
+    width: 16px;
+    height: 16px;
+}
+
 .create-btn,
 .login-btn {
     width: 40% !important;

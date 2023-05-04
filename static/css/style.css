@@ -33,6 +33,10 @@
     --fnt-wght-thin: 200;
 }
 
+html {
+    scroll-behavior: smooth;    /* makes the navigation to the particular section when clicking the internal links in the browser smooth (e.g. when the logo button is clicked, smooth navigation to the top of the landingPage...)*/
+}
+
 body {
     font-family: 'Poppins', sans-serif;
 }

@@ -17,7 +17,9 @@
 <body>
     <div class="nav-bar-container">
         <nav>
-            <img src="{% static '/images/logo.svg' %}" alt="" class="logo">
+            <a href="{% url 'landingPage' %}">
+                <img src="{% static '/images/logo.svg' %}" alt="" class="logo">
+            </a>
             <form action="{% url 'signup' %}" method="get" class="sign-up-option">
                 {% csrf_token %}
                 <label for="sign-up-btn">Don't have an account?</label>
