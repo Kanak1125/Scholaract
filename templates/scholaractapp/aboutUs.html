@@ -11,16 +11,17 @@
 <body>
     <div class="nav-bar-container">
         <nav>
-          <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+            <a href="{% url 'landingPage' %}">
+                <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+            </a>
             <ul class="nav-links">
                 <li><a href="#">About</a></li>
                 <li><a href="#">Support</a></li>
                 <li><a href="#">FAQ</a></li>
             </ul>
-          <form action="/templates/scholaractapp/login.html" method="" class="sign-in-option">
-            
-            <button class="btn login-btn" id="login-btn">Login</button>
-          </form>
+            <a href="{% url 'login' %}">
+                <button class="btn login-btn" id="login-btn">Login</button>
+            </a>
         </nav>
     </div>
 
@@ -32,7 +33,9 @@
             </p>
 
             <div class="btn_container">
-                <button class="btn get-started-btn">Get Started</button>
+                <a href="{% url 'signup' %}">
+                    <button class="btn get-started-btn">Get Started</button>
+                </a>
             </div>
         </div>
 

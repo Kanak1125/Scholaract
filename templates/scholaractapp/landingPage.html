@@ -17,7 +17,9 @@
     <div class="nav-bar-container">
         <nav>
           <!-- <img src="{% static '/images/logo.svg' %}" alt="" class="logo" /> -->
-          <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+          <a href="#">
+              <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+          </a>
           <div class="nav-sub-container">
               <ul class="nav-links">
                   <li><a href="{% url 'aboutUs' %}">About</a></li>
@@ -43,10 +45,12 @@
                 Welcome to our Learning Management System! We believe that everyone has the potential to learn, grow, and achieve greatness. That's why we've created a platform that makes learning easy, fun, and accessible to all.
             </p>
             <div class="btn-container">
-                <button class="btn get-started-btn">
-                    Get started 
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
+                <a href="{% url 'signup' %}">
+                    <button class="btn get-started-btn">
+                        Get started 
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </a>
             </div>
         </div>
         <div class="hero-img-container">
@@ -69,7 +73,9 @@
             <p class="title">Create a new class</p>
             <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit sit itaque iste, explicabo similique tempora ratione molestiae sunt illo ut ducimus doloremque pariatur. Blanditiis?</p>
             <div>
-                <button class="btn create-class-btn">Create class</button>
+                <a href="{% url 'login' %}">
+                    <button class="btn create-class-btn">Create class</button>
+                </a>
             </div>    
         </div>
         <div class="img-container">
@@ -81,7 +87,9 @@
             <p class="title">Join a class</p>
             <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, sed voluptatibus suscipit pariatur omnis numquam dolore, repellat maiores porro animi, magnam optio culpa. Dolorem?</p>
             <div>
-                <button class="btn join-class-btn">Join class</button>
+                <a href="{% url 'login' %}">
+                    <button class="btn join-class-btn">Join class</button>
+                </a>
             </div>
         </div>
         <div class="img-container">
