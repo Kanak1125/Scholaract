@@ -1,6 +1,8 @@
 # we edited this file
 from django.db import models
 import secrets #for generating random alphanumeric number for class code
+import uuid
+
 # Create your models here.
 # We created our model Users, it is just like creating a table using MySQL queries but the syntax are different
 
@@ -115,9 +117,12 @@ class Class(models.Model):
         # previously in admin panel, when we created models with a plural name, it appended 's' at the end ogf the model name'jazzmin',
         verbose_name_plural = "Classes" # assinging the verbose_name_plural value as given overcomes this problem
 
-    class_code = models.CharField(max_length=5, null=True, blank=True, unique=True)  # the class_code field is nullable, and optional character field... 
+    class_code = models.CharField(max_length=5, null=True, blank=True, unique=True, editable=False)  # the class_code field is nullable, and optional character field... 
     class_name = models.CharField(max_length=300, null=True, blank=True)
     subject_name = models.CharField(max_length=300, null=True, blank=True)
+    # uuid4 is an encoding type, unique=True means no other value in the database can have the  same number
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
 
 
     def save(self, *args, **kwargs):

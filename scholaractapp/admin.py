@@ -98,8 +98,10 @@ class StudentAdmin(admin.ModelAdmin):
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
 
+class ClassAdmin(admin.ModelAdmin):
+    list_display = ('class_name', 'class_code')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher, TeacherAdmin)
-admin.site.register(Class)
+admin.site.register(Class, ClassAdmin)
