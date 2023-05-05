@@ -6,49 +6,98 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-# admin.site.register(Users) # registering athe model so that it cna be displayed in the admin panel 
+# admin.site.register(Users) # registering athe model so that it cna be displayed in the admin panel
 
 # @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'role',) # fileds to be dsiplayed in admin panel
-    radio_fields = {'role': admin.HORIZONTAL} # displaying radio fields horizontally (default: vertical)
-    list_editable = ('role',) # creating editable list so that we dont need to select that object and change roles directly instead of going to another page
-    ordering = ('first_name', ) # ordering name display order in ascending order by referencing first_name
 
-    actions = ['assign_role']
-    
-    
+
+class UserAdmin(admin.ModelAdmin):
+    # fileds to be dsiplayed in admin panel
+    list_display = ('name', 'email', 'role',)
+    # displaying radio fields horizontally (default: vertical)
+    radio_fields = {'role': admin.HORIZONTAL}
+    # creating editable list so that we dont need to select that object and change roles directly instead of going to another page
+    list_editable = ('role',)
+    # ordering name display order in ascending order by referencing first_name
+    ordering = ('first_name', )
+
+    actions = ['assign_role',]
+
     # def assign_role_button(self, obj):
     #     url = reverse('admin:assign_role', args =[obj.pk])
     #     return format_html('<a class = button" href ="{}">Assign</a>',)
     #     # return mark_safe(f'<a href="{url}" class="button">Assign</a>')
 
-    
+    # user = User.objects.all()
 
+    def set_role_student(self, request, queryset):
+        queryset.update(role='Student')
+    set_role_student.short_description = 'Set role as student'
 
     def save_model(self, request, obj, form, change):
         # saves user to either 'Student' or 'Teacher' model based on the user's role
-        role = request.POST.get('role')
-        if obj.role == 'S':
-            student = Student.objects.create(user=obj)
+        # role = request.POST.get('role')
+        obj.save()
+        if obj.role == 'Student':
+            student = Student(user=obj)
             student.save()
-        elif role == 'T':
+            
+
+        elif obj.role == 'Teacher':
             teacher = Teacher(user=obj)
             teacher.save()
 
     def assign_role(self, request, queryset, role):
-        queryset.update(role=role)
+        print("Assigning role",role)
+
+        if role is not None:
+            queryset.update(role=role)
+            
+        else:
+            self.message_user(
+                request, "Please select a valid value for the 'gender' field.")
+        
 
     assign_role.short_description = "Assign selected people a role"
-    user = User.objects.all()
 
+
+
+    # def assign_role(self, request, queryset, role):
+    #     if role == 'student':
+    #         # queryset.update(role=role)
+    #         for user in queryset:
+    #             student = Student.objects.create(
+    #                 user=user,
+    #             )
+    #             user.role = role
+    #             # user.student = student
+    #             user.save()
+
+    #             student.save()
+    #     elif role == 'teacher':
+    #         # queryset.update(role=role)
+    #         for user in queryset:
+    #             teacher = Teacher.objects.create(
+    #                 user=user,
+    #             )
+    #             user.role = role
+    #             # user.teacher = teacher
+    #             user.save()
+
+    #             teacher.save()
+    #     else:
+    #         self.message_user(
+    #             request, "Please select a valid role value.")
+        
+    # assign_role.short_description = 'Assign selected users a role'
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display=('name', 'email')
+    list_display = ('name', 'email')
+
 
 class TeacherAdmin(admin.ModelAdmin):
-    list_display=('name', 'email')
-    
+    list_display = ('name', 'email')
+
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)

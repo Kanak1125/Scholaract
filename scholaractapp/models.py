@@ -18,9 +18,9 @@ class User(models.Model):
     password = models.CharField(max_length=300, null=False, blank=False)
 
     ROLES_CHOICES = [
-        # ('Student', 'Student'), the first element in the tuple, 'S', represents the value that will be stored in the database when the admin selects the "Student" option. The second element in the tuple, 'Student', is the human-readable label that will be displayed to the admin.
-        ('S', 'Student'),
-        ('T', 'Teacher'),
+        # ('S', 'Student'), the first element in the tuple, 'S', represents the value that will be stored in the database when the admin selects the "Student" option. The second element in the tuple, 'Student', is the human-readable label that will be displayed to the admin.
+        ('Student', 'Student'),
+        ('Teacher', 'Teacher'),
     ]
     role = models.CharField(
         max_length=7, choices=ROLES_CHOICES, null=False, blank=False,)
@@ -30,15 +30,31 @@ class User(models.Model):
     #     return self.first_name + ' ' + self.last_name
 
 
-    def save(self, *args, **kwargs):
-        if self.role == 'student':
-            student = Student(first_name=self.first_name, last_name=self.last_name,
-                              email=self.email, password=self.password)
-            student.save()
-        elif self.role == 'teacher':
-            teacher = Teacher(fisrt_name=self.fisrt_name, last_name=self.last_name, email=self.email, password=self.password)
-            teacher.save()
-        super(User, self).save(*args, **kwargs)
+
+
+    # def save(self, *args, **kwargs):
+        
+#         if self.role == 'Student':
+#             student = Student(user=self.user)
+            
+#             student.save()
+#         elif self.role == 'Teacher':
+#             teacher = Teacher(user=self.user)
+#             teacher.save()
+#         super(User, self).save(*args, **kwargs)
+
+    # commented out htis method because it was being called first whenever we werer trying to save a 'User' instance so hence coming in the way of 'save_model()' method in admin.py file. it will be removed in future after further testing
+    # def save(self, *args, **kwargs):
+        
+    #     if self.role == 'Student':
+    #         student = Student(first_name=self.first_name, last_name=self.last_name,
+    #                           email=self.email, password=self.password,)
+            
+    #         student.save()
+    #     elif self.role == 'Teacher':
+    #         teacher = Teacher(first_name=self.first_name, last_name=self.last_name, email=self.email, password=self.password,)
+    #         teacher.save()
+    #     super(User, self).save(*args, **kwargs)
 
     def name(self):  # creating new function name so that the full name (combining first and last name) can be displayed in admin panel
         # this is how we display variables in python
