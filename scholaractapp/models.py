@@ -115,7 +115,7 @@ class Class(models.Model):
         # previously in admin panel, when we created models with a plural name, it appended 's' at the end ogf the model name'jazzmin',
         verbose_name_plural = "Classes" # assinging the verbose_name_plural value as given overcomes this problem
 
-    class_code = models.CharField(max_length=5, null=True, blank=True)
+    class_code = models.CharField(max_length=5, null=True, blank=True)  # the class_code field is nullable, and optional character field... 
     class_name = models.CharField(max_length=300, null=True, blank=True)
     subject_name = models.CharField(max_length=300, null=True, blank=True)
 

@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from .models import User, Class # importing Users model from the models.py file
 from django.contrib.auth.hashers import make_password, check_password
 # from django.core.exceptions import ValidationError
+import json
 
 # Create your views here.
 
@@ -99,9 +100,14 @@ def classes(request):
         
         class_data.save()
         
+    cl = Class.objects.all().values('class_code', 'class_name', 'subject_name') # Class.objects.all() retrieves all the instances of the Class model from the database... 
+
+    classes_dict = {'classes': list(cl)}    # list() method converts the query set into the python list object...
+    classes_json = json.dumps(classes_dict) # json.dumps() encodes the 'classes_dict' as JSON string...
+
+    return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json})    # now only classes.html file can use the 'classes_json' data...
 
 
-    return render(request, 'scholaractapp/classes.html')
 
 
 
