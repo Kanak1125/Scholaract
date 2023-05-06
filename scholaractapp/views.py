@@ -1,6 +1,7 @@
 # we edited this file
-from django.shortcuts import render, redirect
-from .models import User, Class  # importing Users model from the models.py file
+from django.shortcuts import render, redirect, HttpResponse
+# importing Users model from the models.py file
+from .models import User, Class, Student
 from django.contrib.auth.hashers import make_password, check_password
 # from django.core.exceptions import ValidationError
 # from django.core.mail import send_mail
@@ -31,7 +32,7 @@ def signup(request):
         last_name = request.POST.get('lname')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        hashed_pwd = make_password(password) # hashing the password using
+        hashed_pwd = make_password(password)  # hashing the password using
 
         # query which checks if the email entered by the user already exists in yhe db, if it exists it will return true else it will return false
         email_exits = User.objects.filter(email=email).exists()
@@ -104,31 +105,91 @@ def login(request):
 def classes(request):
     # session data
     user_data = request.session.get('user')
+
+    # since role is being assigned by admin, it is being accessed this way
+    role = user_data.get('role')
+    if role == "Teacher":
+        return classes_teacher(request)
+    elif role == "Student":
+        return classes_student(request)
+    else:
+        return HttpResponse("Invalid role")
+
+
+def classes_teacher(request):
+
+    # session data
+    user_data = request.session.get('user')
     user_name = user_data['fname']
     user_id = user_data['id']
-    role = user_data.get('role') # since role is being assigned by admin, it is being accessed this way
-    teacher =  User.objects.get(id = user_id) # retrieves a single record that matches the user_id that we got from session
+    # since role is being assigned by admin, it is being accessed this way
+    role = user_data.get('role')
+    # retrieves a single record that matches the user_id that we got from session
+    teacher = User.objects.get(id=user_id)
     print(role)
 
     print(request.POST)
     if request.method == 'POST':
         class_name = request.POST.get('classname')
         subject_name = request.POST.get('subject')
-        created_by = teacher.name() # getting the full name of the teacher that created the class (name() is a method that returns full name of the teacher)
-        class_data = Class(teacher=teacher, class_name=class_name, subject_name=subject_name,created_by=created_by)
+        # getting the full name of the teacher that created the class (name() is a method that returns full name of the teacher)
+        created_by = teacher.name()
+        class_data = Class(teacher=teacher, class_name=class_name,
+                           subject_name=subject_name, created_by=created_by)
         class_data.save()
         return redirect('classes')
 
-    classes = Class.objects.filter(teacher=teacher) # retrives the record in Class model where the teacher field matches the teacher object given
+    # retrives the record in Class model where the teacher field matches the teacher object given
+    classes = Class.objects.filter(teacher=teacher)
     # list() method converts the query set into the python list object...
-    cl = list(classes.values('class_code', 'class_name', 'subject_name', 'created_by'))
+    cl = list(classes.values('class_code', 'class_name',
+              'subject_name', 'created_by'))
     # it will list the classes that are only created by the currently logged in teacher
 
     classes_dict = {'classes': cl}
     # json.dumps() encodes the 'classes_dict' as JSON string...
     classes_json = json.dumps(classes_dict)
-    
-    
 
     # now only classes.html file can use the 'classes_json' data...
     return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role})
+
+
+def classes_student(request):
+    # session data
+    user_data = request.session.get('user')
+    user_name = user_data['fname']
+    user_id = user_data['id']
+    # since role is being assigned by admin, it is being accessed this way
+    role = user_data.get('role')
+    # retrieves a single record that matches the user_id that we got from session
+    student = Student.objects.get(user_id=user_id)
+    print(role)
+    error_message = ''
+
+    if request.method == "POST":
+        class_code = request.POST.get('class_code')  # retrives the class code
+
+        try:
+            # checks if the instance with the entered class_code
+            selected_class = Class.objects.get(class_code=class_code)
+            # if it exists then add the student's enrolled classes
+            student.classes.add(selected_class)
+            return redirect('classes')
+        # triggered when Class.objects.get(class_code=class_code) method is unable to find instacne with the class_code entered by student
+        except Class.DoesNotExist:
+            error_message = 'Invalid class code. Please try again.'
+
+    # retrives all the clasees the srusnt has enrolled in
+    # value method selects specific fields
+    enrolled_classes = student.classes.all().values(
+        'class_code', 'class_name', 'subject_name', 'created_by')
+
+    # The class information is extracted and converted into a dictionary format, stored in classes_dict.
+    classes_dict = {'classes': list(enrolled_classes)}
+    # it will list the classes that are joined by the current logged in student
+
+    # json.dumps() encodes the 'classes_dict' as JSON string...
+    classes_json = json.dumps(classes_dict)
+
+    # now only classes.html file can use the 'classes_json' data...
+    return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role, 'error_message': error_message})

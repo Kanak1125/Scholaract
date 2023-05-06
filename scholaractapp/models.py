@@ -73,10 +73,7 @@ class Student(models.Model):
     # on_delete=models.CASCADE: This specifies what should happen when the related object is deleted. CASCADE means that if the User object is deleted, the corresponding Student or Teacher object should also be deleted.
     # primary_key=True: This indicates that the related User object should also act as the primary key for the Student or Teacher object. In other words, each Student or Teacher object can only be associated with one User object, and vice versa.
 
-    # first_name = models.CharField(max_length=300,null=True, blank=True) # columns
-    # last_name = models.CharField(max_length=300,null=True, blank=True)
-    # email = models.EmailField(max_length=300,null=True, blank=True)
-    # password = models.CharField(max_length=300,null=True, blank=True)
+    classes = models.ManyToManyField('Class', blank=True)
 
     def name(self):  # creating new function name so that the full name (combining first and last name) can be displayed in admin panel
         # this is how we display variables in python
