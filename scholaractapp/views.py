@@ -84,7 +84,7 @@ def login(request):
             # password: passsword obtained from the 'request.POST' data (entered by the user). user.password: corresponding password of the entered email
             if not check_password(password, user.password):
                 error_password = 'Password does not match'
-            if not user.role:  # checks if the user is assgned a role, if not the then hew wont be able to login
+            elif not user.role:  # checks if the user is assgned a role, if not the then hew wont be able to login
                 error_role = 'Wait till admin assigns you a role'
             else:
                 # creating session, the created session will be stored in db in table 'django_session'
@@ -108,6 +108,7 @@ def classes(request):
     user_id = user_data['id']
     role = user_data.get('role') # since role is being assigned by admin, it is being accessed this way
     teacher =  User.objects.get(id = user_id) # retrieves a single record that matches the user_id that we got from session
+    print(role)
 
     print(request.POST)
     if request.method == 'POST':
