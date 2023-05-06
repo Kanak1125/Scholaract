@@ -1,6 +1,7 @@
 @import url('../style.css');
 
-nav {
+nav,
+.main {
     max-width: 1200px;
     margin: auto;
 }
@@ -95,4 +96,32 @@ nav {
 }
 .drop-btn.active {
     transform: rotate(180deg);
+}
+
+/* <main> css starts here */
+.main {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    column-gap: 40px;
+    padding: 80px 60px;
+}
+
+.class-info-container {
+    /* border: 1px solid black; */
+    padding: 40px;
+    line-height: 3rem;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    box-shadow: 1px 1px 5px var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.material-section {
+    padding: 20px;
+}
+
+.material-card {
+    width: 100%;
+    border: 1px solid black;
+    margin: 100px 0;
 }
