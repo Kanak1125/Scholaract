@@ -96,36 +96,37 @@ def login(request):
                 }
                 # By storing this information in the session dictionary, we can access it from any view that is associated with the same session. This allows us to easily retrieve information about the currently logged-in user without having to query the database every time.
 
-                # user_data = request.session.get('user')
-                # user_name = user_data['fname']
-                # print(user_name)
                 return redirect('classes')
 
     return render(request, 'scholaractapp/login.html', {'error_email': error_email, 'error_password': error_password, 'error_role': error_role, })
 
 
 def classes(request):
+    # session data
+    user_data = request.session.get('user')
+    user_name = user_data['fname']
+    user_id = user_data['id']
+    role = user_data.get('role') # since role is being assigned by admin, it is being accessed this way
+    teacher =  User.objects.get(id = user_id) # retrieves a single record that matches the user_id that we got from session
+
     print(request.POST)
     if request.method == 'POST':
         class_name = request.POST.get('classname')
         subject_name = request.POST.get('subject')
-        class_data = Class(class_name=class_name, subject_name=subject_name)
-
+        created_by = teacher.name() # getting the full name of the teacher that created the class (name() is a method that returns full name of the teacher)
+        class_data = Class(teacher=teacher, class_name=class_name, subject_name=subject_name,created_by=created_by)
         class_data.save()
 
-    # Class.objects.all() retrieves all the instances of the Class model from the database...
-    cl = Class.objects.all().values('class_code', 'class_name', 'subject_name')
-
+    classes = Class.objects.filter(teacher=teacher) # retrives the record in Class model where the teacher field matches the teacher object given
     # list() method converts the query set into the python list object...
-    classes_dict = {'classes': list(cl)}
+    cl = list(classes.values('class_code', 'class_name', 'subject_name', 'created_by'))
+    # it will list the classes that are only created by the currently logged in teacher
+
+    classes_dict = {'classes': cl}
     # json.dumps() encodes the 'classes_dict' as JSON string...
     classes_json = json.dumps(classes_dict)
     
-    # session data
-    user_data = request.session.get('user')
-    user_name = user_data['fname']
-    role = user_data.get('role')
-    print(role)
+    
 
     # now only classes.html file can use the 'classes_json' data...
     return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role})

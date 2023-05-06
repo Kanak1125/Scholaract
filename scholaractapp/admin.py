@@ -121,7 +121,7 @@ class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
 
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ('class_name', 'class_code', 'teacher')
+    list_display = ('class_name', 'class_code', 'created_by')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)

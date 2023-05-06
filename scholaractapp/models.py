@@ -125,13 +125,27 @@ class Class(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
 
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE,null = True)
     # The ForeignKey field is used to establish a many-to-one relationship between the Class model and the Teacher model. It indicates that each Class object can be associated with a single Teacher, while a Teacher can be associated with multiple Class objects.
+    created_by = models.CharField(max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.class_code:
             self.class_code = ''.join(secrets.choice(
                 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(5))
+         
+         
+        # --------------------------to be deleted---------------------------
+        # if not self.id:
+        #     request = kwargs.pop('request', None)
+        #     if request:
+        #         user_id = request.session.get('user_id')
+        #         # user_name = request.session.get('user_name')
+        #         if user_id is not None:
+        #             logged_in_user = User.objects.get(id=user_id)
+
+        #             self.created_by = logged_in_user.first_name
+        #-----------------------------------------------------------------
         super().save(*args, **kwargs)
 
     def __str__(self):

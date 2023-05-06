@@ -55,6 +55,7 @@ if ('content' in document.createElement('template')) {
             let teacherName = clone.querySelector('.teacher-name');
 
             className.textContent = `${cl.class_name}`;
+            teacherName.textContent = `${cl.created_by}`; // name of the teacher who created the class
 
             const classes = document.querySelector('.classes');
             classes.appendChild(clone);
