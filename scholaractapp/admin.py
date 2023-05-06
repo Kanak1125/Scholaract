@@ -4,7 +4,7 @@ from .models import User, Student, Teacher, Class
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-
+from django.core.mail import send_mail
 # Register your models here.
 # admin.site.register(Users) # registering athe model so that it cna be displayed in the admin panel
 
@@ -24,7 +24,7 @@ class UserAdmin(admin.ModelAdmin):
     actions = ['assign_role',]
 
     # def assign_role_button(self, obj):
-    #     url = reverse('admin:assign_role', args =[obj.pk])
+    #     url = reverse('admin:assign_role', args =[obj.id])
     #     return format_html('<a class = button" href ="{}">Assign</a>',)
     #     # return mark_safe(f'<a href="{url}" class="button">Assign</a>')
 
@@ -37,7 +37,27 @@ class UserAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         # saves user to either 'Student' or 'Teacher' model based on the user's role
         # role = request.POST.get('role')
+        role = obj.role
         obj.save()
+        # updating the value of role in session after the admin assigns user a role
+        if 'user' in request.session:
+            user_data = request.session['user']
+            user_data['role'] = obj.role
+            request.session['user'] = user_data
+
+        # for sending mail after the role is assigned
+        subject = 'Your role has been updated'
+        message = f'Hi {obj.first_name}, your role has been updated to {role}'
+        from_email = 'mailsender227@gmail.com'
+        recipient_list = [obj.email]
+
+        print('Sending email...')
+        print('Subject:', subject)
+        print('Message:', message)
+        print('From:', from_email)
+        print('Recipient list:', recipient_list)
+        
+        send_mail(subject, message, from_email, recipient_list)
         if obj.role == 'Student':
             student = Student(user=obj)
             student.save()
@@ -47,7 +67,9 @@ class UserAdmin(admin.ModelAdmin):
             teacher = Teacher(user=obj)
             teacher.save()
 
-    def assign_role(self, request, queryset, role):
+    def assign_role(self, request, queryset):
+        print(request.POST)
+        role = request.POST.get('role')
         print("Assigning role",role)
 
         if role is not None:
@@ -55,7 +77,7 @@ class UserAdmin(admin.ModelAdmin):
             
         else:
             self.message_user(
-                request, "Please select a valid value for the 'gender' field.")
+                request, "Please select a valid value for the 'role' field.")
         
 
     assign_role.short_description = "Assign selected people a role"
@@ -99,7 +121,7 @@ class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
 
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ('class_name', 'class_code')
+    list_display = ('class_name', 'class_code', 'teacher')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)

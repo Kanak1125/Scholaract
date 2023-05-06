@@ -34,10 +34,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 #Add SMTP server here
 # For sending welcome emails via ElasticEmail
+EMAIL_HOST = 'smtp.elasticemail.com'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mailsender227@gmail.com'
+EMAIL_HOST_PASSWORD = 'C80238B57FA758C6AF8013E826A488A1FE22'
 
 
-
-DEFAULT_FROM_EMAIL = 'mailsender227@gmail.com'
+DEFAULT_FROM_EMAIL = 'scholaract@gmail.com'
 
 
 # Application definition

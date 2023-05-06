@@ -1,7 +1,8 @@
 # we edited this file
 from django.db import models
-import secrets #for generating random alphanumeric number for class code
+import secrets  # for generating random alphanumeric number for class code
 import uuid
+
 
 # Create your models here.
 # We created our model Users, it is just like creating a table using MySQL queries but the syntax are different
@@ -31,14 +32,11 @@ class User(models.Model):
     # def __str__(self):
     #     return self.first_name + ' ' + self.last_name
 
-
-
-
     # def save(self, *args, **kwargs):
-        
+
 #         if self.role == 'Student':
 #             student = Student(user=self.user)
-            
+
 #             student.save()
 #         elif self.role == 'Teacher':
 #             teacher = Teacher(user=self.user)
@@ -47,11 +45,11 @@ class User(models.Model):
 
     # commented out htis method because it was being called first whenever we werer trying to save a 'User' instance so hence coming in the way of 'save_model()' method in admin.py file. it will be removed in future after further testing
     # def save(self, *args, **kwargs):
-        
+
     #     if self.role == 'Student':
     #         student = Student(first_name=self.first_name, last_name=self.last_name,
     #                           email=self.email, password=self.password,)
-            
+
     #         student.save()
     #     elif self.role == 'Teacher':
     #         teacher = Teacher(first_name=self.first_name, last_name=self.last_name, email=self.email, password=self.password,)
@@ -113,21 +111,28 @@ class Teacher(models.Model):
 
 class Class(models.Model):
     class Meta:
-        verbose_name = "Class" # label for the model in django admin panel
+        verbose_name = "Class"  # label for the model in django admin panel
         # previously in admin panel, when we created models with a plural name, it appended 's' at the end ogf the model name'jazzmin',
-        verbose_name_plural = "Classes" # assinging the verbose_name_plural value as given overcomes this problem
+        # assinging the verbose_name_plural value as given overcomes this problem
+        verbose_name_plural = "Classes"
 
-    class_code = models.CharField(max_length=5, null=True, blank=True, unique=True, editable=False)  # the class_code field is nullable, and optional character field... 
+    # the class_code field is nullable, and optional character field...
+    class_code = models.CharField(
+        max_length=5, null=True, blank=True, unique=True, editable=False)
     class_name = models.CharField(max_length=300, null=True, blank=True)
     subject_name = models.CharField(max_length=300, null=True, blank=True)
     # uuid4 is an encoding type, unique=True means no other value in the database can have the  same number
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
 
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    # The ForeignKey field is used to establish a many-to-one relationship between the Class model and the Teacher model. It indicates that each Class object can be associated with a single Teacher, while a Teacher can be associated with multiple Class objects.
 
     def save(self, *args, **kwargs):
         if not self.class_code:
-            self.class_code = ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(5))
+            self.class_code = ''.join(secrets.choice(
+                'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(5))
         super().save(*args, **kwargs)
+
     def __str__(self):
         return self.class_name
