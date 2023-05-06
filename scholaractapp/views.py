@@ -117,6 +117,7 @@ def classes(request):
         created_by = teacher.name() # getting the full name of the teacher that created the class (name() is a method that returns full name of the teacher)
         class_data = Class(teacher=teacher, class_name=class_name, subject_name=subject_name,created_by=created_by)
         class_data.save()
+        return redirect('classes')
 
     classes = Class.objects.filter(teacher=teacher) # retrives the record in Class model where the teacher field matches the teacher object given
     # list() method converts the query set into the python list object...
