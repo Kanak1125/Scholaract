@@ -1,0 +1,98 @@
+@import url('../style.css');
+
+nav {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.nav-bar-container {
+    background-color: var(--secondary-color);
+    color: white;
+    height: 72px;
+    /* position: fixed; */
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.nav-links {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.links li{
+    display: inline-block;
+    margin-right: 3rem;
+}
+
+.links li a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 300ms ease-out;
+}
+
+.links li a:hover {
+    opacity: 0.6;
+}
+
+.nav-links .profile-img {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 50%;
+}
+
+.profile-img {
+    position: relative;
+    border: 1px solid white;
+    background: white url('../../images/user_icon.png') no-repeat center;
+    background-size: cover;
+    margin-right: 20px;
+}
+
+.nav-links i {
+    cursor: pointer;
+}
+
+.drop-down {
+    display: none;
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    top: 45px;
+    right: 0;
+    background-color: var(--bg-color-op6);
+    /* border: 2px solid black; */
+    border-radius: 10px;
+    z-index: 1;
+    /* display: flex; */
+    padding: 20px 40px;
+    /* flex-direction: column; */
+    backdrop-filter: blur(5px);
+    line-height: 2rem;
+}
+
+.drop-down a {
+    display: block;
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: opacity 600ms ease-out;
+}
+.drop-down a:hover {
+    opacity: 0.6;
+}
+
+.drop-btn {
+    transition: transform 300ms ease-out;
+}
+.drop-btn.active {
+    transform: rotate(180deg);
+}
