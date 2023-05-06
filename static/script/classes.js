@@ -32,11 +32,13 @@ const closeModal = document.querySelector('.close-modal');
 createJoinBtn.addEventListener('click', (e) => {
     e.preventDefault();
     modalContainer.classList.add('active');
+    document.body.style.overflowY = 'hidden';
 })
 
 closeModal.addEventListener('click', (e) => {
     e.preventDefault();
     modalContainer.classList.remove('active');
+    document.body.style.overflowY = 'visible';
 })
 
 const classesObj = JSON.parse(document.querySelector('.classes').dataset.classes);
@@ -45,11 +47,10 @@ console.log(classesArray);
 
 // checking browser support...
 if ('content' in document.createElement('template')) {
-    classesArray.map(cl => {
+    classesArray.map(cl => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
         const classTemplate = document.querySelector(".class-template");
-            // console.log(bookTemplate)
-            // Clone the new class card and insert it into the section.classes container...
-            const clone = classTemplate.content.cloneNode(true);
+            // Clone the new class card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
+            const clone = classTemplate.content.cloneNode(true);    // here is when the template is cloned...
             let className = clone.querySelector('.class-name');
             let teacherName = clone.querySelector('.teacher-name');
 
