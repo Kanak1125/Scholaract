@@ -36,11 +36,21 @@
                 </div>
                 <input type="submit" value="Create" class="btn create-class-btn">
             </form>
+            <form action="" id="join-class-form" class="modal-form" method="POST">
+                {% csrf_token %}
+                <div class="class-name-container">
+                    <label for="class_code">Class Code</label><br>
+                    <input type="text" name="class_code" id="class_code">
+                </div>
+                <input type="submit" value="Join" class="btn join-class-btn">
+            </form>
         </div>
     </section>
     <section class="nav-bar-container">
         <nav>
-            <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+            <a href="{% url 'landingPage' %}">
+                <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+            </a>
             <div class="nav-links">
                 <button class="btn create-join-btn">+</button>
                 <div class="profile-img"></div>

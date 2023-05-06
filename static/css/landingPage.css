@@ -218,7 +218,7 @@ nav {
 /* footer section */
 footer .links {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     padding: 120px 100px 20px 100px;
     column-gap: 2rem;
   }
@@ -235,9 +235,11 @@ footer .links {
     padding-left: 10px;
   }
   
-  /* div.short_description ~ div > .sub_heading {
-    color: var(--txt-primary-color);
-  } */
+  div.short_description ~ div > .sub_heading {
+    color: var(--secondary-color);
+    font-size: var(--fnt-size-s);
+    font-weight: var(--fnt-wght-b);
+  }
   
   div.short_description ~ div > ul {
     padding: 1rem 0;
@@ -248,7 +250,7 @@ footer .links {
     list-style-type: none;
   }
   
-  div.short_description ~ div > ul > li > a {
+  div.short_description ~ div > ul > li > a {   /* div.short_description ko adjacent siblings haru...*/
     position: relative;
     text-decoration: none;
     color: var(--secondary-color);
@@ -271,6 +273,12 @@ footer .links {
   
   div.short_description ~ div > ul > li > a:hover::after {
     transform: scaleX(1);
+  }
+
+  .contact_links ul li p {
+    font-size: var(--fnt-size-s);
+    font-weight: var(--fnt-wght-m);
+    color: var(--secondary-color);
   }
   
   .social_media {

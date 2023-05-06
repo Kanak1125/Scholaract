@@ -48,7 +48,7 @@ if ('content' in document.createElement('template')) {
     classesArray.map(cl => {
         const classTemplate = document.querySelector(".class-template");
             // console.log(bookTemplate)
-            // Clone the new book card and insert it into the book container of a slider...
+            // Clone the new class card and insert it into the section.classes container...
             const clone = classTemplate.content.cloneNode(true);
             let className = clone.querySelector('.class-name');
             let teacherName = clone.querySelector('.teacher-name');
