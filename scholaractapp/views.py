@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import User, Class, Student, CourseMaterial
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
+from django.contrib.auth.decorators import login_required
 
 # from django.core.exceptions import ValidationError
 # from django.core.mail import send_mail
@@ -104,6 +105,7 @@ def login(request):
     return render(request, 'scholaractapp/login.html', {'error_email': error_email, 'error_password': error_password, 'error_role': error_role, })
     # renders the dictionary {} to the 'scholaractapp/login.html' page...
 
+# @login_required(login_url='/login/')
 def classes(request):
     # session data
     user_data = request.session.get('user')
@@ -184,11 +186,14 @@ def classes_student(request):
 
     # retrives all the clasees the srusnt has enrolled in
     # value method selects specific fields
-    enrolled_classes = student.classes.all().values(
-        'class_code', 'class_name', 'subject_name', 'created_by')
+    teacher = classes.teacher
+    cl = list(student.classes.values('class_code', 'class_name',
+              'subject_name',))
+    for item in cl:
+        item['created_by'] = teacher.name()
 
     # The class information is extracted and converted into a dictionary format, stored in classes_dict.
-    classes_dict = {'classes': list(enrolled_classes)}
+    classes_dict = {'classes': cl}
     # it will list the classes that are joined by the current logged in student
 
     # json.dumps() encodes the 'classes_dict' as JSON string...
@@ -205,12 +210,14 @@ def single_class(request, pk):
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
         file = request.FILES.get('post_file')
-    
-    
 
-    material = CourseMaterial(title=title, description=description, file=file, related_class=related_class)
-    print(related_class)
-    material.save()
+        material = CourseMaterial(title=title, description=description, file=file, related_class=related_class)
+        print(related_class)
+        material.save()
+        class_pk = classObj.pk
+
+        # Redirect to the class page with class_pk as parameter
+        return redirect('class', pk=class_pk)
     return render(request, 'scholaractapp/class/stream.html', {'class':classObj})
 
 def logout(request):

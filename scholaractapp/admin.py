@@ -1,6 +1,6 @@
 # we edited this file
 from django.contrib import admin
-from .models import User, Student, Teacher, Class
+from .models import User, Student, Teacher, Class, CourseMaterial
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -129,7 +129,11 @@ class TeacherAdmin(admin.ModelAdmin):
 class ClassAdmin(admin.ModelAdmin):
     list_display = ('class_name', 'class_code', 'teacher')
 
+class CourseMatrialAdmin(admin.ModelAdmin):
+    list_display=('title', 'file', 'related_class' )
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Class, ClassAdmin)
+admin.site.register(CourseMaterial, CourseMatrialAdmin)
