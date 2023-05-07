@@ -6,7 +6,7 @@ section {
     margin: 40px auto;
 }
 
-.nav-links li:first-child a:after {
+.nav-links li:first-child a::after {
     content: "";
     position: absolute;
     width: 60%;

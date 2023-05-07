@@ -100,7 +100,7 @@ def login(request):
                 return redirect('classes')
 
     return render(request, 'scholaractapp/login.html', {'error_email': error_email, 'error_password': error_password, 'error_role': error_role, })
-
+    # renders the dictionary {} to the 'scholaractapp/login.html' page...
 
 def classes(request):
     # session data

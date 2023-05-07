@@ -42,20 +42,30 @@
     <main class="main">
         <div class="class-info-container">
             <div class="class-info-card">
-                <h2>Class code: <span></span></h2>  <!--class code to be added dynamically from django-->
+                <h2>Class code: <span>lkjsdlkjf</span></h2>  <!--class code to be added dynamically from django-->
                 <p>Subject: <span></span></p>
                 <p>Teacher: <span></span></p>
             </div>
         </div>
         <div class="material-section">
-            <form action="" method="post" enctype="multipart/form-data">
-                <input type="file" name="upload" id="upload">
-                <input type="submit" value="Post">
-            </form>
+            <fieldset>
+                <legend>Upload</legend>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="text" name="post_title" id="post_title" placeholder="Title here...">
+                    <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
+                    <div class="add-file-and-post-container">
+                        <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i>
+                        </label>
+                        <input type="file" name="post_file" id="post_file">
+                        <input type="submit" class="btn" value="Post">
+                    </div>
+                </form>
+            </fieldset>
 
             <div class="material-container">
                 <div class="material-card">
-                    <p class="title"></p>
+                    <p class="title">Chapter 1: notes</p>
+                    <p class="description">It contains jjkdjf </p>
                     <a href="#">
                         <img src="" alt="file1">
                     </a>
@@ -63,5 +73,16 @@
             </div>
         </div>
     </main>
+    <script>
+        // javaSCript code that will listen to the scoll event of the page and when the vertical scroll is more than '100px' '.scroll-active' class is added to the classInfoCard...
+        const classInfoCard = document.querySelector('.class-info-card');
+        document.addEventListener('scroll', () => {
+            if(window.scrollY > 100) {
+                classInfoCard.classList.add('scroll-active');
+            } else {
+                classInfoCard.classList.remove('scroll-active');
+            }
+        })
+    </script>
 </body>
 </html>
