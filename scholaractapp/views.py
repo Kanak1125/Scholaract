@@ -1,8 +1,10 @@
 # we edited this file
 from django.shortcuts import render, redirect, HttpResponse
 # importing Users model from the models.py file
-from .models import User, Class, Student
+from .models import User, Class, Student, CourseMaterial
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.sessions.models import Session
+
 # from django.core.exceptions import ValidationError
 # from django.core.mail import send_mail
 import json
@@ -120,10 +122,10 @@ def classes_teacher(request):
 
     # session data
     user_data = request.session.get('user')
-    user_name = user_data['fname']
+    user_name = user_data['fname'] # accessing fname this way because we are sure it will exist in the db and absence of the fname is considered an error
     user_id = user_data['id']
     # since role is being assigned by admin, it is being accessed this way
-    role = user_data.get('role')
+    role = user_data.get('role') # accessing role this way becaues it initially does not exist or is set to None. It is used because when the role doesnot have a value, it will not return an error and role can be set as None too
     # retrieves a single record that matches the user_id that we got from session
     teacher = User.objects.get(id=user_id)
     print(role)
@@ -133,9 +135,8 @@ def classes_teacher(request):
         class_name = request.POST.get('classname')
         subject_name = request.POST.get('subject')
         # getting the full name of the teacher that created the class (name() is a method that returns full name of the teacher)
-        created_by = teacher.name()
         class_data = Class(teacher=teacher, class_name=class_name,
-                           subject_name=subject_name, created_by=created_by)
+                           subject_name=subject_name)
         class_data.save()
         return redirect('classes')
 
@@ -143,7 +144,9 @@ def classes_teacher(request):
     classes = Class.objects.filter(teacher=teacher)
     # list() method converts the query set into the python list object...
     cl = list(classes.values('class_code', 'class_name',
-              'subject_name', 'created_by'))
+              'subject_name',))
+    for item in cl:
+        item['created_by'] = teacher.name()
     # it will list the classes that are only created by the currently logged in teacher
 
     classes_dict = {'classes': cl}
@@ -195,10 +198,26 @@ def classes_student(request):
     return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role, 'error_message': error_message})
 
 
-def single_class(request):
-    return render(request, 'scholaractapp/class/stream.html')
+def single_class(request, pk):
+    classObj = Class.objects.get(id=pk)
+    related_class = classObj
+    if request.method == "POST":
+        title = request.POST.get('post_title')
+        description = request.POST.get('post_description')
+        file = request.FILES.get('post_file')
+    
+    
+
+    material = CourseMaterial(title=title, description=description, file=file, related_class=related_class)
+    print(related_class)
+    material.save()
+    return render(request, 'scholaractapp/class/stream.html', {'class':classObj})
 
 def logout(request):
-    del request.session['user']
+    # Delete the session data
+    Session.objects.filter(session_key=request.session.session_key).delete()
+
+    # Clear any authentication-related variables
+    request.session.flush()
 
     return redirect('login')

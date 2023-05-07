@@ -9,6 +9,6 @@ urlpatterns = [
     path('login/',views.login, name = "login"),
     path('success/',views.success, name = "success"), # temporary url (might be changed later)
     path('classes/',views.classes, name = "classes"), 
-    path('class/',views.single_class, name = "class"), 
+    path('class/<str:pk>/',views.single_class, name = "class"), 
     path('logout/',views.logout, name = "logout"), 
 ]

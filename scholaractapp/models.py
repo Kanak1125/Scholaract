@@ -118,20 +118,20 @@ class Class(models.Model):
         max_length=5, null=True, blank=True, unique=True, editable=False)
     class_name = models.CharField(max_length=300, null=True, blank=True)
     subject_name = models.CharField(max_length=300, null=True, blank=True)
-    # uuid4 is an encoding type, unique=True means no other value in the database can have the  same number
-    id = models.UUIDField(default=uuid.uuid4, unique=True,
-                          primary_key=True, editable=False)
+   
+    
 
     teacher = models.ForeignKey(User, on_delete=models.CASCADE,null = True)
     # The ForeignKey field is used to establish a many-to-one relationship between the Class model and the Teacher model. It indicates that each Class object can be associated with a single Teacher, while a Teacher can be associated with multiple Class objects.
-    created_by = models.CharField(max_length=255, null=True, blank=True)
+    
 
     def save(self, *args, **kwargs):
         if not self.class_code:
             self.class_code = ''.join(secrets.choice(
                 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(5))
          
-         
+        if not self.pk:
+            self.created_by = self.teacher.name()
         # --------------------------to be deleted---------------------------
         # if not self.id:
         #     request = kwargs.pop('request', None)
@@ -147,3 +147,17 @@ class Class(models.Model):
 
     def __str__(self):
         return self.class_name
+
+
+class CourseMaterial(models.Model):
+    class Meta:
+        verbose_name = "Course Material"
+        verbose_name_plural = "Course Materials"
+
+    title = models.CharField(max_length=300)
+    description = models.TextField(null=True, blank=True)
+    file = models.FileField(upload_to='class_files/', null=True, blank=True)
+    related_class = models.ForeignKey(Class, on_delete=models.CASCADE) # to establish many to one relationship
+
+    def __str__(self):
+        return self.title

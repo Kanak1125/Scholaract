@@ -114,14 +114,20 @@ class UserAdmin(admin.ModelAdmin):
     # assign_role.short_description = 'Assign selected users a role'
 
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email')
+    list_display = ('name', 'email', 'enrolled_classes')
 
+    def enrolled_classes(self, obj):
+        return ", ".join([str(class_obj) for class_obj in obj.classes.all()])
+    # obj.classes.all() retrieves all the classes that the current object or instance(student) hase
+    # it iterates over each enrolled classes and converts it into string
+    #  str(), will use the default string representation defined in the Class model's __str__() method i.e. retturn class_name.
+    # join() method is used to concatenate the string representations of the enrolled classes and uses ',' as a separator
 
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('name', 'email')
 
 class ClassAdmin(admin.ModelAdmin):
-    list_display = ('class_name', 'class_code', 'created_by')
+    list_display = ('class_name', 'class_code', 'teacher')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)
