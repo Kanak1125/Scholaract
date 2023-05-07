@@ -17,9 +17,9 @@ def landingPage(request):
 
 def aboutUs(request):
     return render(request, 'scholaractapp/aboutUs.html')
+
+
 # view for signup page
-
-
 def signup(request):
     success = ''
     error_message = ''
@@ -193,3 +193,12 @@ def classes_student(request):
 
     # now only classes.html file can use the 'classes_json' data...
     return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role, 'error_message': error_message})
+
+
+def single_class(request):
+    return render(request, 'scholaractapp/class/stream.html')
+
+def logout(request):
+    del request.session['user']
+
+    return redirect('login')
