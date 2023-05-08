@@ -79,16 +79,19 @@ if ('content' in document.createElement('template')) {
             const classes = document.querySelector('.classes');
             classes.appendChild(clone);
             // clone.addEventListener('click', () => {
-            //     // console.log("click")
+            //     console.log("click")
             //     const classId = cl.id;
-            //     console.log('clicked' + cl.id);
-            //     // window.location.href = `/class/${classId}`;
+            //     // console.log('clicked' + cl.id);
+            //     window.location.href = `/class/${classId}`;
             // });
 
             // clone.onclick = () => {
             //     console.log('clicked' );
             // }
+            const classCardLink = document.getElementById('class-card-link');
+            classCardLink.setAttribute('href', `/class/${cl.id}`);
     })
+
 } else {
     console.log("template not found!");
 }
