@@ -92,6 +92,11 @@ nav {
     row-gap: 4.5rem;
 }
 
+.class-card-link {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
 .class-card {
     width: 300px;
     /* border: 1px solid black; */
