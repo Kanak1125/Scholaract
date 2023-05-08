@@ -33,4 +33,3 @@ document.addEventListener('scroll', () => {
         classInfoCard.classList.remove('scroll-active');
     }
 })
-

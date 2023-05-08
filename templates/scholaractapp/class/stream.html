@@ -65,15 +65,17 @@
                 </form>
             </fieldset>
 
-            <div class="material-container">
-                <div class="material-card">
-                    <p class="title">Chapter 1: notes</p>
-                    <p class="description">It contains jjkdjf </p>
-                    <a href="#">
-                        <img src="" alt="file1">
-                    </a>
+            <div class="material-container" data-materials="{{course_json}}">
+                <template class="stream-template">
+                    <div class="material-card">
+                        <p class="title">Chapter 1: notes</p>
+                        <p class="description">It contains jjkdjf </p>
+                        <a href="#">
+                            <img src="" alt="file1">
+                        </a>
+                    </div>
+                </template>
                 </div>
-            </div>
         </div>
     </main>
 </body>
