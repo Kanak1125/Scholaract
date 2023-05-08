@@ -34,31 +34,32 @@ document.addEventListener('scroll', () => {
     }
 })
 
-const materialObj = JSON.parse(document.querySelector('.material-container').dataset.materials);
-// const materialsArray = materialObj.classes;
+const materialsArray = JSON.parse(document.querySelector('.material-container').dataset.materials);
 
-console.log(materialObj);
+console.log(materialsArray);
 
-// // checking browser support...
-// if ('content' in document.createElement('template')) {
-//     classesArray.map(cl => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
-//         const classTemplate = document.querySelector(".class-template");
-//         // Clone the new class card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
-//         const clone = classTemplate.content.cloneNode(true);    // here is when the template is cloned...
-//             let className = clone.querySelector('.class-name');
-//             let teacherName = clone.querySelector('.teacher-name');
-//             let classAnchor = clone.querySelector('.class-card-link');
+// checking browser support...
+if ('content' in document.createElement('template')) {
+    materialsArray.map(material => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
+        const materialTemplate = document.querySelector(".stream-template");
+        // Clone the new material card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
+        const clone = materialTemplate.content.cloneNode(true);    // here is when the template is cloned...
+            let title = clone.querySelector('.title');
+            let description = clone.querySelector('.description');
+            let file = clone.querySelector('.file_link');
 
-//             className.textContent = `${cl.class_name}`;
-//             teacherName.textContent = `${cl.created_by}`; // name of the teacher who created the class
-//              // Add click event listener to the cloned class card
-//             classAnchor.href = `/class/${cl.id}`;
+            title.textContent = `${material.title}`;
+            description.textContent = `${material.description}`; // name of the teacher who created the class
+             // Add click event listener to the cloned class card
+            if(material.file != '') {
+                file.href = `${material.file}`;
+            }
             
-//             const classes = document.querySelector('.classes');
+            const materialContainer = document.querySelector('.material-container');
             
-//             classes.appendChild(clone);
-//     })
+            materialContainer.appendChild(clone);
+    })
 
-// } else {
-//     console.log("template not found!");
-// }
+} else {
+    console.log("template not found!");
+}

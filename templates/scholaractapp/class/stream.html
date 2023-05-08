@@ -71,9 +71,12 @@
                 <div class="material-card">
                     <p class="title">Chapter 1: notes</p>
                     <p class="description">It contains jjkdjf </p>
-                    <a href="#">
+
+                    {% if course_json.file %}
+                    <a href="#" class="file_link">
                         <img src="" alt="file1">
                     </a>
+                    {% endif %}
                 </div>
             </template>
         </div>
