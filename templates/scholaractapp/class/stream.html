@@ -13,11 +13,14 @@
 
     <!-- jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- link to stream.js file -->
+    <script src="../../../static/script/stream.js" defer></script>
 </head>
 <body>
     <section class="nav-bar-container">
         <nav>
-            <a href="{% url 'landingPage' %}">
+            <a href="#">
                 <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
             </a>
             <div class="nav-links links">
@@ -74,16 +77,5 @@
             </div>
         </div>
     </main>
-    <script>
-        // javaSCript code that will listen to the scoll event of the page and when the vertical scroll is more than '100px' '.scroll-active' class is added to the classInfoCard...
-        const classInfoCard = document.querySelector('.class-info-card');
-        document.addEventListener('scroll', () => {
-            if(window.scrollY > 100) {
-                classInfoCard.classList.add('scroll-active');
-            } else {
-                classInfoCard.classList.remove('scroll-active');
-            }
-        })
-    </script>
 </body>
 </html>
