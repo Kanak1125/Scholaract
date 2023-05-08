@@ -43,13 +43,15 @@ closeModal.addEventListener('click', (e) => {
 
 const classesObj = JSON.parse(document.querySelector('.classes').dataset.classes);
 const classesArray = classesObj.classes;
-console.log(classesArray);
+// console.log(classesArray);
 
-const listenCardClickEvent = (clone, cl_id) => {
+const listenCardClickEvent = () => {
+    const className = document.querySelector('.class-name');
     const classCard = [...document.querySelectorAll('.class-card')];    // selecting every class-card and pushing them to classCard array...
-    classCard.forEach(card => {
-        console.log(card);
-    })
+    // classCard.forEach(card => {
+    //     console.log(card);
+    // })
+    console.log('clicked' + className);
     // classCard.forEach(card => {
     //     card.addEventListener('click', () => {
     //         console.log("card clicked" + cl_id);
@@ -61,14 +63,13 @@ const listenCardClickEvent = (clone, cl_id) => {
     //     console.log("card clicked " + cl_id)
     // })
 }
-listenCardClickEvent()
+
 // checking browser support...
 if ('content' in document.createElement('template')) {
     classesArray.map(cl => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
         const classTemplate = document.querySelector(".class-template");
         // Clone the new class card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
         const clone = classTemplate.content.cloneNode(true);    // here is when the template is cloned...
-        // listenCardClickEvent(clone, cl.id);
             let className = clone.querySelector('.class-name');
             let teacherName = clone.querySelector('.teacher-name');
 
