@@ -209,6 +209,7 @@ def classes_student(request):
 def single_class(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
+    course_json = ""
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
@@ -219,11 +220,12 @@ def single_class(request, pk):
         material.save()
         class_pk = classObj.pk
 
-        course = CourseMaterial.objects.get(id=id)
+        course = CourseMaterial.objects.get(id=material.id)
         print(course)
         course_list = list(course.values('title', 'description', 'file', 'material'))
 
-        course_dict = {'course': course_list}
+        # course_dict = {'title': course.title, 'description': course.description, 'file': course.file.name}
+        course_dict = {'course':course_list}
         print(course_dict)
         course_json = json.dumps(course_dict)
         # Redirect to the class page with class_pk as parameter
