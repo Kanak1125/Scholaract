@@ -43,26 +43,7 @@ closeModal.addEventListener('click', (e) => {
 
 const classesObj = JSON.parse(document.querySelector('.classes').dataset.classes);
 const classesArray = classesObj.classes;
-// console.log(classesArray);
-
-const listenCardClickEvent = () => {
-    const className = document.querySelector('.class-name');
-    const classCard = [...document.querySelectorAll('.class-card')];    // selecting every class-card and pushing them to classCard array...
-    // classCard.forEach(card => {
-    //     console.log(card);
-    // })
-    console.log('clicked' + className);
-    // classCard.forEach(card => {
-    //     card.addEventListener('click', () => {
-    //         console.log("card clicked" + cl_id);
-    //         // window.location.href = `/class/${cl_id}`;
-    // })
-    // })
-    // console.log(clone)
-    // clone.addEventListener('click', () => {
-    //     console.log("card clicked " + cl_id)
-    // })
-}
+console.log(classesArray);
 
 // checking browser support...
 if ('content' in document.createElement('template')) {
@@ -72,25 +53,16 @@ if ('content' in document.createElement('template')) {
         const clone = classTemplate.content.cloneNode(true);    // here is when the template is cloned...
             let className = clone.querySelector('.class-name');
             let teacherName = clone.querySelector('.teacher-name');
+            let classAnchor = clone.querySelector('.class-card-link');
 
             className.textContent = `${cl.class_name}`;
             teacherName.textContent = `${cl.created_by}`; // name of the teacher who created the class
              // Add click event listener to the cloned class card
+            classAnchor.href = `/class/${cl.id}`;
             
             const classes = document.querySelector('.classes');
+            
             classes.appendChild(clone);
-            // clone.addEventListener('click', () => {
-            //     console.log("click")
-            //     const classId = cl.id;
-            //     // console.log('clicked' + cl.id);
-            //     window.location.href = `/class/${classId}`;
-            // });
-
-            // clone.onclick = () => {
-            //     console.log('clicked' );
-            // }
-            const classCardLink = document.getElementById('class-card-link');
-            classCardLink.setAttribute('href', `/class/${cl.id}`);
     })
 
 } else {
