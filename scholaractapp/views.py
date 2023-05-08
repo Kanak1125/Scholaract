@@ -222,11 +222,11 @@ def single_class(request, pk):
 
         course = CourseMaterial.objects.get(id=material.id)
         print(course)
-        course_list = list(course.values('title', 'description', 'file', 'material'))
+        # course_list = list(course.values('title', 'description', 'file', 'material'))
 
-        # course_dict = {'title': course.title, 'description': course.description, 'file': course.file.name}
-        course_dict = {'course':course_list}
-        print(course_dict)
+        course_dict = {'title': course.title, 'description': course.description, 'file': course.file.name}
+        # course_dict = {'course':course_list}
+        print(f"Course:{course_dict}")
         course_json = json.dumps(course_dict)
         # Redirect to the class page with class_pk as parameter
         return redirect('class', pk=class_pk)
