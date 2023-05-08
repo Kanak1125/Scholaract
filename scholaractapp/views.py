@@ -145,7 +145,7 @@ def classes_teacher(request):
     # retrives the record in Class model where the teacher field matches the teacher object given
     classes = Class.objects.filter(teacher=teacher)
     # list() method converts the query set into the python list object...
-    cl = list(classes.values('class_code', 'class_name',
+    cl = list(classes.values('id','class_code', 'class_name',
               'subject_name',))
     for item in cl:
         item['created_by'] = teacher.name()
@@ -176,7 +176,7 @@ def classes_student(request):
         
         try:
             selected_class = Class.objects.get(class_code=class_code)
-            # checks if the instance with the entered class_code
+            # checks if the instance with the entered class_code exists
             # if it exists then add the student's enrolled classes
             student.classes.add(selected_class)
             return redirect('classes')
@@ -187,14 +187,14 @@ def classes_student(request):
     # retrives all the clasees the srusnt has enrolled in
     # value method selects specific fields
     # teacher = selected_class.teacher.name()
-    cl = list(student.classes.values('class_code', 'class_name', 'subject_name'))
+    cl = list(student.classes.values('id','class_code', 'class_name', 'subject_name'))
 
-    for enrolled_class in cl:
+    for item in cl:
         try:
-            class_obj = Class.objects.get(class_code=enrolled_class['class_code'])
-            enrolled_class['created_by'] = class_obj.teacher.name()
+            class_obj = Class.objects.get(class_code=item['class_code']) # retrieving a single object from 'Class' model that corresponds to the class_code of the
+            item['created_by'] = class_obj.teacher.name()
         except Class.DoesNotExist:
-            enrolled_class['created_by'] = ''
+            item['created_by'] = ''  
     # The class information is extracted and converted into a dictionary format, stored in classes_dict.
     classes_dict = {'classes': cl}
     # it will list the classes that are joined by the current logged in student

@@ -173,6 +173,7 @@ JAZZMIN_SETTINGS = {
         "scholaractapp.Student": "fas fa-users",
         "scholaractapp.Teacher": "fas fa-user-tie",
         "scholaractapp.Class": "fas fa-chalkboard",
+        "scholaractapp.CourseMaterial":"fas fa-book",
     },
     "order_with_respect_to": ["scholaractapp.User", "scholaractapp.Student", "scholaracapp.Teacher",],
     
