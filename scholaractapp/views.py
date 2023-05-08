@@ -219,8 +219,16 @@ def single_class(request, pk):
         material.save()
         class_pk = classObj.pk
 
+        course = CourseMaterial.objects.get(id=id)
+        print(course)
+        course_list = list(course.values('title', 'description', 'file', 'material'))
+
+        course_dict = {'course': course_list}
+        print(course_dict)
+        course_json = json.dumps(course_dict)
         # Redirect to the class page with class_pk as parameter
         return redirect('class', pk=class_pk)
+    return render(request, 'scholaractapp/class/stream.html', {'course_json':course_json,'class':classObj})
 
 def logout(request):
     # Delete the session data
