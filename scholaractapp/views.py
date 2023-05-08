@@ -173,10 +173,10 @@ def classes_student(request):
 
     if request.method == "POST":
         class_code = request.POST.get('class_code')  # retrives the class code
-
+        
         try:
-            # checks if the instance with the entered class_code
             selected_class = Class.objects.get(class_code=class_code)
+            # checks if the instance with the entered class_code
             # if it exists then add the student's enrolled classes
             student.classes.add(selected_class)
             return redirect('classes')
@@ -186,12 +186,15 @@ def classes_student(request):
 
     # retrives all the clasees the srusnt has enrolled in
     # value method selects specific fields
-    teacher = classes.teacher
-    cl = list(student.classes.values('class_code', 'class_name',
-              'subject_name',))
-    for item in cl:
-        item['created_by'] = teacher.name()
+    # teacher = selected_class.teacher.name()
+    cl = list(student.classes.values('class_code', 'class_name', 'subject_name'))
 
+    for enrolled_class in cl:
+        try:
+            class_obj = Class.objects.get(class_code=enrolled_class['class_code'])
+            enrolled_class['created_by'] = class_obj.teacher.name()
+        except Class.DoesNotExist:
+            enrolled_class['created_by'] = ''
     # The class information is extracted and converted into a dictionary format, stored in classes_dict.
     classes_dict = {'classes': cl}
     # it will list the classes that are joined by the current logged in student
