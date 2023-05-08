@@ -36,6 +36,7 @@ document.addEventListener('scroll', () => {
 
 const materialObj = JSON.parse(document.querySelector('.material-container').dataset.materials);
 // const materialsArray = materialObj.classes;
+
 console.log(materialObj);
 
 // // checking browser support...

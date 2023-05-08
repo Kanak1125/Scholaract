@@ -1,5 +1,8 @@
 # we edited this file
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
+from django.core import serializers
+
 # importing Users model from the models.py file
 from .models import User, Class, Student, CourseMaterial
 from django.contrib.auth.hashers import make_password, check_password
@@ -209,7 +212,6 @@ def classes_student(request):
 def single_class(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
-    course_json = ""
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
@@ -220,17 +222,32 @@ def single_class(request, pk):
         material.save()
         class_pk = classObj.pk
 
-        course = CourseMaterial.objects.get(id=material.id)
-        print(course)
-        # course_list = list(course.values('title', 'description', 'file', 'material'))
+        # course = CourseMaterial.objects.get(id=material.id)
+        # # course_list = list(course.values('title', 'description', 'file', 'material'))
 
-        course_dict = {'title': course.title, 'description': course.description, 'file': course.file.name}
-        # course_dict = {'course':course_list}
-        print(f"Course:{course_dict}")
-        course_json = json.dumps(course_dict)
+        # course_dict = {'title': course.title, 'description': course.description, 'file': course.file.name}
+        course_materials = CourseMaterial.objects.filter(related_class=classObj)
+
+        course_dict = {'title': material.title, 'description': material.description, 'file': material.file.name}
+        
+        
         # Redirect to the class page with class_pk as parameter
         return redirect('class', pk=class_pk)
-    return render(request, 'scholaractapp/class/stream.html', {'course_json':course_json,'class':classObj})
+    
+    course = CourseMaterial.objects.filter(related_class=related_class)
+    course_list = []
+    for material in course:
+        material_data = {
+            'title': material.title,
+            'description': material.description,
+            'file': material.file.name
+        }
+        course_list.append(material_data)
+    print(course_list)
+    course_json = json.dumps(course_list)
+    
+    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj})
+
 
 def logout(request):
     # Delete the session data
