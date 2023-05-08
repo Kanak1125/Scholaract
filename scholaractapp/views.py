@@ -237,7 +237,8 @@ def single_class(request, pk):
         material_data = {
             'title': material.title,
             'description': material.description,
-            'file': material.file.name,
+            'file_name': material.file.name,
+            'file_url': material.file.url,
             'uploaded_by': material.uploaded_by.name()
         }
         course_list.append(material_data)
