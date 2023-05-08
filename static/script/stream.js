@@ -50,9 +50,7 @@ if ('content' in document.createElement('template')) {
 
             title.textContent = `${material.title}`;
             description.textContent = `${material.description}`; // name of the teacher who created the class
-             // Add click event listener to the cloned class card
-            // if(material.file != '') {
-            // }
+
             file.href = `${material.file}`;
             
             const materialContainer = document.querySelector('.material-container');
