@@ -9,11 +9,6 @@ import uuid
 
 
 class User(models.Model):
-    # class Meta:
-    # verbose_name = "Users" # label for the model in django admin panel
-    # # previously in admin panel, when we created models with a plural name, it appended 's' at the end ogf the model name'jazzmin',
-    # verbose_name_plural = "Users" # assinging the verbose_name_plural value as given overcomes this problem
-
     first_name = models.CharField(
         max_length=300, null=False, blank=False)  # columns
     last_name = models.CharField(max_length=300, null=False, blank=False)
@@ -27,34 +22,6 @@ class User(models.Model):
     ]
     role = models.CharField(
         max_length=7, choices=ROLES_CHOICES, null=False, blank=False,)
-
-    # for django admin panel so that the entries can be displayed with the users first and lastname in the admin panel
-    # def __str__(self):
-    #     return self.first_name + ' ' + self.last_name
-
-    # def save(self, *args, **kwargs):
-
-#         if self.role == 'Student':
-#             student = Student(user=self.user)
-
-#             student.save()
-#         elif self.role == 'Teacher':
-#             teacher = Teacher(user=self.user)
-#             teacher.save()
-#         super(User, self).save(*args, **kwargs)
-
-    # commented out htis method because it was being called first whenever we werer trying to save a 'User' instance so hence coming in the way of 'save_model()' method in admin.py file. it will be removed in future after further testing
-    # def save(self, *args, **kwargs):
-
-    #     if self.role == 'Student':
-    #         student = Student(first_name=self.first_name, last_name=self.last_name,
-    #                           email=self.email, password=self.password,)
-
-    #         student.save()
-    #     elif self.role == 'Teacher':
-    #         teacher = Teacher(first_name=self.first_name, last_name=self.last_name, email=self.email, password=self.password,)
-    #         teacher.save()
-    #     super(User, self).save(*args, **kwargs)
 
     def name(self):  # creating new function name so that the full name (combining first and last name) can be displayed in admin panel
         # this is how we display variables in python
@@ -73,8 +40,9 @@ class Student(models.Model):
     # on_delete=models.CASCADE: This specifies what should happen when the related object is deleted. CASCADE means that if the User object is deleted, the corresponding Student or Teacher object should also be deleted.
     # primary_key=True: This indicates that the related User object should also act as the primary key for the Student or Teacher object. In other words, each Student or Teacher object can only be associated with one User object, and vice versa.
 
+     # creates a join table
     classes = models.ManyToManyField('Class', blank=True)
-
+   
     def name(self):  # creating new function name so that the full name (combining first and last name) can be displayed in admin panel
         # this is how we display variables in python
         return f"{self.user.first_name} {self.user.last_name}"
@@ -132,17 +100,7 @@ class Class(models.Model):
          
         if not self.pk:
             self.created_by = self.teacher.name()
-        # --------------------------to be deleted---------------------------
-        # if not self.id:
-        #     request = kwargs.pop('request', None)
-        #     if request:
-        #         user_id = request.session.get('user_id')
-        #         # user_name = request.session.get('user_name')
-        #         if user_id is not None:
-        #             logged_in_user = User.objects.get(id=user_id)
 
-        #             self.created_by = logged_in_user.first_name
-        #-----------------------------------------------------------------
         super().save(*args, **kwargs)
 
     def __str__(self):
