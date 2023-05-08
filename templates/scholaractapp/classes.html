@@ -105,13 +105,15 @@
     <section class="classes" data-classes="{{classes_json}}"> <!-- double curly braces represents dynamic content using django template feature || context variables are accessed with the double curly braces in our case: 'claesses_json'-->
     </section>
     <template class="class-template">
-           <div class="class-card">    
-               <div class="class-bg-img"></div>
-               <div class="class-info">
-                   <h3>Classname: <span class="class-name">Maths</span></h3>
-                   <p>Teacher: <span class="teacher-name">Harry</span></p>
-               </div>
-           </div>
+        <a href="{% url 'class' 1%}">
+            <div class="class-card">    
+                <div class="class-bg-img"></div>
+                <div class="class-info">
+                    <h3>Classname: <span class="class-name">Maths</span></h3>
+                    <p>Teacher: <span class="teacher-name">Harry</span></p>
+                </div>
+            </div>
+        </a>
     </template>
     <h1>welcome {{name}}</h1>
     <h1>{{error_message}}</h1>

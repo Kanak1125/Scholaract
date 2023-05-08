@@ -221,7 +221,6 @@ def single_class(request, pk):
 
         # Redirect to the class page with class_pk as parameter
         return redirect('class', pk=class_pk)
-    return render(request, 'scholaractapp/class/stream.html', {'class':classObj})
 
 def logout(request):
     # Delete the session data
