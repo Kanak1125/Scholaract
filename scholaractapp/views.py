@@ -217,7 +217,13 @@ def single_class(request, pk):
         description = request.POST.get('post_description')
         file = request.FILES.get('post_file')
 
-        material = CourseMaterial(title=title, description=description, file=file, related_class=related_class)
+        user_data = request.session.get('user')
+        # user_name = user_data['fname']
+        user_id = user_data['id']
+        uploaded_by = User.objects.get(id=user_id)
+        # uploaded_by = 
+
+        material = CourseMaterial(title=title, description=description, file=file, related_class=related_class, uploaded_by=uploaded_by,)
         print(related_class)
         material.save()
         class_pk = classObj.pk
@@ -231,7 +237,8 @@ def single_class(request, pk):
         material_data = {
             'title': material.title,
             'description': material.description,
-            'file': material.file.name
+            'file': material.file.name,
+            'uploaded_by': material.uploaded_by.name()
         }
         course_list.append(material_data)
     print(course_list)

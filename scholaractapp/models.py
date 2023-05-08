@@ -116,6 +116,6 @@ class CourseMaterial(models.Model):
     description = models.TextField(null=True, blank=True)
     file = models.FileField(upload_to='class_files/', null=True, blank=True)
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE) # to establish many to one relationship
-
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
