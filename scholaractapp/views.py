@@ -221,15 +221,6 @@ def single_class(request, pk):
         print(related_class)
         material.save()
         class_pk = classObj.pk
-
-        # course = CourseMaterial.objects.get(id=material.id)
-        # # course_list = list(course.values('title', 'description', 'file', 'material'))
-
-        # course_dict = {'title': course.title, 'description': course.description, 'file': course.file.name}
-        course_materials = CourseMaterial.objects.filter(related_class=classObj)
-
-        course_dict = {'title': material.title, 'description': material.description, 'file': material.file.name}
-        
         
         # Redirect to the class page with class_pk as parameter
         return redirect('class', pk=class_pk)
