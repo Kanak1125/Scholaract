@@ -186,7 +186,7 @@ def classes_student(request):
         # triggered when Class.objects.get(class_code=class_code) method is unable to find instacne with the class_code entered by student
         except Class.DoesNotExist:
             error_message = 'Invalid class code. Please try again.'
-
+    
     # retrives all the clasees the srusnt has enrolled in
     # value method selects specific fields
     # teacher = selected_class.teacher.name()

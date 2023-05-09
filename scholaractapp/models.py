@@ -98,8 +98,8 @@ class Class(models.Model):
             self.class_code = ''.join(secrets.choice(
                 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(5))
          
-        if not self.pk:
-            self.created_by = self.teacher.name()
+        # if not self.pk:
+        #     self.created_by = self.teacher.name()
 
         super().save(*args, **kwargs)
 
