@@ -46,8 +46,8 @@ class UserAdmin(admin.ModelAdmin):
             request.session['user'] = user_data
 
         # for sending mail after the role is assigned
-        subject = 'Your role has been updated'
-        message = f'Hi {obj.first_name}, your role has been updated to {role}'
+        subject = 'Welcome to Scholaract'
+        message = f'Hi {obj.first_name}, your role has been updated to {role}. '
         from_email = 'mailsender227@gmail.com'
         recipient_list = [obj.email]
 
