@@ -250,7 +250,7 @@ def single_class(request, pk):
     
     course_json = json.dumps(course_list)
     print(course)
-    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj, 'material': material})
+    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj,})
 
 
 def logout(request):
