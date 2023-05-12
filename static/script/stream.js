@@ -50,8 +50,12 @@ if ('content' in document.createElement('template')) {
 
             title.textContent = `${material.title}`;
             description.textContent = `${material.description}`; // name of the teacher who created the class
-
-            file.href = `${material.file}`;
+            if (material.file_url){
+                file.href = `${material.file_url}`;
+            }else{
+                file.style.display = 'none';
+            }
+            
             
             const materialContainer = document.querySelector('.material-container');
             

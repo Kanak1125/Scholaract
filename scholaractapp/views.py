@@ -237,15 +237,20 @@ def single_class(request, pk):
         material_data = {
             'title': material.title,
             'description': material.description,
-            'file_name': material.file.name,
-            'file_url': material.file.url,
+            # 'file_name': material.file.name,
+            # 'file_url': material.file.url,
             'uploaded_by': material.uploaded_by.name()
         }
+        if material.file:
+            material_data['file_name'] = material.file.name
+            material_data['file_url'] = material.file.url
+        # course_list.append(material_data)
         course_list.append(material_data)
-    print(course_list)
-    course_json = json.dumps(course_list)
+    # print(course_list)
     
-    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj})
+    course_json = json.dumps(course_list)
+    print(course)
+    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj, 'material': material})
 
 
 def logout(request):
