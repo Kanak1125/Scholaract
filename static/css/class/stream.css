@@ -156,7 +156,7 @@ nav {
     padding: 0 10px;
 }
 
-.material-section form,
+form,
 .material-container {
     display: flex;
     flex-direction: column;
@@ -173,7 +173,7 @@ legend {
     margin-left: 20px;
 }
 
-.material-section form > input
+form > input
 ,textarea {    /* div.material-section forms direct input child only to prevent btn style overwriting...*/
     width: 100%;
     height: 50px;
@@ -185,7 +185,7 @@ legend {
     font-family: 'Poppins', sans-serif;
 }
 
-.material-section form > input:focus,
+form > input:focus,
 textarea:focus {
     border-color: var(--accent-color);
 }
@@ -271,4 +271,37 @@ textarea {
 
 .material-card .update-drop-down p:hover {
     opacity: 0.6;
+}
+
+/* modal styles... */
+.modal {
+    width: 60vw;
+    padding: 40px 20px;
+    border-radius: 5px;
+    box-shadow: .5px 1px 5px var(--secondary-color);
+    border: none;
+    position: fixed;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal::backdrop {
+    background-color: var(--bg-color-op6);
+}
+
+.close-modal {
+    float: right;
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: var(--fnt-size-l);
+    margin-top: -20px;
+}
+
+.modal fieldset {
+    border: none;
+}
+
+.modal legend {
+    font-size: var(--fnt-size-l);
+    font-weight: var(--fnt-wght-m);
 }

@@ -80,3 +80,19 @@ if ('content' in document.createElement('template')) {
 } else {
     console.log("template not found!");
 }
+
+const editPost = [...document.querySelectorAll('.edit-post')];  // this selects every element with '.edit-post' class and assign it to 'editPost' array using querySelectorAll and spread operator(...) ...
+const closeModal = [...document.querySelectorAll('.close-modal')];  // this selects every '.close-modal' as there are multiple material cards and store it in the 'closeModal' array as in above...
+const modal = document.querySelector('.modal'); // selects the dialog element in HTML...
+
+editPost.forEach(btn => {
+    btn.addEventListener('click', () => {
+        modal.showModal();  // displays the modal with .showModal() method for dialog elements, to show dialog just use show() inbuilt() method...
+    })
+})
+
+closeModal.forEach(btn => {
+    btn.addEventListener('click', () => {
+        modal.close();  // closes the modal...
+    })
+})
