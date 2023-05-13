@@ -77,8 +77,8 @@ nav {
 
 .profile-img {
     position: relative;
-    border: 1px solid white;
-    background: white url('../../images/user_icon.png') no-repeat center;
+    border: 1px solid var(--primary-color);
+    background: var(--primary-color) url('../../images/user_icon.png') no-repeat center;
     background-size: cover;
     margin-right: 20px;
 }
@@ -87,7 +87,8 @@ nav {
     cursor: pointer;
 }
 
-.drop-down {
+.drop-down,
+.update-drop-down {
     display: none;
     position: absolute;
     width: 200px;
@@ -222,10 +223,52 @@ textarea {
     margin: 40px 0;
     color: var(--secondary-color);
     background-color: var(--primary-color);
-    border: 1px solid var(--secondary-color);
+    position: relative;
+    /* border: 1px solid var(--secondary-color); */
 }
 
 .title {
     font-size: var(--fnt-size-l);
     font-weight: var(--fnt-wght-b);
+}
+
+.edit-delete-menu {
+    width: 40px;
+    height: 40px;
+    font-size: var(--fnt-size-m);
+    float: right;
+    /* background-color: red;  */
+    border-radius: 50%; 
+    /* text-align: center; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 600ms ease-in-out;
+}
+
+.edit-delete-menu:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.material-card .update-drop-down {
+    width: 450%;
+    position: absolute;
+    color: var(--primary-color);
+    height: auto;
+    background-color: var(--secondary-color);
+    padding: 5px 20px;
+    text-align: center;
+}
+
+.material-card .update-drop-down p {
+    display: inline-block;
+    transition: opacity 300ms ease-in-out;
+    margin-right: 10px;
+}
+
+.material-card .update-drop-down p:hover {
+    opacity: 0.6;
 }

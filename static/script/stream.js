@@ -1,12 +1,27 @@
 const dropBtn = document.querySelector('.drop-btn');
 
 // when the document is ready run the function inside of it...
+function handleDropDownClick(e, btn, dropdown) {
+    e.stopPropagation(); // prevent event bubbling
+    btn.classList.toggle('active');
+    $(dropdown).slideToggle('fast');   // slideToggle() method is performed everytime the button is clicked...
+}
+
 $(document).ready(function() {
-    $('.drop-btn').click(function (e) {     // when an element with '.drop-btn' in html is clicked it runs the function inside of click() method again...
-        e.stopPropagation(); // prevent event bubbling
-        dropBtn.classList.toggle('active');
-        $('.drop-down').slideToggle('fast');   // slideToggle() method is performed everytime the button is clicked...
+    const userDropDown = document.querySelector('.drop-down');
+    const materialCardDropDown = [...document.querySelectorAll('.update-drop-down')];
+    const userDropDownBtn = dropBtn;
+    const materialCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
+
+    $(userDropDownBtn).click(function (e) {     // when an element with '.drop-btn' in html is clicked it runs the function inside of click() method again...
+        handleDropDownClick(e, userDropDownBtn, userDropDown);
     });
+
+    materialCardDropDownBtn.forEach((dropDown, index) => {
+        $(dropDown).click(function (e) {
+            handleDropDownClick(e, dropDown, materialCardDropDown[index]);  // for Each materialCardDropDownBtn, same materialCardDropDown in its index is passed as argument to the handleDropDownClick() function...
+        });
+    })
 
     $(document).click(function (event) {
         event.stopPropagation();
