@@ -53,6 +53,64 @@ const materialsArray = JSON.parse(document.querySelector('.material-container').
 
 console.log(materialsArray);
 
+// // function to generate PDF thumbnail in js using PDF.js library...
+// function generatePDFThumbnail(fileURL, callback) {
+//     fetch(fileURL)
+//     .then(function(response) {
+//       if (!response.ok) {
+//         throw new Error('HTTP error, status = ' + response.status);
+//       }
+//       if (response.blob) {
+//         return response.blob();
+//       }
+//       return response.arrayBuffer();
+//     })
+//     .then(function(result) {
+//       if (result instanceof ArrayBuffer) {
+//         var arrayBuffer = result;
+//         // Continue with the rest of the code...
+//       } else {
+//         var blob = result;
+//         var reader = new FileReader();
+//         reader.onload = function() {
+//           var typedArray = new Uint8Array(reader.result);
+        
+
+//         // Load the PDF using PDF.js
+//       pdfjsLib.getDocument(typedArray).promise.then(function(pdf) {
+//         // Fetch the first page of the PDF
+//         pdf.getPage(1).then(function(page) {
+//           var viewport = page.getViewport({ scale: 1 });
+//           var canvas = document.createElement('canvas');
+//           var context = canvas.getContext('2d');
+//           var maxSize = 100; // Maximum thumbnail size (adjust as needed)
+//           var scale = maxSize / Math.max(viewport.width, viewport.height);
+//           var scaledViewport = page.getViewport({ scale: scale });
+          
+//           canvas.width = scaledViewport.width;
+//           canvas.height = scaledViewport.height;
+          
+//           var renderContext = {
+//             canvasContext: context,
+//             viewport: scaledViewport
+//           };
+          
+//           // Render the page onto the canvas
+//           page.render(renderContext).promise.then(function() {
+//             var thumbnail = canvas.toDataURL('image/jpeg');
+//             callback(thumbnail);
+//           });
+//         });
+//       });
+//         };
+//       reader.readAsArrayBuffer(arrayBuffer);
+//     };
+//     })
+//     .catch(function(error) {
+//       console.error('Error fetching file:', error);
+//     });
+// }
+
 // checking browser support...
 if ('content' in document.createElement('template')) {
     materialsArray.map(material => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
@@ -62,6 +120,7 @@ if ('content' in document.createElement('template')) {
             let title = clone.querySelector('.title');
             let description = clone.querySelector('.description');
             let file = clone.querySelector('.file_link');
+            let fileImage = clone.querySelector('.file_image');
 
             title.textContent = `${material.title}`;
             description.textContent = `${material.description}`; // name of the teacher who created the class
@@ -70,10 +129,19 @@ if ('content' in document.createElement('template')) {
             }else{
                 file.style.display = 'none';
             }
-            
+
+            if (material.file_extension == '.pdf') {
+              fileImage.src = "../../static/images/pdf watermark img.png";
+            } else {
+              fileImage.src = '../../static/images/image watermark img.png'
+            }
             
             const materialContainer = document.querySelector('.material-container');
             
+            // generatePDFThumbnail(material.file_url, function(thumbnail) {
+            //     var thumbnailImg = document.getElementById('file_thumbnail');
+            //     thumbnailImg.src = thumbnail;
+            // });
             materialContainer.appendChild(clone);
     })
 

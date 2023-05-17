@@ -14,11 +14,14 @@
     <!-- jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- pdf.js js library to generate thumbnails of the pdf files... -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" defer></script>
+
     <!-- link to stream.js file -->
     <script src="../../../static/script/stream.js" defer></script>
 </head>
 <body>
-    <dialog class="modal">
+    <!-- <dialog class="modal">
         <fieldset>
             <legend>Update</legend>
             <div class="modal-nav">
@@ -35,7 +38,7 @@
                 </div>
             </form>
         </fieldset>
-    </dialog>
+    </dialog> -->
     <section class="nav-bar-container">
         <nav>
             <a href="#">
@@ -94,10 +97,12 @@
                             <p class="delete-post">Delete</p>
                         </div>
                     </div>
-                    <p class="title">Chapter 1: notes</p>
-                    <p class="description">It contains jjkdjf </p>
-                    <a href="#" class="file_link">
-                        <img src="" alt="file1">
+                    <p class="title"></p>
+                    <p class="description"></p>
+                    <a href="#" class="file_link" target="_blank">
+                        <div class="file_img_container">
+                            <img src="" alt="file image" class="file_image">
+                        </div>
                     </a>
                 </div>
             </template>

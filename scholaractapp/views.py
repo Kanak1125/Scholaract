@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 # from django.core.exceptions import ValidationError
 # from django.core.mail import send_mail
 import json
+import os   # os module for that will be used to extract the extension of the file...
 
 # Create your views here.
 
@@ -244,6 +245,8 @@ def single_class(request, pk):
         if material.file:
             material_data['file_name'] = material.file.name
             material_data['file_url'] = material.file.url
+            file_extension = os.path.splitext(material.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+            material_data['file_extension'] = file_extension
         # course_list.append(material_data)
         course_list.append(material_data)
     # print(course_list)
