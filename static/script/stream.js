@@ -121,11 +121,13 @@ if ('content' in document.createElement('template')) {
             let description = clone.querySelector('.description');
             let file = clone.querySelector('.file_link');
             let fileImage = clone.querySelector('.file_image');
+            let imgFileName = clone.querySelector('.img-file-name');
 
             title.textContent = `${material.title}`;
             description.textContent = `${material.description}`; // name of the teacher who created the class
             if (material.file_url){
                 file.href = `${material.file_url}`;
+                imgFileName.textContent = material.file_name;
             }else{
                 file.style.display = 'none';
             }
