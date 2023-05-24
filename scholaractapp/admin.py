@@ -130,7 +130,7 @@ class ClassAdmin(admin.ModelAdmin):
     list_display = ('class_name', 'class_code', 'teacher')
 
 class CourseMatrialAdmin(admin.ModelAdmin):
-    list_display=('title', 'file', 'related_class', 'uploaded_by' )
+    list_display=('title', 'related_class', 'uploaded_by' )
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)

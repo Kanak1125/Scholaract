@@ -124,19 +124,34 @@ if ('content' in document.createElement('template')) {
             let imgFileName = clone.querySelector('.img-file-name');
 
             title.textContent = `${material.title}`;
-            description.textContent = `${material.description}`; // name of the teacher who created the class
-            if (material.file_url){
-                file.href = `${material.file_url}`;
-                imgFileName.textContent = material.file_name;
-            }else{
-                file.style.display = 'none';
-            }
+            description.textContent = `${material.description}`; 
+            
+            material.files.forEach(f =>{
+                if (f.file_url){
+                    file.href = `${f.file_url}`;
+                    imgFileName.textContent = f.file_name;
+                }else{
+                    file.style.display = 'none';
+                }
 
-            if (material.file_extension == '.pdf') {
-              fileImage.src = "../../static/images/pdf watermark img.png";
-            } else {
-              fileImage.src = '../../static/images/image watermark img.png'
-            }
+                if (f.file_extension == '.pdf') {
+                    fileImage.src = "../../static/images/pdf watermark img.png";
+                } else {
+                  fileImage.src = '../../static/images/image watermark img.png'
+                }
+            })
+            // if (material.file_url){
+            //     file.href = `${material.file_url}`;
+            //     imgFileName.textContent = material.file_name;
+            // }else{
+            //     file.style.display = 'none';
+            // }
+
+            // if (material.file_extension == '.pdf') {
+            //   fileImage.src = "../../static/images/pdf watermark img.png";
+            // } else {
+            //   fileImage.src = '../../static/images/image watermark img.png'
+            // }
             
             const materialContainer = document.querySelector('.material-container');
             
@@ -153,7 +168,10 @@ if ('content' in document.createElement('template')) {
 
 const editPost = [...document.querySelectorAll('.edit-post')];  // this selects every element with '.edit-post' class and assign it to 'editPost' array using querySelectorAll and spread operator(...) ...
 const closeModal = [...document.querySelectorAll('.close-modal')];  // this selects every '.close-modal' as there are multiple material cards and store it in the 'closeModal' array as in above...
-const modal = document.querySelector('.modal'); // selects the dialog element in HTML...
+
+const updateModal = document.querySelector('.update-modal'); // selects the dialog element in HTML...
+
+const updateForm = document.getElementById('update-form');
 
 editPost.forEach(btn => {
     btn.addEventListener('click', () => {

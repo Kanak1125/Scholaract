@@ -1,5 +1,5 @@
 # from .models import User
-from django.dispatch import sender
+# from django.dispatch import sender
 # from django.core.mail import send_mail
 # from django.db.models.signals import post_save
 # # post_save = this method is gonna trigger anytime after a model is saved

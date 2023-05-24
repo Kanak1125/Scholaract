@@ -1,10 +1,10 @@
 # we edited this file
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
 
 # importing Users model from the models.py file
-from .models import User, Class, Student, CourseMaterial
+from .models import User, Class, Student, CourseMaterial, MaterialFile
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
@@ -213,10 +213,12 @@ def classes_student(request):
 def single_class(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
+    print(request.POST)
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
-        file = request.FILES.get('post_file')
+        # file = request.FILES.get('post_file')
+        files = request.FILES.getlist('post_file')
 
         user_data = request.session.get('user')
         # user_name = user_data['fname']
@@ -224,9 +226,15 @@ def single_class(request, pk):
         uploaded_by = User.objects.get(id=user_id)
         # uploaded_by = 
 
-        material = CourseMaterial(title=title, description=description, file=file, related_class=related_class, uploaded_by=uploaded_by,)
+        file_count = len(files)
+        print(f"Number of files uploaded: {file_count}")
+        material = CourseMaterial.objects.create(title=title, description=description, related_class=related_class, uploaded_by=uploaded_by,)
+        
         print(related_class)
-        material.save()
+        print(files)
+        
+        for file in files:
+            MaterialFile.objects.create(file=file, course_material=material)
         class_pk = classObj.pk
         
         # Redirect to the class page with class_pk as parameter
@@ -236,19 +244,42 @@ def single_class(request, pk):
     course_list = []
     for material in course:
         material_data = {
+            'id': material.id,
             'title': material.title,
             'description': material.description,
             # 'file_name': material.file.name,
             # 'file_url': material.file.url,
-            'uploaded_by': material.uploaded_by.name()
+            'uploaded_by': material.uploaded_by.name(),
+            'files': []
         }
-        if material.file:
-            material_data['file_name'] = material.file.name
-            material_data['file_url'] = material.file.url
-            file_extension = os.path.splitext(material.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
-            material_data['file_extension'] = file_extension
-        # course_list.append(material_data)
+
+        material_files = MaterialFile.objects.filter(course_material=material)
+        
+        for material_file in material_files:
+            file_data = {
+                'file_name': material_file.file.name,
+                'file_url': material_file.file.url,
+                'file_extension':os.path.splitext(material_file.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+            }
+            material_data['files'].append(file_data)
         course_list.append(material_data)
+        # if material_files:
+        #     file_data = []
+        #     for material_file in material_files:
+        #         file_data.append({
+        #             'file_name': material_file.file.name,
+        #             'file_url': material_file.file.url,
+        #             'file_extension':os.path.splitext(material_file.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+        #         })
+        #     material_data['files'] = file_data
+        # course_list.append(material_data)
+
+            # material_data['file_name'] = material.file.name
+            # material_data['file_url'] = material.file.url
+            # file_extension = os.path.splitext(material.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+            # material_data['file_extension'] = file_extension
+        # course_list.append(material_data)
+
     # print(course_list)
     
     course_json = json.dumps(course_list)
@@ -264,3 +295,37 @@ def logout(request):
     request.session.flush()
 
     return redirect('login')
+
+# def updateMaterial(request, pk):
+#     # material = get_object_or_404(CourseMaterial, id=pk)
+#     material = CourseMaterial.objects.get(id=id)
+
+#     if request.method == "POST":
+#         title = request.POST.get('post_title')
+#         description = request.POST.get('post_description')
+#         file = request.FILES.get('post_file')
+        
+#         if file:
+#             material.title = title
+#             material.description = description
+#             material.file = file
+#         material.save()
+#         related_class = material.related_class
+#     course = CourseMaterial.objects.filter(related_class=related_class)
+#     course_list = []
+#     for material in course:
+#         material_data = {
+#             'title': material.title,
+#             'description': material.description,
+#             'uploaded_by': material.uploaded_by.name(),
+            
+#         }
+#         if material.file:
+#             material_data['file_name'] = material.file.name
+#             material_data['file_url'] = material.file.url
+#         course_list.append(material_data)
+    
+#     course_json = json.dumps(course_list)
+    
+#     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
+

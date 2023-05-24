@@ -1,7 +1,7 @@
 # we edited this file
 from django.db import models
 import secrets  # for generating random alphanumeric number for class code
-import uuid
+# import uuid
 
 
 # Create your models here.
@@ -114,8 +114,16 @@ class CourseMaterial(models.Model):
 
     title = models.CharField(max_length=300)
     description = models.TextField(null=True, blank=True)
-    file = models.FileField(upload_to='class_files/', null=True, blank=True)
+    # file = models.FileField(upload_to='class_files/', null=True, blank=True)
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE) # to establish many to one relationship
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
+    
+class MaterialFile(models.Model):
+    file = models.FileField(upload_to='class_files/', null=True, blank=True) # Each CourseMaterial object can have multiple associated MaterialFile objects, allowing for multiple file uploads
+    course_material = models.ForeignKey(CourseMaterial, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.file.name
+    
