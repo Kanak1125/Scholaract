@@ -1,5 +1,23 @@
 @import url('../style.css');
 
+body {
+    background: url('../../images/stream_body_pattern.jpg') repeat;
+    background-size: contain;
+    z-index: -2;
+    position: relative;
+}
+
+#top-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2); /* Adjust the background color and opacity as needed */
+    backdrop-filter: blur(0.5px);
+    z-index: -1; /* Ensure the top layer appears above other content */
+}
+
 nav,
 .main {
     max-width: 1200px;
@@ -225,18 +243,32 @@ textarea {
 } */
 .title,
 .description {
-    padding: 1rem 36px;
+    padding: 1rem 36px 0rem;
 }
 
-.file_img_container {
-    margin: 36px;
+.file-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-content: start;
+    padding: 20px 36px;
 }
 
-.title {
-    background-color: var(--secondary-color);
+.title,
+p.uploaded-by {
+    /* background-color: var(--secondary-color); */
     font-size: var(--fnt-size-l);
     font-weight: var(--fnt-wght-b);
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
+}
+
+p.title {
+    color: var(--accent-color);
+}
+
+p.uploaded-by {
+    font-size: var(--fnt-size-v-s);
+    padding: 0 36px;
+    border-bottom: 1px solid var(--bg-color-op6);
 }
 
 .file_img_container {
@@ -249,6 +281,11 @@ textarea {
     overflow: hidden; 
     position: relative;
 }
+
+.file_link {
+    display: block;
+}
+
 .file_image {
     width: 100%;
     height: 100%;
@@ -257,7 +294,7 @@ textarea {
 }
 
 .file_image:hover {
-    scale: 1.1;
+    scale: 1.05;
     filter: grayscale(0);
 }
 
@@ -270,6 +307,9 @@ textarea {
     transform: scaleY(0);
     transform-origin: bottom;
     transition: transform 200ms ease-out;
+    font-size: var(--fnt-size-v-s);
+    padding: 2px 10px;
+    color: var(--primary-color);
 }
 
 /* .file_img_container::before {
@@ -299,6 +339,7 @@ textarea {
     cursor: pointer;
     position: relative;
     transition: all 600ms ease-in-out;
+    margin: 20px;
 }
 
 .edit-delete-menu:hover {

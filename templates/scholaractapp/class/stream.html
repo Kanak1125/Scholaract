@@ -21,6 +21,7 @@
     <script src="../../../static/script/stream.js" defer></script>
 </head>
 <body>
+    <div id="top-layer"></div>
     <!-- <dialog class="modal">
         <fieldset>
             <legend>Update</legend>
@@ -98,14 +99,24 @@
                         </div>
                     </div>
                     <p class="title"></p>
+                    <p class="uploaded-by">Uploaded by: <span class="uploader"></span></p>
                     <p class="description"></p>
-                    <a href="#" class="file_link" target="_blank">
+                    <!-- <a href="#" class="file_link" target="_blank">
                         <div class="file_img_container">
                             <img src="" alt="file image" class="file_image">
                             <div class="img-file-name"></div>
                         </div>
-                    </a>
+                    </a> -->
+                    <div class="file-container"></div>
                 </div>
+            </template>
+            <template class="file-template">
+                    <div class="file_img_container">
+                        <a href="#" class="file_link" target="_blank">
+                            <img src="" alt="file image" class="file_image">
+                            <div class="img-file-name"></div>
+                        </a>
+                    </div>
             </template>
         </div>
     </main>

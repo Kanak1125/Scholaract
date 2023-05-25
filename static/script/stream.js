@@ -118,28 +118,54 @@ if ('content' in document.createElement('template')) {
         // Clone the new material card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
         const clone = materialTemplate.content.cloneNode(true);    // here is when the template is cloned...
             let title = clone.querySelector('.title');
+            let uploader = clone.querySelector('.uploader');
             let description = clone.querySelector('.description');
-            let file = clone.querySelector('.file_link');
-            let fileImage = clone.querySelector('.file_image');
-            let imgFileName = clone.querySelector('.img-file-name');
 
             title.textContent = `${material.title}`;
+            uploader.textContent = `${material.uploaded_by}`;
             description.textContent = `${material.description}`; 
             
-            material.files.forEach(f =>{
-                if (f.file_url){
-                    file.href = `${f.file_url}`;
-                    imgFileName.textContent = f.file_name;
+            const fileContainer = clone.querySelector('.file-container');
+
+            // for every material.files array we will be performing the mapping and creating image thumbnails for every material cards
+            (material.files).map(file => {
+                const fileTemplate = document.querySelector(".file-template");
+
+                const clone2 = fileTemplate.content.cloneNode(true);
+
+                let fileLink = clone2.querySelector('.file_link');
+                let fileImage = clone2.querySelector('.file_image');
+                let imgFileName = clone2.querySelector('.img-file-name');
+
+                if (file.file_url){
+                    fileLink.href = `${file.file_url}`;
+                    imgFileName.textContent = file.file_name;
                 }else{
-                    file.style.display = 'none';
+                    fileLink.style.display = 'none';
                 }
 
-                if (f.file_extension == '.pdf') {
+                if (file.file_extension == '.pdf') {
                     fileImage.src = "../../static/images/pdf watermark img.png";
                 } else {
                   fileImage.src = '../../static/images/image watermark img.png'
                 }
-            })
+
+                fileContainer.appendChild(clone2);
+            });
+            // material.files.forEach(f =>{
+            //     if (f.file_url){
+            //         fileLink.href = `${f.file_url}`;
+            //         imgFileName.textContent = f.file_name;
+            //     }else{
+            //         file.style.display = 'none';
+            //     }
+
+            //     if (f.file_extension == '.pdf') {
+            //         fileImage.src = "../../static/images/pdf watermark img.png";
+            //     } else {
+            //       fileImage.src = '../../static/images/image watermark img.png'
+            //     }
+            // })
             // if (material.file_url){
             //     file.href = `${material.file_url}`;
             //     imgFileName.textContent = material.file_name;

@@ -47,6 +47,10 @@ console.log(classesArray);
 
 // checking browser support...
 if ('content' in document.createElement('template')) {
+    const cardImgArray = ['class_card_img_1.jpg', 'class_card_img_2.jpg', 'class_card_img_3.jpg', 'class_card_img_4.jpg', 'class_card_img_5.jpg'];
+
+    const randomCardImgIndex = Math.floor(Math.random() * cardImgArray.length);
+
     classesArray.map(cl => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
         const classTemplate = document.querySelector(".class-template");
         // Clone the new class card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
@@ -54,18 +58,19 @@ if ('content' in document.createElement('template')) {
             let className = clone.querySelector('.class-name');
             let teacherName = clone.querySelector('.teacher-name');
             let classAnchor = clone.querySelector('.class-card-link');
+            let classImage = clone.querySelector('.class-img');
 
             className.textContent = `${cl.class_name}`;
             teacherName.textContent = `${cl.created_by}`; // name of the teacher who created the class
              // Add click event listener to the cloned class card
             classAnchor.href = `/class/${cl.id}`;
+            classImage.src = `../../static/images/${cardImgArray[randomCardImgIndex]}`;
             
             const classes = document.querySelector('.classes');
-            
+            console.log(cardImgArray[randomCardImgIndex]);
             classes.appendChild(clone);
     })
 
 } else {
     console.log("template not found!");
 }
-
