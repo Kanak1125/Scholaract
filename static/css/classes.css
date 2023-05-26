@@ -1,4 +1,5 @@
 @import url('./style.css');
+@import url('./dropdown.css');
 
 body {
     position: relative;
@@ -127,41 +128,6 @@ nav {
     padding: 20px 15px;
 }
 
-.drop-down {
-    display: none;
-    position: absolute;
-    width: 200px;
-    height: 120px;
-    top: 45px;
-    right: 0;
-    background-color: var(--bg-color-op6);
-    /* border: 2px solid black; */
-    border-radius: 10px;
-    z-index: 1;
-    /* display: flex; */
-    padding: 20px 40px;
-    /* flex-direction: column; */
-    backdrop-filter: blur(5px);
-    line-height: 2rem;
-}
-
-.drop-down a {
-    display: block;
-    text-decoration: none;
-    color: var(--primary-color);
-    transition: opacity 600ms ease-out;
-}
-.drop-down a:hover {
-    opacity: 0.6;
-}
-
-.drop-btn {
-    transition: transform 300ms ease-out;
-}
-.drop-btn.active {
-    transform: rotate(180deg);
-}
-
 .modal-container {
     position: absolute;
     width: 100%;
@@ -228,4 +194,22 @@ nav {
 .join-class-btn {
     width: 100px;
     height: 40px;
+}
+
+@media (max-width: 375px) {
+    .nav-links > button {
+        margin-right: 20px;
+    }
+    .classes {
+        padding: 60px 20px;
+        column-gap: 0;
+        row-gap: 3.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+    .class-card-link {
+        display: block;
+    }
+    .class-card {
+        width: 80%;  
+    }
 }

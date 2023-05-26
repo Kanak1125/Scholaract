@@ -1,4 +1,5 @@
 @import url('./style.css');
+@import url('./hamburger.css');
 
 nav,
 .people-img-container,
@@ -16,33 +17,6 @@ footer .links {
     width: 100%;
     top: 0;
     z-index: 1;
-}
-
-.hamburger-icon {
-    display: none;
-    cursor: pointer;
-}
-
-.bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--primary-color);
-    margin: 5px auto;
-    transition: all 300ms ease-in-out;
-    border-radius: 2px;
-}
-
-.hamburger-icon.active .bar:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger-icon.active .bar:first-child {
-    transform: translateY(8px) rotate(45deg);
-}
-
-.hamburger-icon.active .bar:last-child {
-    transform: translateY(-8px) rotate(-45deg);
 }
 
 nav {
@@ -310,10 +284,6 @@ footer .links {
 
 /* responsive design starts here */
 @media (max-width: 834px) {
-    .hamburger-icon {
-        display: block;
-    }
-
     .nav-sub-container {
         position: fixed;
         flex-direction: column;
