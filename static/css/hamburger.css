@@ -3,6 +3,7 @@
 .hamburger-icon {
     display: none;
     cursor: pointer;
+    z-index: 11;
 }
 
 .bar {

@@ -1,3 +1,7 @@
+// $(document).ready(function() {
+//     $(".nav-bar-container").load("{% include '../../includes/navbar202.html' %}");
+// });
+
 const dropBtn = document.querySelector('.drop-btn');
 
 // when the document is ready run the function inside of it...
