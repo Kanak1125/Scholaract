@@ -1,0 +1,93 @@
+.links ul li:first-child a::after {
+    display: none;
+}
+
+.links ul li:nth-child(2) a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
+
+.main {
+    display: flex;
+}
+
+.task-container {
+    flex: 70%;
+    /* flex-basis: 0; */
+}
+
+.assign-task-form-container {
+    flex: 30%;
+    /* flex-basis: 0; */
+}
+
+header .title {
+    padding-left: 0;
+}
+hr {
+    margin-top: 20px;
+    height: 2px;
+    outline: none !important;
+    border: 2.5px solid var(--bg-color-op6);
+    border-radius: 5px;
+}
+
+.task-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    padding: 100px 0px;
+    column-gap: 2.5rem;
+    row-gap: 4.5rem;
+}
+
+.task-card-link {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+.task-card {
+    width: 300px;
+    /* border: 1px solid black; */
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: .5px 1px 5px var(--secondary-color);
+    transition: all 300ms ease-out;
+    background-color: var(--primary-color);
+}
+
+.task-card:hover {
+    box-shadow: 1px 1px 7.5px var(--secondary-color);
+    scale: 1.01;
+}
+
+.task-card hr {
+    border: 1.5px solid var(--bg-color-op6);
+    border-radius: 0 !important;
+}
+
+p.deadline {
+    padding: 15px 36px;
+    font-weight: var(--fnt-wght-b);
+    font-size: var(--fnt-size-v-s);
+    float: right;
+}
+span.due-date {
+    font-weight: var(--fnt-wght-thin);
+}
+
+.assign-task-form-container form {
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    box-shadow: .5px 1px 5px var(--secondary-color);
+}
+
+.assign-task-form-container .title {
+    padding-left: 0;
+}
