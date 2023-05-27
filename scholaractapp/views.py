@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.core import serializers
 
 # importing Users model from the models.py file
-from .models import User, Class, Student, CourseMaterial, MaterialFile
+from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
@@ -289,8 +289,47 @@ def single_class(request, pk):
 
 def task(request, pk):
     classObj = Class.objects.get(id=pk)
+    related_class = classObj
 
-    return render(request, 'scholaractapp/class/task.html', {'class':classObj,})
+    if request.method == "POST":
+        title = request.POST.get('post_title')
+        description = request.POST.get('post_description')
+        files = request.FILES.getlist('post_file')
+
+        task = Task.objects.create(title=title, description=description, related_class=related_class,)
+
+        for file in files:
+            TaskFile.objects.create(file=file, task=task)
+        class_pk = classObj.pk
+
+        return redirect('task', pk=class_pk)
+    
+    current_task = Task.objects.filter(related_class=related_class)
+    task_list = []
+
+    for task in current_task:
+        task_data = {
+            'id': task.id,
+            'title': task.title,
+            'description': task.description,
+            # 'file_name': material.file.name,
+            # 'file_url': material.file.url,
+            'files': []
+        }
+
+        task_files = TaskFile.objects.filter(task=task)
+        
+        for task_file in task_files:
+            file_data = {
+                'file_name': task_file.file.name,
+                'file_url': task_file.file.url,
+                'file_extension':os.path.splitext(task_file.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+            }
+            task_data['files'].append(file_data)
+        task_list.append(task_data)
+    task_json = json.dumps(task_list)
+        
+    return render(request, 'scholaractapp/class/task.html', {'task_json': task_json,'class':classObj,})
 
 def people(request, pk):
     classObj = Class.objects.get(id=pk)

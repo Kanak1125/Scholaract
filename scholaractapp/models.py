@@ -127,3 +127,17 @@ class MaterialFile(models.Model):
     def __str__(self):
         return self.file.name
     
+class Task(models.Model):
+    title = models.CharField(max_length=300)
+    description = models.TextField(null=True, blank=True)
+    related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.title
+    
+class TaskFile(models.Model):
+    file = models.FileField(upload_to='task_files/', null=True, blank=True) # Each CourseMaterial object can have multiple associated MaterialFile objects, allowing for multiple file uploads
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.file.name
