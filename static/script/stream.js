@@ -9,6 +9,12 @@ function handleDropDownClick(e, btn, dropdown) {
     e.stopPropagation(); // prevent event bubbling
     btn.classList.toggle('active');
     $(dropdown).slideToggle('fast');   // slideToggle() method is performed everytime the button is clicked...
+
+    // var target = $(event.target);
+    // if(!target.is('.drop-btn') && !target.closest('.drop-down').length) {
+    //     $('.drop-down').slideUp('fast');
+    //     dropBtn.classList.remove('active');
+    // }
 }
 
 $(document).ready(function() {
