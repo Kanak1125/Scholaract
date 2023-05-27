@@ -12,32 +12,14 @@
     <!-- jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="../../../static/script/hamburger.js" defer></script>
+    <!-- <script src="../../../static/script/hamburger.js" defer></script> -->
 
     <link rel="stylesheet" href="../../../static/css/class/stream.css">
     <link rel="stylesheet" href="../../../static/css/class/tasks.css">
 </head>
 <body>
     <div id="top-layer"></div>
-    <!-- <dialog class="modal">
-        <fieldset>
-            <legend>Update</legend>
-            <div class="modal-nav">
-                <i class="fas fa-times close-modal"></i>
-            </div>
-            <form action="" method="post" enctype="multipart/form-data" id="upadte-form">
-                {% csrf_token %}
-                <input type="text" name="post_title" id="post_title" placeholder="Title here...">
-                <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
-                <div class="add-file-and-post-container">
-                    <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
-                    <input type="file" name="post_file" id="post_file">
-                    <input type="submit" class="btn" value="Update" id="update-btn">
-                </div>
-            </form>
-        </fieldset>
-    </dialog> -->
-    <section class="nav-bar-container">
+    <!-- <section class="nav-bar-container">
         <nav>
             <a href="#">
                 <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
@@ -48,7 +30,7 @@
                     <li><a href="">Tasks</a></li>
                     <li><a href="">People</a></li>
                     <li><a href="">Report</a></li>
-                    <li style="display: none;"><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
+                    <li style="display: none;"><a href="">Marks</a></li>   
                 </ul>
             </div>
             <div class="nav-links">
@@ -65,7 +47,9 @@
                 </div>
             </div>
         </nav>
-    </section>
+    </section> -->
+    {% include 'scholaractapp/includes/navbar202.html' %}
+
     <main class="main">
         <div class="task-container">
             <header>

@@ -14,10 +14,10 @@
         </a>
         <div class="nav-links links nav-sub-container">
             <ul>
-                <li><a href="#">Stream</a></li>
-                <li><a href="">Tasks</a></li>
-                <li><a href="">People</a></li>
-                <li><a href="">Report</a></li>
+                <li><a href="{% url 'class' pk=class.pk  %}">Stream</a></li>
+                <li><a href="{% url 'task' pk=class.pk %}">Tasks</a></li>
+                <li><a href="{% url 'people' pk=class.pk %}">People</a></li>
+                <li><a href="{% url 'report' pk=class.pk %}">Report</a></li>
                 <li style="display: none;"><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
             </ul>
         </div>

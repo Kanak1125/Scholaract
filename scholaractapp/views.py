@@ -287,6 +287,21 @@ def single_class(request, pk):
     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj,})
 
 
+def task(request, pk):
+    classObj = Class.objects.get(id=pk)
+
+    return render(request, 'scholaractapp/class/task.html', {'class':classObj,})
+
+def people(request, pk):
+    classObj = Class.objects.get(id=pk)
+
+    return render(request, 'scholaractapp/class/people.html', {'class':classObj,})
+
+def report(request, pk):
+    classObj = Class.objects.get(id=pk)
+
+    return render(request, 'scholaractapp/class/report.html', {'class':classObj,})
+
 def logout(request):
     # Delete the session data
     Session.objects.filter(session_key=request.session.session_key).delete()

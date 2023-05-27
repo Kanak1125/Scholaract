@@ -12,6 +12,9 @@ urlpatterns = [
     path('success/',views.success, name = "success"), # temporary url (might be changed later)
     path('classes/',views.classes, name = "classes"), 
     path('class/<str:pk>/',views.single_class, name = "class"), 
+    path('class/<str:pk>/task/', views.task, name="task"),
+    path('class/<str:pk>/people/', views.people, name="people"),
+    path('class/<str:pk>/report/', views.report, name="report"),
     path('logout/',views.logout, name = "logout"), 
 ]
 
