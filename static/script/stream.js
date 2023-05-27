@@ -151,9 +151,8 @@ if ('content' in document.createElement('template')) {
                 if (file.file_extension == '.pdf') {
                     fileImage.src = "../../static/images/pdf watermark img.png";
                 } else {
-                  fileImage.src = '../../static/images/image watermark img.png'
+                    fileImage.src = '../../static/images/image watermark img.png'
                 }
-
                 fileContainer.appendChild(clone2);
             });
             // material.files.forEach(f =>{

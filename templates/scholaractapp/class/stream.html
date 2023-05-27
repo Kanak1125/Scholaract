@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stream</title>
 
-    <link rel="stylesheet" href="../../../static/css/class/stream.css">
+    <!-- <link rel="stylesheet" href="../../../static/css/class/stream.css"> -->
 
     <!-- fontawesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -18,9 +18,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" defer></script>
 
     <!-- link to stream.js file -->
-    <script src="../../../static/script/stream.js" defer></script>
+    <!-- <script src="../../../static/script/stream.js" defer></script> -->
     
-    <script src="../../../static/script/hamburger.js" defer></script>
+    <!-- <script src="../../../static/script/hamburger.js" defer></script> -->
 </head>
 <body>
     <div id="top-layer"></div>
@@ -42,35 +42,9 @@
             </form>
         </fieldset>
     </dialog> -->
-    <section class="nav-bar-container">
-        <nav>
-            <a href="#">
-                <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
-            </a>
-            <div class="nav-links links nav-sub-container">
-                <ul>
-                    <li><a href="#">Stream</a></li>
-                    <li><a href="">Tasks</a></li>
-                    <li><a href="">People</a></li>
-                    <li><a href="">Report</a></li>
-                    <li style="display: none;"><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
-                </ul>
-            </div>
-            <div class="nav-links">
-                <div class="profile-img"></div>
-                <i class="fas fa-caret-down drop-btn"></i>
-                <div class="drop-down">
-                    <a href="#">Profile</a>
-                    <a href="{%url 'logout'%}">Logout</a>
-                </div>
-                <div class="hamburger-icon">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </div>
-        </nav>
-    </section>
+    
+    {% include 'scholaractapp/includes/navbar202.html' %}
+    
     <main class="main">
         <div class="class-info-container">
             <div class="class-info-card">

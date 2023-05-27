@@ -1,27 +1,38 @@
-<nav>
-    <a href="#">
-        <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
-    </a>
-    <div class="nav-links links nav-sub-container">
-        <ul>
-            <li><a href="#">Stream</a></li>
-            <li><a href="">Tasks</a></li>
-            <li><a href="">People</a></li>
-            <li><a href="">Report</a></li>
-            <li style="display: none;"><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
-        </ul>
-    </div>
-    <div class="nav-links">
-        <div class="profile-img"></div>
-        <i class="fas fa-caret-down drop-btn"></i>
-        <div class="drop-down">
-            <a href="#">Profile</a>
-            <a href="{%url 'logout'%}">Logout</a>
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/class/stream.css' %}">
+     
+    <!-- link to stream.js file -->
+     <script src="{% static 'script/stream.js' %}" defer></script>
+    
+     <script src="{% static 'script/hamburger.js' %}" defer></script>
+</head>
+<section class="nav-bar-container">
+    <nav>
+        <a href="#">
+            <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+        </a>
+        <div class="nav-links links nav-sub-container">
+            <ul>
+                <li><a href="#">Stream</a></li>
+                <li><a href="">Tasks</a></li>
+                <li><a href="">People</a></li>
+                <li><a href="">Report</a></li>
+                <li style="display: none;"><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
+            </ul>
         </div>
-        <div class="hamburger-icon">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
+        <div class="nav-links">
+            <div class="profile-img"></div>
+            <i class="fas fa-caret-down drop-btn"></i>
+            <div class="drop-down">
+                <a href="#">Profile</a>
+                <a href="{%url 'logout'%}">Logout</a>
+            </div>
+            <div class="hamburger-icon">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</section>
