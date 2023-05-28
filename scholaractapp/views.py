@@ -291,6 +291,12 @@ def task(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
 
+    # session data
+    user_data = request.session.get('user')
+    # user_name = user_data['fname']
+    # user_id = user_data['id']
+    role = user_data.get('role')
+
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
