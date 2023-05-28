@@ -14,7 +14,7 @@
 }
 
 .main {
-    display: flex;
+    display: flex !important;
 }
 
 .task-container {

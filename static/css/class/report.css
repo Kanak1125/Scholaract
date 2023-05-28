@@ -1,0 +1,16 @@
+@import url('../style.css');
+@import url('./navbar202.css');
+@import url('./class.css');
+@import url('../dropdown.css');
+@import url('../hamburger.css');
+
+.links ul li:nth-child(4) a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+}
