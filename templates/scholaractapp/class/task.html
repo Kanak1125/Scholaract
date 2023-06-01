@@ -16,6 +16,8 @@
 
     <link rel="stylesheet" href="../../../static/css/class/stream.css">
     <link rel="stylesheet" href="../../../static/css/class/tasks.css">
+
+    <script src="../../../static/script/task.js" defer></script>
 </head>
 <body>
     <div id="top-layer"></div>
@@ -56,32 +58,7 @@
                 <p class="title">Task assigned</p>
                 <hr>
             </header>
-            <div class="task-card-container">
-                <a href="" class="task-card-link">
-                    <div class="task-card">
-                        <p class="title task-name">Task 1</p>
-                        <hr>
-                        <p class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium, reiciendis?</p>
-                        <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
-                    </div>
-                </a>
-                <a href="" class="task-card-link">
-                    <div class="task-card">
-                        <p class="title task-name">Task 1</p>
-                        <hr>
-                        <p class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium, reiciendis?</p>
-                        <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
-                    </div>
-                </a>
-                <a href="" class="task-card-link">
-                    <div class="task-card">
-                        <p class="title task-name">Task 1</p>
-                        <hr>
-                        <p class="description">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laudantium, reiciendis?</p>
-                        <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
-                    </div>
-                </a>
-            </div>
+            <div class="task-card-container" data-task="{{task_json}}"></div>
         </div>
         <div class="assign-task-form-container">
             <form action="" method="post" enctype="multipart/form-data">
@@ -89,6 +66,10 @@
                 <p class="title">Assign</p>
                 <input type="text" name="post_title" id="post_title" placeholder="Title here...">
                 <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
+                <div class="date-and-time-container">
+                    <label for="due-date-time">Due date:</label>
+                    <input type="datetime-local" name="due-date-time" id="due-date-time" placeholder="Add due date and time...">
+                </div>
                 <div class="add-file-and-post-container">
                     <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
                     <input type="file" name="post_file" id="post_file" multiple>
@@ -97,5 +78,15 @@
             </form>
         </div>
     </main>
+    <template class="task-template">
+        <a href="" class="task-card-link">
+            <div class="task-card">
+                <p class="title task-name"></p>
+                <hr>
+                <p class="description"></p>
+                <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
+            </div>
+        </a>
+    </template>
 </body>
 </html>

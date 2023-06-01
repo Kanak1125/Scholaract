@@ -29,7 +29,8 @@ body {
 }
 
 form > input
-,textarea {    /* div.material-section forms direct input child only to prevent btn style overwriting...*/
+,textarea,
+input#due-date-time {    /* div.material-section forms direct input child only to prevent btn style overwriting...*/
     width: 100%;
     height: 50px;
     padding:  10px;
