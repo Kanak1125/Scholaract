@@ -3,6 +3,10 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
 
+import json
+from datetime import datetime
+from django.core.serializers.json import DjangoJSONEncoder
+
 # importing Users model from the models.py file
 from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile
 from django.contrib.auth.hashers import make_password, check_password
@@ -287,6 +291,12 @@ def single_class(request, pk):
     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj,})
 
 
+class DateTimeEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return super().default(obj)
+
 def task(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
@@ -296,13 +306,16 @@ def task(request, pk):
     # user_name = user_data['fname']
     # user_id = user_data['id']
     role = user_data.get('role')
-
+    print(request.POST)
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
         files = request.FILES.getlist('post_file')
+        due_date_time_str = request.POST.get('due-date-time')
+        due_date_time = datetime.strptime(due_date_time_str, '%Y-%m-%dT%H:%M')
+        
 
-        task = Task.objects.create(title=title, description=description, related_class=related_class,)
+        task = Task.objects.create(title=title, description=description, related_class=related_class, due_date_time=due_date_time)
 
         for file in files:
             TaskFile.objects.create(file=file, task=task)
@@ -318,6 +331,7 @@ def task(request, pk):
             'id': task.id,
             'title': task.title,
             'description': task.description,
+            'due_date_time': task.due_date_time,
             # 'file_name': material.file.name,
             # 'file_url': material.file.url,
             'files': []
@@ -333,7 +347,7 @@ def task(request, pk):
             }
             task_data['files'].append(file_data)
         task_list.append(task_data)
-    task_json = json.dumps(task_list)
+    task_json = json.dumps(task_list, cls=DateTimeEncoder)
         
     return render(request, 'scholaractapp/class/task.html', {'task_json': task_json,'class':classObj,})
 

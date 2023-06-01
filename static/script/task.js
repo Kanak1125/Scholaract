@@ -7,10 +7,12 @@ if ('content' in document.createElement('template')) {
         const clone = taskTemplate.content.cloneNode(true);    // here is when the template is cloned...
             let taskName = clone.querySelector('.task-name');
             let description = clone.querySelector('.description');
+            let dueDate = clone.querySelector('.due-date')
             // let dueDate = clone.querySelector('.due-date');
 
             taskName.textContent = `${task.title}`;
             description.textContent = `${task.description}`; 
+            dueDate.textContent = `${task.due_date_time}`;
             
             // const fileContainer = clone.querySelector('.file-container');
 
