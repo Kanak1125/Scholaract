@@ -3,10 +3,6 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
 
-import json
-from datetime import datetime
-from django.core.serializers.json import DjangoJSONEncoder
-
 # importing Users model from the models.py file
 from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile
 from django.contrib.auth.hashers import make_password, check_password
@@ -16,7 +12,11 @@ from django.contrib.auth.decorators import login_required
 # from django.core.exceptions import ValidationError
 # from django.core.mail import send_mail
 import json
-import os   # os module for that will be used to extract the extension of the file...
+from django.core.serializers.json import DjangoJSONEncoder
+from datetime import date
+
+# os module for that will be used to extract the extension of the file...
+import os
 
 # Create your views here.
 
@@ -114,6 +114,8 @@ def login(request):
     # renders the dictionary {} to the 'scholaractapp/login.html' page...
 
 # @login_required(login_url='/login/')
+
+
 def classes(request):
     # session data
     user_data = request.session.get('user')
@@ -132,10 +134,12 @@ def classes_teacher(request):
 
     # session data
     user_data = request.session.get('user')
-    user_name = user_data['fname'] # accessing fname this way because we are sure it will exist in the db and absence of the fname is considered an error
+    # accessing fname this way because we are sure it will exist in the db and absence of the fname is considered an error
+    user_name = user_data['fname']
     user_id = user_data['id']
     # since role is being assigned by admin, it is being accessed this way
-    role = user_data.get('role') # accessing role this way becaues it initially does not exist or is set to None. It is used because when the role doesnot have a value, it will not return an error and role can be set as None too
+    # accessing role this way becaues it initially does not exist or is set to None. It is used because when the role doesnot have a value, it will not return an error and role can be set as None too
+    role = user_data.get('role')
     # retrieves a single record that matches the user_id that we got from session
     teacher = User.objects.get(id=user_id)
     print(role)
@@ -153,7 +157,7 @@ def classes_teacher(request):
     # retrives the record in Class model where the teacher field matches the teacher object given
     classes = Class.objects.filter(teacher=teacher)
     # list() method converts the query set into the python list object...
-    cl = list(classes.values('id','class_code', 'class_name',
+    cl = list(classes.values('id', 'class_code', 'class_name',
               'subject_name',))
     for item in cl:
         item['created_by'] = teacher.name()
@@ -181,7 +185,7 @@ def classes_student(request):
 
     if request.method == "POST":
         class_code = request.POST.get('class_code')  # retrives the class code
-        
+
         try:
             selected_class = Class.objects.get(class_code=class_code)
             # checks if the instance with the entered class_code exists
@@ -191,18 +195,20 @@ def classes_student(request):
         # triggered when Class.objects.get(class_code=class_code) method is unable to find instacne with the class_code entered by student
         except Class.DoesNotExist:
             error_message = 'Invalid class code. Please try again.'
-    
+
     # retrives all the clasees the srusnt has enrolled in
     # value method selects specific fields
     # teacher = selected_class.teacher.name()
-    cl = list(student.classes.values('id','class_code', 'class_name', 'subject_name'))
+    cl = list(student.classes.values(
+        'id', 'class_code', 'class_name', 'subject_name'))
 
     for item in cl:
         try:
-            class_obj = Class.objects.get(class_code=item['class_code']) # retrieving a single object from 'Class' model that corresponds to the class_code of the
+            # retrieving a single object from 'Class' model that corresponds to the class_code of the
+            class_obj = Class.objects.get(class_code=item['class_code'])
             item['created_by'] = class_obj.teacher.name()
         except Class.DoesNotExist:
-            item['created_by'] = ''  
+            item['created_by'] = ''
     # The class information is extracted and converted into a dictionary format, stored in classes_dict.
     classes_dict = {'classes': cl}
     # it will list the classes that are joined by the current logged in student
@@ -228,22 +234,23 @@ def single_class(request, pk):
         # user_name = user_data['fname']
         user_id = user_data['id']
         uploaded_by = User.objects.get(id=user_id)
-        # uploaded_by = 
+        # uploaded_by =
 
         file_count = len(files)
         print(f"Number of files uploaded: {file_count}")
-        material = CourseMaterial.objects.create(title=title, description=description, related_class=related_class, uploaded_by=uploaded_by,)
-        
+        material = CourseMaterial.objects.create(
+            title=title, description=description, related_class=related_class, uploaded_by=uploaded_by,)
+
         print(related_class)
         print(files)
-        
+
         for file in files:
             MaterialFile.objects.create(file=file, course_material=material)
         class_pk = classObj.pk
-        
+
         # Redirect to the class page with class_pk as parameter
         return redirect('class', pk=class_pk)
-    
+
     course = CourseMaterial.objects.filter(related_class=related_class)
     course_list = []
     for material in course:
@@ -258,12 +265,13 @@ def single_class(request, pk):
         }
 
         material_files = MaterialFile.objects.filter(course_material=material)
-        
+
         for material_file in material_files:
             file_data = {
                 'file_name': material_file.file.name,
                 'file_url': material_file.file.url,
-                'file_extension':os.path.splitext(material_file.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+                # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+                'file_extension': os.path.splitext(material_file.file.name)[1]
             }
             material_data['files'].append(file_data)
         course_list.append(material_data)
@@ -278,24 +286,25 @@ def single_class(request, pk):
         #     material_data['files'] = file_data
         # course_list.append(material_data)
 
-            # material_data['file_name'] = material.file.name
-            # material_data['file_url'] = material.file.url
-            # file_extension = os.path.splitext(material.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
-            # material_data['file_extension'] = file_extension
+        # material_data['file_name'] = material.file.name
+        # material_data['file_url'] = material.file.url
+        # file_extension = os.path.splitext(material.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+        # material_data['file_extension'] = file_extension
         # course_list.append(material_data)
 
     # print(course_list)
-    
+
     course_json = json.dumps(course_list)
     print(course)
-    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj,})
+    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj, })
 
 
-class DateTimeEncoder(DjangoJSONEncoder):
+class DateEncoder(DjangoJSONEncoder):
     def default(self, obj):
-        if isinstance(obj, datetime):
-            return obj.isoformat()
+        if isinstance(obj, date):
+            return obj.strftime('%d-%m-%Y')  # strftime = string format time
         return super().default(obj)
+
 
 def task(request, pk):
     classObj = Class.objects.get(id=pk)
@@ -311,18 +320,17 @@ def task(request, pk):
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
         files = request.FILES.getlist('post_file')
-        due_date_time_str = request.POST.get('due-date-time')
-        due_date_time = datetime.strptime(due_date_time_str, '%Y-%m-%dT%H:%M')
-        
+        due_date = request.POST.get('due-date')
 
-        task = Task.objects.create(title=title, description=description, related_class=related_class, due_date_time=due_date_time)
+        task = Task.objects.create(
+            title=title, description=description, related_class=related_class, due_date=due_date)
 
         for file in files:
             TaskFile.objects.create(file=file, task=task)
         class_pk = classObj.pk
 
         return redirect('task', pk=class_pk)
-    
+
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
 
@@ -331,35 +339,40 @@ def task(request, pk):
             'id': task.id,
             'title': task.title,
             'description': task.description,
-            'due_date_time': task.due_date_time,
+            'due_date': task.due_date,
             # 'file_name': material.file.name,
             # 'file_url': material.file.url,
             'files': []
         }
 
         task_files = TaskFile.objects.filter(task=task)
-        
+
         for task_file in task_files:
             file_data = {
                 'file_name': task_file.file.name,
                 'file_url': task_file.file.url,
-                'file_extension':os.path.splitext(task_file.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+                # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+                'file_extension': os.path.splitext(task_file.file.name)[1]
             }
             task_data['files'].append(file_data)
         task_list.append(task_data)
-    task_json = json.dumps(task_list, cls=DateTimeEncoder)
-        
-    return render(request, 'scholaractapp/class/task.html', {'task_json': task_json,'class':classObj,})
+    # cls=DateEncoder is provided to specify a custom JSON encoder class for serializing objects that are not natively serializable by default. In this case, we have defined a custom encoder class called DateEncoder that subclasses DjangoJSONEncoder and overrides its default() method.
+    task_json = json.dumps(task_list, cls=DateEncoder)
+
+    return render(request, 'scholaractapp/class/task.html', {'task_json': task_json, 'class': classObj, })
+
 
 def people(request, pk):
     classObj = Class.objects.get(id=pk)
+    # students =
+    return render(request, 'scholaractapp/class/people.html', {'class': classObj, })
 
-    return render(request, 'scholaractapp/class/people.html', {'class':classObj,})
 
 def report(request, pk):
     classObj = Class.objects.get(id=pk)
 
-    return render(request, 'scholaractapp/class/report.html', {'class':classObj,})
+    return render(request, 'scholaractapp/class/report.html', {'class': classObj, })
+
 
 def logout(request):
     # Delete the session data
@@ -378,7 +391,7 @@ def logout(request):
 #         title = request.POST.get('post_title')
 #         description = request.POST.get('post_description')
 #         file = request.FILES.get('post_file')
-        
+
 #         if file:
 #             material.title = title
 #             material.description = description
@@ -392,14 +405,13 @@ def logout(request):
 #             'title': material.title,
 #             'description': material.description,
 #             'uploaded_by': material.uploaded_by.name(),
-            
+
 #         }
 #         if material.file:
 #             material_data['file_name'] = material.file.name
 #             material_data['file_url'] = material.file.url
 #         course_list.append(material_data)
-    
-#     course_json = json.dumps(course_list)
-    
-#     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
 
+#     course_json = json.dumps(course_list)
+
+#     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})

@@ -12,7 +12,7 @@ if ('content' in document.createElement('template')) {
 
             taskName.textContent = `${task.title}`;
             description.textContent = `${task.description}`; 
-            dueDate.textContent = `${task.due_date_time}`;
+            dueDate.textContent = `${task.due_date}`;
             
             // const fileContainer = clone.querySelector('.file-container');
 

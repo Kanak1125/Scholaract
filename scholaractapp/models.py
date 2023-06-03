@@ -40,7 +40,7 @@ class Student(models.Model):
     # on_delete=models.CASCADE: This specifies what should happen when the related object is deleted. CASCADE means that if the User object is deleted, the corresponding Student or Teacher object should also be deleted.
     # primary_key=True: This indicates that the related User object should also act as the primary key for the Student or Teacher object. In other words, each Student or Teacher object can only be associated with one User object, and vice versa.
 
-     # creates a join table
+    # creates a join table
     classes = models.ManyToManyField('Class', blank=True)
    
     def name(self):  # creating new function name so that the full name (combining first and last name) can be displayed in admin panel
@@ -131,7 +131,7 @@ class Task(models.Model):
     title = models.CharField(max_length=300)
     description = models.TextField(null=True, blank=True)
     related_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    due_date_time = models.DateTimeField(null=True, blank=True) 
+    due_date = models.DateField(null=True, blank=True) 
     
     def __str__(self):
         return self.title
