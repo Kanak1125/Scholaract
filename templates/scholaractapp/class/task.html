@@ -79,14 +79,20 @@
         </div>
     </main>
     <template class="task-template">
-        <a href="" class="task-card-link">
             <div class="task-card">
-                <p class="title task-name"></p>
+                <div class="edit-delete-menu">
+                    <i class="fas fa-ellipsis-v"></i>
+                    <div class="update-drop-down">
+                        <p class="delete-post" onclick="">Delete</p>
+                    </div>
+                </div>
+                <a href="" class="task-card-link">
+                    <p class="title task-name"></p>
+                </a>
                 <hr>
                 <p class="description"></p>
                 <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
             </div>
-        </a>
     </template>
 </body>
 </html>

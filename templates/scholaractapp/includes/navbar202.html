@@ -21,7 +21,7 @@
                 {% if role == "Student" %}
                     <li><a href="{% url 'report' pk=class.pk %}">Report</a></li>
                 {%elif role == "Teacher" %}
-                    <li style=""><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
+                    <li><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
                 {% endif %}
             </ul>
         </div>

@@ -14,32 +14,6 @@ if ('content' in document.createElement('template')) {
             description.textContent = `${task.description}`; 
             dueDate.textContent = `${task.due_date}`;
             
-            // const fileContainer = clone.querySelector('.file-container');
-
-            // (material.files).map(file => {
-            //     const fileTemplate = document.querySelector(".file-template");
-
-            //     const clone2 = fileTemplate.content.cloneNode(true);
-
-            //     let fileLink = clone2.querySelector('.file_link');
-            //     let fileImage = clone2.querySelector('.file_image');
-            //     let imgFileName = clone2.querySelector('.img-file-name');
-
-            //     if (file.file_url){
-            //         fileLink.href = `${file.file_url}`;
-            //         imgFileName.textContent = file.file_name;
-            //     }else{
-            //         fileLink.style.display = 'none';
-            //     }
-
-            //     if (file.file_extension == '.pdf') {
-            //         fileImage.src = "../../static/images/pdf watermark img.png";
-            //     } else {
-            //         fileImage.src = '../../static/images/image watermark img.png'
-            //     }
-            //     fileContainer.appendChild(clone2);
-            // });
-            
             const taskContainer = document.querySelector('.task-card-container');
             
             taskContainer.appendChild(clone);
@@ -48,3 +22,20 @@ if ('content' in document.createElement('template')) {
 } else {
     console.log("template not found!");
 }
+
+function handleDropDownClick(e, btn, dropdown) {
+    e.stopPropagation(); // prevent event bubbling
+    btn.classList.toggle('active');
+    $(dropdown).slideToggle('fast');
+}
+
+$(document).ready(function() {
+    const taskCardDropDown = [...document.querySelectorAll('.update-drop-down')];
+    const taskCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
+
+    taskCardDropDownBtn.forEach((dropDown, index) => {
+        $(dropDown).click(function (e) {
+            handleDropDownClick(e, dropDown, taskCardDropDown[index]);  // for Each materialCardDropDownBtn, same materialCardDropDown in its index is passed as argument to the handleDropDownClick() function...
+        });
+    })
+});
