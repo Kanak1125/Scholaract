@@ -48,7 +48,7 @@ nav {
     position: relative;
     color: var(--primary-color);
     display: block;
-    padding: 5px 20px;
+    margin: 5px 20px;
     text-decoration: none;
     transition: all 600ms ease-out;
     background-clip: text;
@@ -306,6 +306,7 @@ footer .links {
     .nav-links {
         display: flex;
         flex-direction: column;
+        max-width: 100px;
     }
 
     .nav-links li {

@@ -9,12 +9,13 @@ section {
 .nav-links li:first-child a::after {
     content: "";
     position: absolute;
-    width: 60%;
+    width: 100%;
     height: 2px;
-    bottom: 5px;
-    left: 18px;
+    bottom: 0;
+    left: 0;
     background-color: var(--primary-color);
     border-radius: 5px;
+    scale: 1.1;
 }
 
 .aboutUs-page-img {

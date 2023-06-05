@@ -194,18 +194,12 @@ if ('content' in document.createElement('template')) {
 const editPost = [...document.querySelectorAll('.edit-post')];  // this selects every element with '.edit-post' class and assign it to 'editPost' array using querySelectorAll and spread operator(...) ...
 const closeModal = [...document.querySelectorAll('.close-modal')];  // this selects every '.close-modal' as there are multiple material cards and store it in the 'closeModal' array as in above...
 
-const updateModal = document.querySelector('.update-modal'); // selects the dialog element in HTML...
+// const updateModal = document.querySelector('.update-modal'); // selects the dialog element in HTML...
+// const updateForm = document.getElementById('update-form');
 
-const updateForm = document.getElementById('update-form');
+const modalArr = [...document.querySelectorAll('.modal')];
+console.log(modalArr);
 
-editPost.forEach(btn => {
-    btn.addEventListener('click', () => {
-        modal.showModal();  // displays the modal with .showModal() method for dialog elements, to show dialog just use show() inbuilt() method...
-    })
-})
+import toggleModal from "./modules/modal.js";
 
-closeModal.forEach(btn => {
-    btn.addEventListener('click', () => {
-        modal.close();  // closes the modal...
-    })
-})
+toggleModal(modalArr, editPost, closeModal);

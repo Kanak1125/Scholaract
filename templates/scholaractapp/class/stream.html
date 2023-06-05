@@ -18,7 +18,7 @@
     <!-- pdf.js js library to generate thumbnails of the pdf files... -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" defer></script> -->
     <!-- link to stream.js file -->
-    <script src="{% static 'script/stream.js' %}" defer></script>
+    <script type="module" src="{% static 'script/stream.js' %}" defer></script>
     
 </head>
 <body>
@@ -83,6 +83,26 @@
                     <p class="description"></p>
                     <div class="file-container"></div>
                 </div>
+
+                <!-- modal for every material card -->
+                <dialog class="modal">
+                    <fieldset>
+                        <legend>Update</legend>
+                        <div class="modal-nav">
+                            <i class="fas fa-times close-modal"></i>
+                        </div>
+                        <form action="" method="post" enctype="multipart/form-data" id="upadte-form">
+                            {% csrf_token %}
+                            <input type="text" name="post_title" id="post_title" placeholder="Title here...">
+                            <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
+                            <div class="add-file-and-post-container">
+                                <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
+                                <input type="file" name="post_file" id="post_file">
+                                <input type="submit" class="btn" value="Update" id="update-btn">
+                            </div>
+                        </form>
+                    </fieldset>
+                </dialog>
             </template>
             <template class="file-template">
                     <div class="file_img_container">
