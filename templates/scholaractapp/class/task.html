@@ -64,6 +64,7 @@
             <form action="" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <p class="title">Assign</p>
+                <input type="hidden" name="form_identifier" value="assign_task_form">
                 <input type="text" name="post_title" id="post_title" placeholder="Title here...">
                 <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
                 <div class="date-container">
@@ -83,7 +84,12 @@
                 <div class="edit-delete-menu">
                     <i class="fas fa-ellipsis-v"></i>
                     <div class="update-drop-down">
-                        <p class="delete-post" onclick="">Delete</p>
+                        <form action="{% url 'deleteTask' pk='__task.id__' %}" method="post" class="delete-form">
+                            <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
+                            {% csrf_token %}
+                            <input type="hidden" name="form_identifier" value="delete_task_form">
+                            <button type="submit" class="delete-post">Delete</button>
+                        </form>
                     </div>
                 </div>
                 <a href="" class="task-card-link">
