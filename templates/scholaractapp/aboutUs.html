@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="../../static/css/aboutUs.css">
+
+    // link to the hamburger menu scripts...
+    <script src="../../static/script/hamburger.js" defer></script>
 </head>
 <body>
     <div class="nav-bar-container">
@@ -17,14 +20,22 @@
             <a href="{% url 'landingPage' %}">
                 <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
             </a>
-            <ul class="nav-links">
-                <li><a href="#">About</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">FAQ</a></li>
-            </ul>
-            <a href="{% url 'login' %}">
-                <button class="btn login-btn" id="login-btn">Login</button>
-            </a>
+            <div class="nav-sub-container">
+                <ul class="nav-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+                <!-- {% csrf_token%} -->
+                <a href="{% url 'login' %}">
+                    <button class="btn login-btn" id="login-btn">Login</button>
+                </a>
+            </div>
+          <div class="hamburger-icon">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+          </div>
         </nav>
     </div>
 
