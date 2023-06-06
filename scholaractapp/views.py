@@ -310,6 +310,7 @@ def task(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
 
+    
     # session data
     user_data = request.session.get('user')
     # user_name = user_data['fname']
@@ -317,19 +318,21 @@ def task(request, pk):
     role = user_data.get('role')
     print(request.POST)
     if request.method == "POST":
-        title = request.POST.get('post_title')
-        description = request.POST.get('post_description')
-        files = request.FILES.getlist('post_file')
-        due_date = request.POST.get('due-date')
+        form_identifier = request.POST.get('form_identifier')
+        if form_identifier == "assign_task_form":
+            title = request.POST.get('post_title')
+            description = request.POST.get('post_description')
+            files = request.FILES.getlist('post_file')
+            due_date = request.POST.get('due-date')
 
-        task = Task.objects.create(
-            title=title, description=description, related_class=related_class, due_date=due_date)
+            task = Task.objects.create(
+                title=title, description=description, related_class=related_class, due_date=due_date)
 
-        for file in files:
-            TaskFile.objects.create(file=file, task=task)
-        class_pk = classObj.pk
+            for file in files:
+                TaskFile.objects.create(file=file, task=task)
+            class_pk = classObj.pk
 
-        return redirect('task', pk=class_pk)
+            return redirect('task', pk=class_pk)
 
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
@@ -361,6 +364,13 @@ def task(request, pk):
 
     return render(request, 'scholaractapp/class/task.html', {'task_json': task_json, 'class': classObj, })
 
+def deleteTask(request, pk):
+    task = Task.objects.get(id=pk)
+    if request.method == 'POST':
+        task.delete()
+        # Redirect to the desired page after deleting the task
+        return redirect('task', pk=task.related_class.pk)
+    return render(request, 'scholaractapp/class/task.html',{'task': task})
 
 def people(request, pk):
     classObj = Class.objects.get(id=pk)
@@ -415,3 +425,4 @@ def logout(request):
 #     course_json = json.dumps(course_list)
 
 #     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
+ 

@@ -2,44 +2,58 @@ import toggleModal from "./modules/modal.js";
 
 const taskArray = JSON.parse(document.querySelector('.task-card-container').dataset.task);
 
+// Retrieve the template content
+const template = document.querySelector('.task-template');
+const templateContent = template.content;
+
+// Clone the template when creating a new task card
+function createTaskCard(taskData) {
+  const taskCard = templateContent.cloneNode(true);
+
+  // Update the task ID in the delete form action URL
+  const deleteForm = taskCard.querySelector('.delete-form');
+  const taskId = taskData.id;
+  const deleteFormAction = deleteForm.action.replace('__task.id__', taskId);
+  deleteForm.action = deleteFormAction;
+
+  // Populate other task data
+  const taskName = taskCard.querySelector('.task-name');
+  const description = taskCard.querySelector('.description');
+  const dueDate = taskCard.querySelector('.due-date');
+
+  taskName.textContent = taskData.title;
+  description.textContent = taskData.description;
+  dueDate.textContent = taskData.due_date;
+
+  return taskCard;
+}
+
 if ('content' in document.createElement('template')) {
-    taskArray.map(task => {    // runs the following code for every object in classesArray and returns the array of Class cloned cards with their data in it...
-        const taskTemplate = document.querySelector(".task-template");
-        // Clone the new material card template so that the original template doesnot get overwritten for future use and insert it into the section.classes container...
-        const clone = taskTemplate.content.cloneNode(true);    // here is when the template is cloned...
-            let taskName = clone.querySelector('.task-name');
-            let description = clone.querySelector('.description');
-            let dueDate = clone.querySelector('.due-date')
-            // let dueDate = clone.querySelector('.due-date');
+  taskArray.forEach(task => {
+    const taskCard = createTaskCard(task);
 
-            taskName.textContent = `${task.title}`;
-            description.textContent = `${task.description}`; 
-            dueDate.textContent = `${task.due_date}`;
-            
-            const taskContainer = document.querySelector('.task-card-container');
-            
-            taskContainer.appendChild(clone);
-    })
-
+    const taskContainer = document.querySelector('.task-card-container');
+    taskContainer.appendChild(taskCard);
+  });
 } else {
-    console.log("template not found!");
+  console.log('template not found!');
 }
 
 function handleDropDownClick(e, btn, dropdown) {
-    e.stopPropagation(); // prevent event bubbling
-    btn.classList.toggle('active');
-    $(dropdown).slideToggle('fast');
+  e.stopPropagation(); // prevent event bubbling
+  btn.classList.toggle('active');
+  $(dropdown).slideToggle('fast');
 }
 
 $(document).ready(function() {
-    const taskCardDropDown = [...document.querySelectorAll('.update-drop-down')];
-    const taskCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
+  const taskCardDropDown = [...document.querySelectorAll('.update-drop-down')];
+  const taskCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
 
-    taskCardDropDownBtn.forEach((dropDown, index) => {
-        $(dropDown).click(function (e) {
-            handleDropDownClick(e, dropDown, taskCardDropDown[index]);  // for Each materialCardDropDownBtn, same materialCardDropDown in its index is passed as argument to the handleDropDownClick() function...
-        });
-    })
+  taskCardDropDownBtn.forEach((dropDown, index) => {
+    $(dropDown).click(function(e) {
+      handleDropDownClick(e, dropDown, taskCardDropDown[index]);
+    });
+  });
 });
 
 const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
