@@ -1,3 +1,5 @@
+import toggleModal from "./modules/modal.js";
+
 const taskArray = JSON.parse(document.querySelector('.task-card-container').dataset.task);
 
 if ('content' in document.createElement('template')) {
@@ -39,3 +41,11 @@ $(document).ready(function() {
         });
     })
 });
+
+const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
+const modalArr = [...document.querySelectorAll('.modal')];
+const closeModal = [...document.querySelectorAll('.close-modal')];
+
+console.log(taskCardLinkArr, modalArr);
+
+toggleModal(modalArr, taskCardLinkArr, closeModal, true);

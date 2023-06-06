@@ -217,7 +217,7 @@ p.uploaded-by {
 }
 
 .modal::backdrop {
-    background-color: var(--bg-color-op6);
+    background-color: hsla(222, 11%, 18%, 0.75);
 }
 
 .close-modal {

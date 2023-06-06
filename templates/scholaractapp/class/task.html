@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../../../static/css/class/stream.css">
     <link rel="stylesheet" href="../../../static/css/class/tasks.css">
 
-    <script src="../../../static/script/task.js" defer></script>
+    <script type="module" src="../../../static/script/task.js" defer></script>
 </head>
 <body>
     <div id="top-layer"></div>
@@ -78,6 +78,7 @@
             </form>
         </div>
     </main>
+
     <template class="task-template">
             <div class="task-card">
                 <div class="edit-delete-menu">
@@ -86,13 +87,74 @@
                         <p class="delete-post" onclick="">Delete</p>
                     </div>
                 </div>
-                <a href="" class="task-card-link">
+                <a href="" class="task-card-link" onclick="event.preventDefault();">
                     <p class="title task-name"></p>
                 </a>
                 <hr>
                 <p class="description"></p>
                 <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
             </div>
+            <dialog class="modal">
+                    <div class="modal-nav">
+                        <i class="fas fa-chevron-left close-modal"></i>
+                    </div>
+                    <div class="task-progress-container">
+                        <div>
+                            <h2 class="title">Tasks Submitted</h2>
+                            <p class="number-of-progress">14</p>
+                        </div>
+                        <div>
+                            <h2 class="title">Due</h2>
+                            <p class="number-of-progress">3</p>
+                        </div>
+                        <div>
+                            <h2 class="title">Approved</h2>
+                            <p class="number-of-progress">7</p>
+                        </div>
+                    </div>
+                    <section class="submitted-assignment-list-container">
+                        <h2 class="title">Submitted Assignments</h2>
+                        <div class="assignment-lists">
+                            <ul>
+                                <li>
+                                    <div>
+                                        <p>Kanak</p>
+                                        <p>Submitted on: <span class="date">6 / 5 / 2023</span></p>
+                                        <div class="btns">
+                                            <a href="" target="_blank">View</a>
+                                            <button class="btn">Approve</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr>
+                                </li>
+                                <li>
+                                    <div>
+                                        <p>Kanak</p>
+                                        <p>Submitted on: <span class="date">6 / 5 / 2023</span></p>
+                                        <div class="btns">
+                                            <a href="" target="_blank">View</a>
+                                            <button class="btn">Approve</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr>
+                                </li><li>
+                                    <div>
+                                        <p>Kanak</p>
+                                        <p>Submitted on: <span class="date">6 / 5 / 2023</span></p>
+                                        <div class="btns">
+                                            <a href="" target="_blank">View</a>
+                                            <button class="btn">Approve</button>
+                                        </div>
+                                        
+                                    </div>
+                                    <hr>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+            </dialog>
     </template>
 </body>
 </html>

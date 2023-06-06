@@ -1,3 +1,5 @@
+import toggleModal from "./modules/modal.js";
+
 const dropBtn = document.querySelector('.drop-btn');
 
 // when the document is ready run the function inside of it...
@@ -191,6 +193,7 @@ if ('content' in document.createElement('template')) {
     console.log("template not found!");
 }
 
+
 const editPost = [...document.querySelectorAll('.edit-post')];  // this selects every element with '.edit-post' class and assign it to 'editPost' array using querySelectorAll and spread operator(...) ...
 const closeModal = [...document.querySelectorAll('.close-modal')];  // this selects every '.close-modal' as there are multiple material cards and store it in the 'closeModal' array as in above...
 
@@ -198,8 +201,6 @@ const closeModal = [...document.querySelectorAll('.close-modal')];  // this sele
 // const updateForm = document.getElementById('update-form');
 
 const modalArr = [...document.querySelectorAll('.modal')];
-console.log(modalArr);
+// console.log(modalArr);
 
-import toggleModal from "./modules/modal.js";
-
-toggleModal(modalArr, editPost, closeModal);
+toggleModal(modalArr, editPost, closeModal, false);
