@@ -111,6 +111,20 @@ span.due-date {
     padding-left: 0;
 }
 
+.delete-form {
+    padding: 0;
+}
+
+.delete-post {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.delete-post:hover {
+    background-color: transparent;
+    color: hsl(0, 0%, 90%); 
+}
+
 /* styling of modal section starts here */
 .modal {
     width: 80vw;
@@ -215,4 +229,34 @@ ul > li > div p:nth-child(2) {
     height: 1px !important;
     border: 1px solid var(--bg-color-op6);
     margin-bottom: 20px;
+}
+
+@media (max-width: 834px) {
+    .main {
+        flex-direction: column;
+    }
+    .assign-task-form-container {
+        order: -1;
+        margin-bottom: 60px;
+        /* flex-basis: 0; */
+    }
+    .task-card-container {
+        padding: 40px 0px;
+        row-gap: 3rem;
+    }
+    .task-card {
+        max-width: 80vw;
+    }
+}
+
+@media (max-width: 375px) {
+    .main {
+        padding: 40px 30px;
+    }
+    .add-file-and-post-container {
+        margin-top: 24px;
+        flex-direction: column;
+        row-gap: 24px;
+        align-items: flex-start;
+    }
 }
