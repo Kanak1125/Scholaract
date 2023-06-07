@@ -37,11 +37,20 @@
             </header>
             <div class="list student-list">
                 <ul>
-                    <li>Kanak</li><hr>
-                    <li>Kanak</li><hr>
-                    <li>Kanak</li><hr>
-                    <li>Kanak</li><hr>
-                    <li>Kanak</li><hr>
+                    <li>
+                        <p>Name 1</p>
+                        <div class="edit-delete-menu">
+                            <i class="fas fa-ellipsis-v"></i>
+                            <!-- <div class="update-drop-down">
+                                <form action="{% url 'deleteTask' pk='__task.id__' %}" method="post" class="delete-form">
+                                    '__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
+                                    <!-- {% csrf_token %}
+                                    <input type="hidden" name="form_identifier" value="delete_task_form">
+                                    <button type="submit" class="btn delete-post">Delete</button> 
+                                </form>
+                            </div> -->
+                        </div>
+                    </li><hr>
                 </ul>
             </div>
         </div>
