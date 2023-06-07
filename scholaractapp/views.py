@@ -60,7 +60,10 @@ def signup(request):
 
             return redirect('success')
 
-    return render(request, 'scholaractapp/signup.html', {'error_message': error_message})
+    context = {
+        'error_message': error_message,
+    }
+    return render(request, 'scholaractapp/signup.html', context)
 
 # view for temporary solution of redirecting users to a success page after creatig an account to overcome resubmitting of previously submitter data
 
@@ -110,7 +113,13 @@ def login(request):
 
                 return redirect('classes')
 
-    return render(request, 'scholaractapp/login.html', {'error_email': error_email, 'error_password': error_password, 'error_role': error_role, })
+    context = {
+        'error_email': error_email,
+        'error_password': error_password,
+        'error_role': error_role,
+    }
+
+    return render(request, 'scholaractapp/login.html', context)
     # renders the dictionary {} to the 'scholaractapp/login.html' page...
 
 # @login_required(login_url='/login/')
@@ -167,8 +176,14 @@ def classes_teacher(request):
     # json.dumps() encodes the 'classes_dict' as JSON string...
     classes_json = json.dumps(classes_dict)
 
+    context = {
+        'classes_json': classes_json,
+        'name': user_name,
+        'role': role,
+    }
+
     # now only classes.html file can use the 'classes_json' data...
-    return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role})
+    return render(request, 'scholaractapp/classes.html', context)
 
 
 def classes_student(request):
@@ -216,8 +231,15 @@ def classes_student(request):
     # json.dumps() encodes the 'classes_dict' as JSON string...
     classes_json = json.dumps(classes_dict)
 
+    context = {
+        'classes_json': classes_json,
+        'name': user_name,
+        'role': role,
+        'error_message': error_message,
+    }
+
     # now only classes.html file can use the 'classes_json' data...
-    return render(request, 'scholaractapp/classes.html', {'classes_json': classes_json, 'name': user_name, 'role': role, 'error_message': error_message})
+    return render(request, 'scholaractapp/classes.html', context)
 
 
 def single_class(request, pk):
@@ -296,7 +318,12 @@ def single_class(request, pk):
 
     course_json = json.dumps(course_list)
     print(course)
-    return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': classObj, })
+
+    context = {
+        'course_json': course_json,
+        'class': classObj,
+    }
+    return render(request, 'scholaractapp/class/stream.html', context)
 
 
 class DateEncoder(DjangoJSONEncoder):
@@ -310,12 +337,11 @@ def task(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
 
-    
     # session data
     user_data = request.session.get('user')
     # user_name = user_data['fname']
     # user_id = user_data['id']
-    role = user_data.get('role')
+    # role = user_data.get('role')
     print(request.POST)
     if request.method == "POST":
         form_identifier = request.POST.get('form_identifier')
@@ -362,7 +388,12 @@ def task(request, pk):
     # cls=DateEncoder is provided to specify a custom JSON encoder class for serializing objects that are not natively serializable by default. In this case, we have defined a custom encoder class called DateEncoder that subclasses DjangoJSONEncoder and overrides its default() method.
     task_json = json.dumps(task_list, cls=DateEncoder)
 
-    return render(request, 'scholaractapp/class/task.html', {'task_json': task_json, 'class': classObj, })
+    context = {
+        'task_json': task_json,
+        'class': classObj,
+    }
+    return render(request, 'scholaractapp/class/task.html', context)
+
 
 def deleteTask(request, pk):
     task = Task.objects.get(id=pk)
@@ -370,18 +401,40 @@ def deleteTask(request, pk):
         task.delete()
         # Redirect to the desired page after deleting the task
         return redirect('task', pk=task.related_class.pk)
-    return render(request, 'scholaractapp/class/task.html',{'task': task})
+    context = {
+        'task': task,
+    }
+    return render(request, 'scholaractapp/class/task.html', context)
+
 
 def people(request, pk):
     classObj = Class.objects.get(id=pk)
-    # students =
-    return render(request, 'scholaractapp/class/people.html', {'class': classObj, })
+    # 'student' has ManyToManyField realtionship with 'class' model. Django creates reverse relation from 'student' to 'class'. this reverse relation is named 'student_set'
+    # The reverse relation allows you to access related objects from the other side of the relationship.
+    enrolled_students = classObj.student_set.all()
+    created_by = classObj.teacher  # teachers name
+
+    # names of studnets who enrolled to the current class
+    # for student in enrolled_students:
+    #     name = student.user.name
+    #     print(name)
+
+    # print(created_by)  # teachers name
+
+    context = {
+        'class': classObj,
+        'enrolled_students': enrolled_students,
+        'created_by': created_by,
+    }
+    return render(request, 'scholaractapp/class/people.html', context)
 
 
 def report(request, pk):
     classObj = Class.objects.get(id=pk)
-
-    return render(request, 'scholaractapp/class/report.html', {'class': classObj, })
+    context = {
+        'class': classObj,
+    }
+    return render(request, 'scholaractapp/class/report.html', context)
 
 
 def logout(request):
@@ -425,4 +478,3 @@ def logout(request):
 #     course_json = json.dumps(course_list)
 
 #     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
- 
