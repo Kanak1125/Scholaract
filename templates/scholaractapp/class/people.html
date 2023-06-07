@@ -37,8 +37,9 @@
             </header>
             <div class="list student-list">
                 <ul>
+                    {% for student in enrolled_students %}
                     <li>
-                        <p>Name 1</p>
+                        <p>{{student.name}}</p>
                         <div class="edit-delete-menu">
                             <i class="fas fa-ellipsis-v"></i>
                             <!-- <div class="update-drop-down">
@@ -51,6 +52,7 @@
                             </div> -->
                         </div>
                     </li><hr>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
