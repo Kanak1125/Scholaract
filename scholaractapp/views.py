@@ -379,9 +379,12 @@ def single_class(request, pk):
     context = {
         'course_list': course_list,
         'class': classObj,
-    }
+    }   
+    if request.headers.get('Accept') == 'application/json':
+        return JsonResponse(context, encoder = SingleClassEncoder)
     
-    return JsonResponse(context, encoder = SingleClassEncoder)
+    return render(request, 'scholaractapp/class/stream.html', context)
+
 
 
 class DateEncoder(DjangoJSONEncoder):
