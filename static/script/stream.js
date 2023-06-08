@@ -204,3 +204,19 @@ const modalArr = [...document.querySelectorAll('.modal')];
 // console.log(modalArr);
 
 toggleModal(modalArr, editPost, closeModal, false);
+
+
+var pk = {{ pk }};
+
+var url = '/class/${pk}/';
+
+fetch(url)
+.then(response => response.json())
+.then(course_json => {
+  // Handle the JSON response course_json
+  console.log(course_json);
+})
+.catch(error => {
+  // Handle any errors
+  console.error(error);
+});

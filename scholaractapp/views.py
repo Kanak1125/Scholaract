@@ -242,6 +242,86 @@ def classes_student(request):
     return render(request, 'scholaractapp/classes.html', context)
 
 
+# def single_class(request, pk):
+#     classObj = Class.objects.get(id=pk)
+#     related_class = classObj
+#     print(request.POST)
+#     if request.method == "POST":
+#         title = request.POST.get('post_title')
+#         description = request.POST.get('post_description')
+#         files = request.FILES.getlist('post_file')
+
+#         user_data = request.session.get('user')
+#         user_id = user_data['id']
+#         uploaded_by = User.objects.get(id=user_id)
+
+#         file_count = len(files)
+#         print(f"Number of files uploaded: {file_count}")
+#         material = CourseMaterial.objects.create(
+#             title=title, description=description, related_class=related_class, uploaded_by=uploaded_by,)
+
+#         print(related_class)
+#         print(files)
+
+#         for file in files:
+#             MaterialFile.objects.create(file=file, course_material=material)
+#         class_pk = classObj.pk
+
+#         # Redirect to the class page with class_pk as parameter
+#         return redirect('class', pk=class_pk)
+
+#     course = CourseMaterial.objects.filter(related_class=related_class)
+#     course_list = []
+#     for material in course:
+#         material_data = {
+#             'id': material.id,
+#             'title': material.title,
+#             'description': material.description,
+#             'uploaded_by': material.uploaded_by.name(),
+#             'files': []
+#         }
+
+#         material_files = MaterialFile.objects.filter(course_material=material)
+
+#         for material_file in material_files:
+#             file_data = {
+#                 'file_name': material_file.file.name,
+#                 'file_url': material_file.file.url,
+#                 # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+#                 'file_extension': os.path.splitext(material_file.file.name)[1]
+#             }
+#             material_data['files'].append(file_data)
+#         course_list.append(material_data)
+
+#     course_json = json.dumps(course_list)
+#     print(course)
+
+#     context = {
+#         'course_json': course_json,
+#         'class': classObj,
+#     }
+#     return render(request, 'scholaractapp/class/stream.html', context)
+
+
+class SingleClassEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Class):
+            # Serialize the 'Class' object as a dictionary
+            return {
+                'id': obj.id,
+                'class_name': obj.class_name,
+                # Include other serializable attributes
+            }
+        elif isinstance(obj, CourseMaterial):
+            # Serialize the 'CourseMaterial' object as a dictionary
+            return {
+                'id': obj.id,
+                'title': obj.title,
+                'description': obj.description,
+                # Include other serializable attributes
+            }
+        return super().default(obj)
+    
 def single_class(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
@@ -249,14 +329,11 @@ def single_class(request, pk):
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
-        # file = request.FILES.get('post_file')
         files = request.FILES.getlist('post_file')
 
         user_data = request.session.get('user')
-        # user_name = user_data['fname']
         user_id = user_data['id']
         uploaded_by = User.objects.get(id=user_id)
-        # uploaded_by =
 
         file_count = len(files)
         print(f"Number of files uploaded: {file_count}")
@@ -280,8 +357,6 @@ def single_class(request, pk):
             'id': material.id,
             'title': material.title,
             'description': material.description,
-            # 'file_name': material.file.name,
-            # 'file_url': material.file.url,
             'uploaded_by': material.uploaded_by.name(),
             'files': []
         }
@@ -297,33 +372,15 @@ def single_class(request, pk):
             }
             material_data['files'].append(file_data)
         course_list.append(material_data)
-        # if material_files:
-        #     file_data = []
-        #     for material_file in material_files:
-        #         file_data.append({
-        #             'file_name': material_file.file.name,
-        #             'file_url': material_file.file.url,
-        #             'file_extension':os.path.splitext(material_file.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
-        #         })
-        #     material_data['files'] = file_data
-        # course_list.append(material_data)
 
-        # material_data['file_name'] = material.file.name
-        # material_data['file_url'] = material.file.url
-        # file_extension = os.path.splitext(material.file.name)[1] # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
-        # material_data['file_extension'] = file_extension
-        # course_list.append(material_data)
-
-    # print(course_list)
-
-    course_json = json.dumps(course_list)
+    # course_json = json.dumps(course_list)
     print(course)
 
     context = {
-        'course_json': course_json,
+        'course_list': course_list,
         'class': classObj,
     }
-    return render(request, 'scholaractapp/class/stream.html', context)
+    return JsonResponse(context, encoder = SingleClassEncoder)
 
 
 class DateEncoder(DjangoJSONEncoder):
