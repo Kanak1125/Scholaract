@@ -212,9 +212,9 @@ var url = '/class/${pk}/';
 
 fetch(url)
 .then(response => response.json())
-.then(course_json => {
-  // Handle the JSON response course_json
-  console.log(course_json);
+.then(course_list => {
+  // Handle the JSON response course_list
+  console.log(course_list);
 })
 .catch(error => {
   // Handle any errors

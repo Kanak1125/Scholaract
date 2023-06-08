@@ -380,6 +380,7 @@ def single_class(request, pk):
         'course_list': course_list,
         'class': classObj,
     }
+    
     return JsonResponse(context, encoder = SingleClassEncoder)
 
 
