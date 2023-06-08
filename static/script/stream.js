@@ -205,11 +205,6 @@ const modalArr = [...document.querySelectorAll('.modal')];
 
 toggleModal(modalArr, editPost, closeModal, false);
 
-
-var pk = {{ pk }};
-
-var url = '/class/${pk}/';
-
 fetch(url)
 .then(response => response.json())
 .then(course_list => {
