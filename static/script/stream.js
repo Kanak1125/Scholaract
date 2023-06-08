@@ -2,11 +2,16 @@ import toggleModal from "./modules/modal.js";
 
 const dropBtn = document.querySelector('.drop-btn');
 
-var pk = "{{ pk }}";
+var pk = 10;
+// var pk = "{{pk}}";
 
-var url = `/class/${pk}/`;
+var url = '/class/' + pk + '/';
 
-fetch(url)
+fetch(url,  {
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
 .then(response => response.json())
 .then(course_list => {
   // Handle the JSON response course_list
@@ -16,7 +21,7 @@ fetch(url)
   // Handle any errors
   console.error(error);
 });
-console.log(course_list);
+
 // when the document is ready run the function inside of it...
 function handleDropDownClick(e, btn, dropdown) {
     e.stopPropagation(); // prevent event bubbling

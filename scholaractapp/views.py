@@ -325,7 +325,7 @@ class SingleClassEncoder(DjangoJSONEncoder):
 def single_class(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
-    print(request.POST)
+    # print(request.POST)
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
@@ -377,12 +377,13 @@ def single_class(request, pk):
     print(course)
 
     context = {
+        'pk': classObj.pk,
         'course_list': course_list,
         'class': classObj,
     }   
     if request.headers.get('Accept') == 'application/json':
         return JsonResponse(context, encoder = SingleClassEncoder)
-    
+    print(request.headers.get('Accept'))
     return render(request, 'scholaractapp/class/stream.html', context)
 
 
