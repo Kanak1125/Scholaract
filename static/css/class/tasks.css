@@ -156,6 +156,10 @@ form {
     transition: all 300ms ease-out;
 }
 
+.modal .title {
+    cursor: auto;
+}
+
 .close-modal {
     float: left;
     margin-left: 10px;
@@ -209,7 +213,7 @@ ul {
 
 ul > li > div {
     display: grid;
-    grid-template: auto auto / repeat(4, 1fr);
+    grid-template: auto auto / repeat(5, 1fr);
     align-items: center;
     justify-content: center;
     /* border: 1px solid green; */
@@ -225,8 +229,9 @@ ul > li > div p:nth-child(2) {
 }
 
 .btns {
+    grid-column: 4/6;
     text-align: end;
-    /* border: 1px solid black; */
+    border: 1px solid black;
 }
 
 .btns > * {
@@ -272,25 +277,40 @@ ul > li > div p:nth-child(2) {
 
 .task-main {
     display: flex;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .task-info-container {
-    flex: 70%;
+    flex: 65%;
 }
 
 .task-info-container hr {
     margin-left: 36px;
+    width: 90%;
 }
 
 .task-submission-form-container {
-    flex: 30%;
-    border: 1px solid red;
+    flex: 35%;
+    /* border: 1px solid red; */
 }
 
 .task-submission-form-container form {
     width: 80%;
+    margin: auto;
 }
+.task-submission-form-container form .title {
+    padding: 5px;
+    text-align: center;
+}
+.task-submission-form-container form .btn{
+    padding: 10px 0;
+    width: 100%;
+}
+
+.view-approve-menu {
+    display: none;
+}
+
 
 @media (max-width: 834px) {
     .main {
@@ -311,7 +331,43 @@ ul > li > div p:nth-child(2) {
 
     .task-main {
         flex-direction: column;
+        row-gap: 2.5rem;
     }
+
+    .modal {
+        width: 100%;
+        border-radius: 5px;
+        left: 0vw !important;
+        margin: 0 auto 0 auto;
+    }
+
+    .task-progress-container {
+        grid-template-columns: auto ;
+        /* border: 1px solid blue; */
+        margin: 5px 0;
+        line-height: 4.5rem;
+    }
+
+    .task-progress-container > div {
+        border-right: none;
+        border-bottom: 1px solid var(--bg-color-op6);
+        padding-bottom: 10px; 
+    }
+
+    ul > li > div {
+        grid-template: auto auto / repeat(2, 1fr);
+    }
+    
+    .btns {
+        grid: 2 / 3;
+        display: none;
+    }
+
+    /* .view-approve-menu {
+        display: block;
+        grid: 2 / 3;
+        align-self: end;
+    } */
 }
 
 @media (max-width: 375px) {

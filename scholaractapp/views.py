@@ -377,6 +377,7 @@ def single_class(request, pk):
     print(course)
 
     context = {
+        'pk' : pk,
         'course_list': course_list,
         'class': classObj,
     }   

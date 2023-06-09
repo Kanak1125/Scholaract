@@ -47,8 +47,14 @@
     <main class="main">
         <div class="class-info-container">
             <div class="class-info-card">
+                {% if role == "Teacher" %}
                 <h2>Class code: <span>{{class.class_code}}</span></h2>  <!--class code to be added dynamically from django-->
+                {% endif %}
+                {% if role == "Teacher" %}
                 <p>Subject: <span>{{class.subject_name}}</span></p>
+                {% else %}
+                <h2>Subject: <span>{{class.subject_name}}</span></h2>
+                {% endif %}
                 <p>Teacher: <span>{{class.teacher}}</span></p>
             </div>
         </div>
@@ -114,5 +120,9 @@
             </template>
         </div>
     </main>
+    <script>
+        var pk = `Primary key: {{ pk }}`;
+        console.log(pk);
+    </script>
 </body>
 </html>
