@@ -18,6 +18,7 @@
 .main {
     display: flex !important;
     flex-direction: column;
+    max-width: 900px;
 }
 
 header .title {
@@ -32,10 +33,10 @@ header .title {
 }
 
 header > hr {
-    margin-top: 20px;
+    margin-top: 10px;
     height: 2px;
     outline: none !important;
-    border: 2.5px solid var(--accent-color);
+    border: 1.5px solid var(--accent-color);
     border-radius: 5px;
 }
 
@@ -44,13 +45,16 @@ header > hr {
 }
 
 .list ul li {
-    margin: 30px;
+    margin: 20px 30px;
     font-size: var(--fnt-size-s);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .list ul hr {
     outline: none !important;
-    border: 1px solid var(--bg-color-op6);
+    border: 0.5px solid var(--bg-color-op6);
     border-radius: 5px;
     margin-left: 30px;
 }

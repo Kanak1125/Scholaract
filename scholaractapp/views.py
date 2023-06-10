@@ -375,16 +375,17 @@ def single_class(request, pk):
 
     # course_json = json.dumps(course_list)
     print(course)
-
+    print("pk:",pk)
     context = {
-        'pk': classObj.pk,
+        # 'pk': classObj.pk,
+        'pk' : pk,
         'course_list': course_list,
         'class': classObj,
     }   
     if request.headers.get('Accept') == 'application/json':
         return JsonResponse(context, encoder = SingleClassEncoder)
-    print(request.headers.get('Accept'))
-    return render(request, 'scholaractapp/class/stream.html', context)
+    # print(request.headers.get('Accept'))
+    return render(request, 'scholaractapp/class/stream.html', {'class': classObj, 'pk': pk})
 
 
 
@@ -400,7 +401,7 @@ def task(request, pk):
     related_class = classObj
 
     # session data
-    user_data = request.session.get('user')
+    # user_data = request.session.get('user')
     # user_name = user_data['fname']
     # user_id = user_data['id']
     # role = user_data.get('role')

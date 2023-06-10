@@ -17,7 +17,16 @@
     <link rel="stylesheet" href="../../../static/css/class/stream.css">
     <link rel="stylesheet" href="../../../static/css/class/tasks.css">
 
-    <script type="module" src="../../../static/script/task.js" defer></script>
+    <!-- <script type="module" src="../../../static/script/task.js" defer></script> -->
+
+    <!-- We will be using different script for the student and teachers respectively...  -->
+    {% if role == "Teacher" %}  
+    <script type="module" src="../../../static/script/task_teacher.js" defer></script>
+
+    {% elif role == "Student" %}
+    <script type="module" src="../../../static/script/task_students.js" defer></script>
+
+    {% endif %}
 </head>
 <body>
     <div id="top-layer"></div>
@@ -51,35 +60,116 @@
         </nav>
     </section> -->
     {% include 'scholaractapp/includes/navbar202.html' %}
-
-    <main class="main">
-        <div class="task-container">
-            <header>
-                <p class="title">Task assigned</p>
-                <hr>
-            </header>
-            <div class="task-card-container" data-task="{{task_json}}"></div>
-        </div>
-        <div class="assign-task-form-container">
-            <form action="" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <p class="title">Assign</p>
-                <input type="hidden" name="form_identifier" value="assign_task_form">
-                <input type="text" name="post_title" id="post_title" placeholder="Title here...">
-                <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
-                <div class="date-container">
-                    <label for="due-date">Due date:</label>
-                    <input type="date" name="due-date" id="due-date">
+    {% if role == "Teacher" %}
+        <main class="main">
+            <div class="task-container">
+                <header>
+                    <p class="title">Task assigned</p>
+                    <hr>
+                </header>
+                <div class="task-card-container" data-task="{{task_json}}"></div>
+            </div>
+            <div class="assign-task-form-container">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p class="title">Assign</p>
+                    <input type="hidden" name="form_identifier" value="assign_task_form">
+                    <input type="text" name="post_title" id="post_title" placeholder="Title here...">
+                    <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
+                    <div class="date-container">
+                        <label for="due-date">Due date:</label>
+                        <input type="date" name="due-date" id="due-date">
+                    </div>
+                    <div class="add-file-and-post-container">
+                        <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
+                        <input type="file" name="post_file" id="post_file" multiple>
+                        <input type="submit" class="btn" value="Assign">
+                    </div>
+                </form>
+            </div>
+        </main>
+    {% elif role == "Student" %}
+        <main class="main">
+            <div class="task-container">
+                <header>
+                    <p class="title">Assignments</p>
+                    <hr>
+                </header>
+                <div class="sort-by-section">
+                    <p>Sort by</p>
+                    <select name="" id="">
+                        <option value="due">Due Date</option>
+                        <option value="latest">Latest</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
                 </div>
-                <div class="add-file-and-post-container">
-                    <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
-                    <input type="file" name="post_file" id="post_file" multiple>
-                    <input type="submit" class="btn" value="Assign">
+                <div class="task-card-container-stud">
+                    <div class="task-card">
+                        <a href="" class="task-card-link" onclick="event.preventDefault();">
+                            <p class="title task-name">Title 101</p>
+                        </a>
+                        <hr>
+                        <p class="description"> Lorem epsum 33000 </p>
+                        <div class="deadline">Deadline: 
+                            <span class="due-date">20th June, 2023</span>
+                            <span class="task-status">
+                                Due
+                            </span>
+                        </div>
+                        <dialog class="modal">
+                            <div class="modal-nav">
+                                <i class="fas fa-chevron-left close-modal"></i>
+                            </div>
+                            <section class="task-main">
+                                <div class="task-info-container">
+                                    <p class="title">Task title</p>
+                                    <hr>
+                                    <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nulla vitae non accusamus, quibusdam, totam minus maxime modi, omnis veritatis harum qui. Recusandae fugiat placeat quasi deleniti accusantium ipsa fugit itaque quis reprehenderit molestias quas, magni amet minima accusamus!</p>
+                                </div>
+                                <div class="task-submission-form-container">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <p class="title">Submit work</p>
+                                        <!-- <input type="hidden" name="form_identifier" value="assign_task_form"> -->
+                                        <div class="">
+                                            <label for="post_file">
+                                                <button class="btn" onclick="(e) => e.prevent
+                                                ();">Upload a file</button>
+                                            </label>
+                                            <br>
+                                            <br>
+                                            <input type="file" name="post_file" id="post_file" multiple>
+                                            <input type="submit" class="btn" value="Submit">
+                                        </div>
+                                    </form>
+                                </div>
+                            </section>
+                    </dialog>
+                    </div>
+                    <div class="task-card">
+                        <a href="" class="task-card-link" onclick="event.preventDefault();">
+                            <p class="title task-name">Title 101</p>
+                            <!-- the following icon will only be displayed if the assignment submitted is approved by the teacher... -->
+                            <i class="far fa-check-circle is-approved"></i>
+                        </a>
+                        <hr>
+                        <p class="description"> Lorem epsum 33000 </p>
+                        <div class="deadline">Deadline: 
+                            <span class="due-date">20th June, 2023</span>
+                            <span class="task-status">
+                                Due
+                            </span>
+                        </div>
+                        <dialog class="modal">
+                            <div class="modal-nav">
+                                <i class="fas fa-chevron-left close-modal"></i>
+                            </div>
+                    </dialog>
+                    </div>
                 </div>
-            </form>
-        </div>
-    </main>
-
+            </div>
+        </main>
+    {% endif %}
     <template class="task-template">
             <div class="task-card">
                 <div class="edit-delete-menu">
@@ -98,7 +188,9 @@
                 </a>
                 <hr>
                 <p class="description"></p>
-                <p class="deadline">Deadline: <span class="due-date">20th June, 2023</span></p>
+                <div class="deadline">Deadline:
+                    <span class="due-date">20th June, 2023</span>
+                </div>
             </div>
             <dialog class="modal">
                     <div class="modal-nav">
@@ -130,7 +222,13 @@
                                             <a href="" target="_blank">View</a>
                                             <button class="btn">Approve</button>
                                         </div>
-                                        
+                                        <div class="edit-delete-menu view-approve-menu">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                            <div class="drop-down update-drop-down">
+                                                <a href="" target="_blank">View</a>
+                                                <button class="btn">Approve</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                 </li>
