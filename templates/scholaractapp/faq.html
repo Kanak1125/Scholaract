@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
+
+    <!-- fontawesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- jquery cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="../../static/css/landingPage.css">
+
+    <link rel="stylesheet" href="../../static/css/faq.css">
+
+    <script src="../../static/script/hamburger.js" defer></script>
+
+    <script src="../../static/script/faq.js" defer></script>
+</head>
+<body>
+    <div class="nav-bar-container">
+        <nav>
+          <a href="#">
+              <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+          </a>
+          <div class="nav-sub-container">
+              <ul class="nav-links">
+                  <li><a href="{% url 'aboutUs' %}">About</a></li>
+                  <li><a href="#">Support</a></li>
+                  <li><a href="#">FAQ</a></li>
+              </ul>
+              <!-- {% csrf_token%} -->
+              <a href="{% url 'login' %}">
+                  <button class="btn login-btn" id="login-btn">Login</button>
+              </a>
+          </div>
+        <div class="hamburger-icon">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        </nav>
+    </div>
+    <main class="main">
+        <h1>FAQs</h1>
+        <div class="accordion-container">
+            <div class="btn-container">
+                <button class="expand-all-btn">expand all</button>
+                <button class="collapse-all-btn">collapse all</button>
+            </div>
+            <div class="accordions">
+                <ul>
+                    <li>
+                        <p class="question">
+                            What is Scholaract?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi.</p>
+                    </li>
+                    <li>
+                        <p class="question">
+                            Why Scholaract?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae quod nesciunt suscipit sapiente minima nostrum temporibus repellendus, ducimus modi iure tenetur! Iure excepturi ad vel, praesentium quia aspernatur repellat optio.</p>
+                    </li>
+                    <li>
+                        <p class="question">
+                            How it works?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae quod nesciunt suscipit sapiente minima nostrum temporibus repellendus, ducimus modi iure tenetur! Iure excepturi ad vel, praesentium quia aspernatur repellat optio.</p>
+                    </li>
+                    <li>
+                        <p class="question">
+                            How to engage in this site?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae quod nesciunt suscipit sapiente minima nostrum temporibus repellendus, ducimus modi iure tenetur! Iure excepturi ad vel, praesentium quia aspernatur repellat optio.</p>
+                    </li>
+                    <li>
+                        <p class="question">
+                            Is this site for every age?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi.</p>
+                    </li>
+                    <li>
+                        <p class="question">
+                            What is it?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae quod nesciunt suscipit sapiente minima nostrum temporibus repellendus, ducimus modi iure tenetur! Iure excepturi ad vel, praesentium quia aspernatur repellat optio.</p>
+                    </li>
+                    <li>
+                        <p class="question">
+                            What is it?
+                            <i class="fas fa-chevron-down chevron-btn"></i>
+                        </p>
+                        <p class="answer">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, excepturi.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
