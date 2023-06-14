@@ -26,12 +26,11 @@ function createTaskCard(taskData, templateContent, isTeacher) {
     return taskCard;
   }
   
-export const executeTemplate = (templateContent, templateDataArray, isTeacher) => {
+export const executeTemplate = (templateContent, templateDataArray, taskContainer, isTeacher) => {
     if ('content' in document.createElement('template')) {
       templateDataArray.forEach(task => {
         const taskCard = createTaskCard(task, templateContent, isTeacher);
     
-        const taskContainer = document.querySelector('.task-card-container');
         taskContainer.appendChild(taskCard);
       });
     } else {

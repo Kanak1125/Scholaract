@@ -1,7 +1,8 @@
 import { executeTemplate } from "./generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
 
-const taskArray = JSON.parse(document.querySelector('.task-card-container').dataset.task).reverse();
+const taskContainer = document.querySelector('.task-card-container');
+const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
 console.log(taskArray);
 // console.log(taskArray.reverse());
 
@@ -9,7 +10,8 @@ console.log(taskArray);
 const template = document.querySelector('.task-template');
 const templateContent = template.content;
 
-executeTemplate(templateContent, taskArray, true);
+
+executeTemplate(templateContent, taskArray, taskContainer, true);
 
 function handleDropDownClick(e, btn, dropdown) {
   e.stopPropagation(); // prevent event bubbling

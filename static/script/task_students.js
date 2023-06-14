@@ -1,18 +1,15 @@
 import { executeTemplate } from "./generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
 
-const taskArray = JSON.parse(document.querySelector('.task-card-container').dataset.task).reverse();
+const taskContainer = document.querySelector('.task-card-container-stud');
+const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
 console.log(taskArray)
-
-// // Retrieve the template content
-// const template = document.querySelector('.task-template');
-// const templateContent = template.content;
 
 // Retrieve the template content
 const template = document.querySelector('.task-template-stud');
 const templateContent = template.content;
 
-executeTemplate(templateContent, taskArray, false);
+executeTemplate(templateContent, taskArray, taskContainer, false);
 console.log("Execution successful!");
 
 var taskId = '{{ task_id }}';
@@ -37,7 +34,5 @@ $(document).ready(function() {
 const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
 const modalArr = [...document.querySelectorAll('.modal')];
 const closeModal = [...document.querySelectorAll('.close-modal')];
-
-// console.log(taskCardLinkArr, modalArr);
 
 toggleModal(modalArr, taskCardLinkArr, closeModal, true);
