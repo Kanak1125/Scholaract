@@ -60,6 +60,7 @@
         </nav>
     </section> -->
     {% include 'scholaractapp/includes/navbar202.html' %}
+
     {% if role == "Teacher" %}
         <main class="main">
             <div class="task-container">
@@ -103,7 +104,7 @@
                         <option value="oldest">Oldest</option>
                     </select>
                 </div>
-                <div class="task-card-container-stud">
+                <div class="task-card-container-stud" data-task="{{task_json}}"> <!--this line-->
                     <div class="task-card">
                         <a href="" class="task-card-link" onclick="event.preventDefault();">
                             <p class="title task-name">Title 101</p>
@@ -130,7 +131,8 @@
                                     <form action="" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <p class="title">Submit work</p>
-                                        <!-- <input type="hidden" name="form_identifier" value="assign_task_form"> -->
+                                        <!-- <input type="hidden" name="form_identifier" value="submit_task_form"> -->
+                                        <input type="hidden" name="task_id" value="{{ task_id }}">
                                         <div class="">
                                             <label for="post_file">
                                                 <button class="btn" onclick="(e) => e.prevent

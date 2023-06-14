@@ -2,7 +2,7 @@ import toggleModal from "./modules/modal.js";
 
 const dropBtn = document.querySelector('.drop-btn');
 
-var pk = 10;
+var pk = 12;
 // var pk = "{{pk}}";
 
 var url = '/class/' + pk + '/';

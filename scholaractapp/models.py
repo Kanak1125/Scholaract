@@ -142,3 +142,12 @@ class TaskFile(models.Model):
     
     def __str__(self):
         return self.file.name
+
+class TaskSubmission(models.Model):
+    student = models.ForeignKey(Student, on_delete= models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    date_of_submission = models.DateField(auto_now_add=True)
+    file = models.FileField(upload_to='submission_files/', null=True, blank=True)
+    
+    def __str__(self):
+        return self.file.name    

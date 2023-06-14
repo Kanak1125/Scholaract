@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.core import serializers
 
 # importing Users model from the models.py file
-from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile
+from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
@@ -211,7 +211,7 @@ def classes_student(request):
         except Class.DoesNotExist:
             error_message = 'Invalid class code. Please try again.'
 
-    # retrives all the clasees the srusnt has enrolled in
+    # retrives all the clasees the student has enrolled in
     # value method selects specific fields
     # teacher = selected_class.teacher.name()
     cl = list(student.classes.values(
@@ -397,6 +397,19 @@ class DateEncoder(DjangoJSONEncoder):
 
 
 def task(request, pk):
+    # session data
+    user_data = request.session.get('user')
+
+    # since role is being assigned by admin, it is being accessed this way
+    role = user_data.get('role')
+    if role == "Teacher":
+        return task_teacher(request, pk)
+    elif role == "Student":
+        return task_student(request, pk)
+    else:
+        return HttpResponse("Invalid role")
+
+def task_teacher(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
 
@@ -425,7 +438,12 @@ def task(request, pk):
 
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
-
+    
+    # for counting total number of tasks submitted 
+    # total_task_filter = Task.objects.filter(related_class=pk)
+    # total_task = total_task_filter.count()
+    # print(total_task)
+    
     for task in current_task:
         task_data = {
             'id': task.id,
@@ -457,6 +475,90 @@ def task(request, pk):
     }
     return render(request, 'scholaractapp/class/task.html', context)
 
+
+# def task_student(request, pk):
+#     classObj = Class.objects.get(id=pk)
+#     related_class = classObj
+#     if request.method == "POST":
+#         files = request.FILES.getlist('post_file')
+#         task_id = request.POST.get('task_id')
+
+#         task = Task.objects.get(id=task_id)
+
+#         user_data = request.session.get('user')
+#         user_id = user_data['id']
+#         uploaded_by = User.objects.get(id=user_id)
+                                       
+#         for file in files:
+#             TaskSubmission.objects.create(file=file, task=task, student=uploaded_by)
+
+#         task_submissions = TaskSubmission.objects.filter(task=task, student=uploaded_by)
+#         file_list = []
+            
+#         for submission in task_submissions:
+#             file_data = {
+#                 'file_name': submission.file.name,
+#                 'file_url': submission.file.url,
+#                 'file_extension': os.path.splitext(submission.file.name)[1]
+#             }
+#             file_list.append(file_data)
+
+#         task_submissions_json = json.dumps(file_list)
+    
+#         print(task_submissions_json)
+#     context = {
+#         'task_submissions_json': task_submissions_json,
+#         'class': classObj,
+#     }
+#     return render(request, 'scholaractapp/class/task.html', context)
+
+
+def task_student(request, pk):
+    classObj = Class.objects.get(id=pk)
+    related_class = classObj
+
+    user_data = request.session.get('user')
+    user_id = user_data['id']
+    uploaded_by = User.objects.get(id=user_id)
+
+
+    # listing tasks assigned for current class
+    current_tasks = Task.objects.filter(related_class = related_class)
+    task_list = []
+    for single_task in current_tasks:
+        task_dict = {
+            'title': single_task.title,
+            'description': single_task.description,
+            'due_date': single_task.due_date,
+        }
+        task_list.append(task_dict)
+    task_json = json.dumps(task_list, cls = DateEncoder)
+
+
+
+    if request.method == 'POST':
+        
+        task_id = request.POST.get('task_id')
+        files = request.FILES.getlist('files')
+        
+        # student = Student.objects.get(id=uploaded_by)
+        task = Task.objects.get(id=task_id)
+        
+        for file in files:
+            # file_path = default_storage.save(f'task_submissions/{file.name}', file)
+            TaskSubmission.objects.create(file=file, task=task, student=uploaded_by, date_of_submission = date.today())
+        
+
+    
+    
+    
+
+    context = {
+        'task_json': task_json,
+        'class': classObj,
+    }
+    
+    return render(request, 'scholaractapp/class/task.html', context)
 
 def deleteTask(request, pk):
     task = Task.objects.get(id=pk)
