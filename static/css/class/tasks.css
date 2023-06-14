@@ -133,7 +133,9 @@ form#form {
 .error {
     position: absolute;
     top: 20px;
-    right: 24px;
+    left: 24px;
+    font-size: 14px;
+    color: var(--error-color);
 }
 
 .assign-task-form-container .title {
