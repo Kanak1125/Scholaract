@@ -9,7 +9,7 @@ console.log(taskArray);
 const template = document.querySelector('.task-template');
 const templateContent = template.content;
 
-executeTemplate(templateContent, taskArray);
+executeTemplate(templateContent, taskArray, true);
 
 function handleDropDownClick(e, btn, dropdown) {
   e.stopPropagation(); // prevent event bubbling

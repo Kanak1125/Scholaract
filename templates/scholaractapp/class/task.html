@@ -104,70 +104,7 @@
                         <option value="oldest">Oldest</option>
                     </select>
                 </div>
-                <div class="task-card-container-stud" data-task="{{task_json}}"> <!--this line-->
-                    <div class="task-card">
-                        <a href="" class="task-card-link" onclick="event.preventDefault();">
-                            <p class="title task-name">Title 101</p>
-                        </a>
-                        <hr>
-                        <p class="description"> Lorem epsum 33000 </p>
-                        <div class="deadline">Deadline: 
-                            <span class="due-date">20th June, 2023</span>
-                            <span class="task-status">
-                                Due
-                            </span>
-                        </div>
-                        <dialog class="modal">
-                            <div class="modal-nav">
-                                <i class="fas fa-chevron-left close-modal"></i>
-                            </div>
-                            <section class="task-main">
-                                <div class="task-info-container">
-                                    <p class="title">Task title</p>
-                                    <hr>
-                                    <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nulla vitae non accusamus, quibusdam, totam minus maxime modi, omnis veritatis harum qui. Recusandae fugiat placeat quasi deleniti accusantium ipsa fugit itaque quis reprehenderit molestias quas, magni amet minima accusamus!</p>
-                                </div>
-                                <div class="task-submission-form-container">
-                                    <form action="" method="post" enctype="multipart/form-data">
-                                        {% csrf_token %}
-                                        <p class="title">Submit work</p>
-                                        <!-- <input type="hidden" name="form_identifier" value="submit_task_form"> -->
-                                        <input type="hidden" name="task_id" value="{{ task_id }}">
-                                        <div class="">
-                                            <label for="post_file">
-                                                <button class="btn" onclick="(e) => e.prevent
-                                                ();">Upload a file</button>
-                                            </label>
-                                            <br>
-                                            <br>
-                                            <input type="file" name="post_file" id="post_file" multiple>
-                                            <input type="submit" class="btn" value="Submit">
-                                        </div>
-                                    </form>
-                                </div>
-                            </section>
-                    </dialog>
-                    </div>
-                    <div class="task-card">
-                        <a href="" class="task-card-link" onclick="event.preventDefault();">
-                            <p class="title task-name">Title 101</p>
-                            <!-- the following icon will only be displayed if the assignment submitted is approved by the teacher... -->
-                            <i class="far fa-check-circle is-approved"></i>
-                        </a>
-                        <hr>
-                        <p class="description"> Lorem epsum 33000 </p>
-                        <div class="deadline">Deadline: 
-                            <span class="due-date">20th June, 2023</span>
-                            <span class="task-status">
-                                Due
-                            </span>
-                        </div>
-                        <dialog class="modal">
-                            <div class="modal-nav">
-                                <i class="fas fa-chevron-left close-modal"></i>
-                            </div>
-                    </dialog>
-                    </div>
+                <div class="task-card-container" data-task="{{task_json}}"> <!--this line-->    
                 </div>
             </div>
         </main>
@@ -261,6 +198,53 @@
                         </div>
                     </section>
             </dialog>
+    </template>
+    
+    <!-- template for the students_task_page -->
+    <template class="task-template-stud">
+        <div class="task-card">
+            <a href="" class="task-card-link" onclick="event.preventDefault();">
+                <p class="title task-name">Title 101</p>
+            </a>
+            <hr>
+            <p class="description"> Lorem epsum 33000 </p>
+            <div class="deadline">Deadline: 
+                <span class="due-date">20th June, 2023</span>
+                <span class="task-status">
+                    Due
+                </span>
+            </div>
+            <dialog class="modal">
+                <div class="modal-nav">
+                    <i class="fas fa-chevron-left close-modal"></i>
+                </div>
+                <section class="task-main">
+                    <div class="task-info-container">
+                        <p class="title">Task title</p>
+                        <hr>
+                        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nulla vitae non accusamus, quibusdam, totam minus maxime modi, omnis veritatis harum qui. Recusandae fugiat placeat quasi deleniti accusantium ipsa fugit itaque quis reprehenderit molestias quas, magni amet minima accusamus!</p>
+                    </div>
+                    <div class="task-submission-form-container">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <p class="title">Submit work</p>
+                            <!-- <input type="hidden" name="form_identifier" value="submit_task_form"> -->
+                            <input type="hidden" name="task_id" value="{{ task_id }}">
+                            <div class="">
+                                <label for="post_file">
+                                    <button class="btn" onclick="(e) => e.prevent
+                                    ();">Upload a file</button>
+                                </label>
+                                <br>
+                                <br>
+                                <input type="file" name="post_file" id="post_file" multiple>
+                                <input type="submit" class="btn" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                </section>
+        </dialog>
+        </div>
     </template>
 </body>
 </html>

@@ -1,12 +1,18 @@
 // Clone the template when creating a new task card
-function createTaskCard(taskData, templateContent) {
+
+// 'isTeacher' ---> boolean value to check if the function is getting called from the teacher's page or student's page coz'
+// only the teachers can delete the task (line no. 9)...
+
+function createTaskCard(taskData, templateContent, isTeacher) {
     const taskCard = templateContent.cloneNode(true);
   
-    // Update the task ID in the delete form action URL
-    const deleteForm = taskCard.querySelector('.delete-form');
-    const taskId = taskData.id;
-    const deleteFormAction = deleteForm.action.replace('__task.id__', taskId);
-    deleteForm.action = deleteFormAction;
+    if (isTeacher) {
+      // Update the task ID in the delete form action URL
+      const deleteForm = taskCard.querySelector('.delete-form');
+      const taskId = taskData.id;
+      const deleteFormAction = deleteForm.action.replace('__task.id__', taskId);
+      deleteForm.action = deleteFormAction;
+    }
   
     // Populate other task data
     const taskName = taskCard.querySelector('.task-name');
@@ -20,10 +26,10 @@ function createTaskCard(taskData, templateContent) {
     return taskCard;
   }
   
-export const executeTemplate = (templateContent, templateDataArray) => {
+export const executeTemplate = (templateContent, templateDataArray, isTeacher) => {
     if ('content' in document.createElement('template')) {
       templateDataArray.forEach(task => {
-        const taskCard = createTaskCard(task, templateContent);
+        const taskCard = createTaskCard(task, templateContent, isTeacher);
     
         const taskContainer = document.querySelector('.task-card-container');
         taskContainer.appendChild(taskCard);

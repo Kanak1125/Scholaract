@@ -1,14 +1,18 @@
 import { executeTemplate } from "./generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
 
-const taskArray = JSON.parse(document.querySelector('.task-card-container-stud').dataset.task);
+const taskArray = JSON.parse(document.querySelector('.task-card-container').dataset.task).reverse();
 console.log(taskArray)
 
 // // Retrieve the template content
 // const template = document.querySelector('.task-template');
 // const templateContent = template.content;
 
-executeTemplate(templateContent, taskArray);
+// Retrieve the template content
+const template = document.querySelector('.task-template-stud');
+const templateContent = template.content;
+
+executeTemplate(templateContent, taskArray, false);
 console.log("Execution successful!");
 
 var taskId = '{{ task_id }}';
