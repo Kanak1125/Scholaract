@@ -315,8 +315,11 @@ ul > li > div p:nth-child(2) {
     text-align: center;
 }
 .task-submission-form-container form .btn{
+    display: inline-block;
     padding: 10px 0;
     width: 100%;
+    text-align: center;
+    font-size: var(--fnt-size-s);
 }
 
 .view-approve-menu {
@@ -412,5 +415,8 @@ ul > li > div p:nth-child(2) {
         flex-direction: column;
         row-gap: 24px;
         align-items: flex-start;
+    }
+    .task-submission-form-container form .btn{
+        font-size: var(--fnt-size-v-s);
     }
 }
