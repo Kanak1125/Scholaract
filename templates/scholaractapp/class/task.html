@@ -22,12 +22,12 @@
     <!-- We will be using different script for the student and teachers respectively...  -->
     {% if role == "Teacher" %}  
     <script type="module" src="../../../static/script/task_teacher.js" defer></script>
+    <script src="../../../static/script/validate_assign.js" defer></script>
 
     {% elif role == "Student" %}
     <script type="module" src="../../../static/script/task_students.js" defer></script>
 
     {% endif %}
-    <script src="../../../static/script/validate_assign.js" defer></script>
 </head>
 <body>
     <div id="top-layer"></div>
@@ -102,7 +102,7 @@
                     <p>Sort by</p>
                     <select name="" id="">
                         <option value="due">Due Date</option>
-                        <option value="latest">Latest</option>
+                        <option value="latest" selected>Latest</option>
                         <option value="oldest">Oldest</option>
                     </select>
                 </div>
@@ -181,10 +181,17 @@
                                             <a href="" target="_blank">View</a>
                                             <button class="btn">Approve</button>
                                         </div>
-                                        
+                                        <div class="edit-delete-menu view-approve-menu">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                            <div class="drop-down update-drop-down">
+                                                <a href="" target="_blank">View</a>
+                                                <button class="btn">Approve</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
-                                </li><li>
+                                </li>
+                                <li>
                                     <div>
                                         <p>Kanak</p>
                                         <p>Submitted on: <span class="date">6 / 5 / 2023</span></p>
@@ -192,10 +199,17 @@
                                             <a href="" target="_blank">View</a>
                                             <button class="btn">Approve</button>
                                         </div>
-                                        
+                                        <div class="edit-delete-menu view-approve-menu">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                            <div class="drop-down update-drop-down">
+                                                <a href="" target="_blank">View</a>
+                                                <button class="btn">Approve</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <hr>
                                 </li>
+                                
                             </ul>
                         </div>
                     </section>

@@ -14,29 +14,8 @@
     <script src="../../static/script/hamburger.js" defer></script>
 </head>
 <body>
-    <div class="nav-bar-container">
-        <nav>
-          <a href="#">
-              <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
-          </a>
-          <div class="nav-sub-container">
-              <ul class="nav-links">
-                  <li><a href="{% url 'aboutUs' %}">About</a></li>
-                  <li><a href="#">Support</a></li>
-                  <li><a href="#">FAQ</a></li>
-              </ul>
-              <!-- {% csrf_token%} -->
-              <a href="{% url 'login' %}">
-                  <button class="btn login-btn" id="login-btn">Login</button>
-              </a>
-          </div>
-        <div class="hamburger-icon">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-        </nav>
-    </div>
+    <!-- Nav section template here... -->
+
     <section class="hero">
         <div class="hero-description">
             <cite>"Transform the way you learn!"</cite>
@@ -99,69 +78,7 @@
         <p class="title">Generate a report</p>
         <p class="description"><i>Just feed in the marks it will generate the report for you</i></p>
     </section>
-    <footer>
-        <div class="links">
-            <div class="short_description">
-            <img src="/static/images/logo.svg" width="60" alt="Scholaract Logo" />
-            <p>
-                Scholaract is the web-based learning management system. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vel, error.
-            </p>
-            </div>
-            <div class="useful_links">
-            <p class="sub_heading">Useful Links</p>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="{% url 'aboutUs' %}">About</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">FAQ</a></li>
-            </ul>
-            </div>
-            <div class="contact_links">
-            <p class="sub_heading">Contact</p>
-            <ul>
-                <li>
-                    <p><i class="fas fa-home"></i>  Lalipur, Nepal</p>
-                </li>
-                <li>
-                    <p><i class="fas fa-envelope"></i>  info@example.com</p>
-                </li>
-                <li>
-                    <p><i class="fas fa-phone-alt"></i>  +997 9800000000</p>
-                </li>
-                <li>
-                    <p><i class="fas fa-phone-alt"></i>  +997 9800000011</p>
-                </li>
-            </ul>
-            </div>
-            <!-- <div class="category">
-            <p class="sub_heading">Category</p>
-            <ul>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Children</a></li>
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Fiction</a></li>
-                <li><a href="#">Romance & erotic</a></li>
-                <li><a href="#">Toys & games</a></li>
-            </ul>
-            </div> -->
-            <div class="social_media">
-            <ul>
-                <li>
-                <a href="#" class="social-media-icon"><i class="fab fa-github"></i></a>
-                </li>
-                <li>
-                <a href="#" class="social-media-icon"><i class="fab fa-facebook"></i></a>
-                </li>
-                <li>
-                <a href="#" class="social-media-icon"><i class="fab fa-linkedin"></i></a>
-                </li>
-                <li>
-                <a href="#" class="social-media-icon"><i class="fab fa-instagram"></i></a>
-                </li>
-            </ul>
-            </div>
-        </div>
-        <div class="copyright_sec">Copyright © 2023 Scholaract. All rights reserved.</div>
-    </footer>
+    
+    <!-- footer section template here... -->
 </body>
 </html>

@@ -1,1 +1,32 @@
 {% load static %}
+<head>
+    <!-- <link rel="stylesheet" href="{% static 'css/class/stream.css' %}"> more better way found -->
+    
+     <!-- script for the hamburger menu -->
+     <script src="{% static 'script/hamburger.js' %}" defer></script>
+
+</head>
+
+<div class="nav-bar-container">
+    <nav>
+      <a href="#">
+          <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+      </a>
+      <div class="nav-sub-container">
+          <ul class="nav-links">
+              <li><a href="{% url 'aboutUs' %}">About</a></li>
+              <li><a href="#">Support</a></li>
+              <li><a href="#">FAQ</a></li>
+          </ul>
+          <!-- {% csrf_token%} -->
+          <a href="{% url 'login' %}">
+              <button class="btn login-btn" id="login-btn">Login</button>
+          </a>
+      </div>
+    <div class="hamburger-icon">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    </nav>
+</div>

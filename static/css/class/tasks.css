@@ -243,7 +243,7 @@ ul > li > div p:nth-child(2) {
 .btns {
     grid-column: 4/6;
     text-align: end;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .btns > * {
@@ -348,7 +348,7 @@ ul > li > div p:nth-child(2) {
 
     .modal {
         width: 100%;
-        border-radius: 5px;
+        border-radius: 10px;
         left: 0vw !important;
         margin: 0 auto 0 auto;
     }
@@ -369,17 +369,38 @@ ul > li > div p:nth-child(2) {
     ul > li > div {
         grid-template: auto auto / repeat(2, 1fr);
     }
+
+    ul > li > div p:first-child {
+        grid-column: 1 / 2;
+    }
     
     .btns {
         grid: 2 / 3;
         display: none;
     }
 
-    /* .view-approve-menu {
+    .view-approve-menu {
         display: block;
-        grid: 2 / 3;
-        align-self: end;
-    } */
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+        margin-left: auto;
+        padding-top: 5px;
+        text-align: center;
+    }
+
+    .update-drop-down {
+        padding: .6em .5em;
+        line-height: 2em;
+    }
+
+    .drop-down button.btn {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+    }
+
+    .drop-down button.btn:hover {
+        color: var(--bg-color-op6);
+    }
 }
 
 @media (max-width: 375px) {
