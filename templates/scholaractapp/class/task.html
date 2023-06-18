@@ -100,11 +100,14 @@
                 </header>
                 <div class="sort-by-section">
                     <p>Sort by</p>
-                    <select name="" id="">
-                        <option value="due">Due Date</option>
-                        <option value="latest" selected>Latest</option>
-                        <option value="oldest">Oldest</option>
-                    </select>
+                    <div class="select-dropdown">
+                        <button class="dropdown-toggle" onclick="toggleDropdown()">Latest <i class="fas fa-chevron-down drop-down-icon"></i></button>
+                        <ul class="dropdown-menu">
+                          <li onclick="selectOption('Latest')">Latest (Default)</li>
+                          <li onclick="selectOption('Due')">Due</li>
+                          <li onclick="selectOption('Oldest')">Oldest</li>
+                        </ul>
+                      </div>
                 </div>
                 <div class="task-card-container-stud" data-task="{{task_json}}"> <!--this line-->    
                 </div>
@@ -261,5 +264,22 @@
         </dialog>
         </div>
     </template>
+    <script>
+        function toggleDropdown() {
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            const dropdownIcon = document.querySelector('.drop-down-icon');
+
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            dropdownIcon.style.transform = dropdownIcon.style.transform === '' || dropdownIcon.style.transform === 'none' ? 'rotate(-180deg)' : 'none';
+        }
+
+        function selectOption(option) {
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            dropdownToggle.innerHTML = `${option} <i class="fas fa-chevron-down drop-down-icon"></i>`;
+            toggleDropdown();
+            const dropdownIcon = document.querySelector('.drop-down-icon');
+            dropdownIcon.style.transform = '';
+        }
+    </script>
 </body>
 </html>

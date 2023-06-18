@@ -144,6 +144,8 @@ form#form {
 
 .delete-form {
     padding: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .delete-post {
@@ -420,3 +422,51 @@ ul > li > div p:nth-child(2) {
         font-size: var(--fnt-size-v-s);
     }
 }
+
+.select-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-toggle {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    width: 120px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: start;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; 
+  }
+  
+  .dropdown-toggle i {
+    float: right;
+    transition: transform 150ms ease-out;
+  }
+  .dropdown-menu {
+    position: absolute;
+    width: 100%;
+    top: 120%;
+    left: 0;
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; 
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .dropdown-menu li {
+    padding: 7.5px;
+    cursor: pointer;
+    font-size: var(--fnt-size-v-s);
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: hsl(222, 11%, 25%);
+  }
+  
