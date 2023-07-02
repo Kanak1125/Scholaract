@@ -527,6 +527,7 @@ def task_student(request, pk):
     task_list = []
     for single_task in current_tasks:
         task_dict = {
+            'id': single_task.id,
             'title': single_task.title,
             'description': single_task.description,
             'due_date': single_task.due_date,
@@ -537,12 +538,11 @@ def task_student(request, pk):
 
 
     if request.method == 'POST':
-        
-        task_id = request.POST.get('task_id')
-        files = request.FILES.getlist('files')
-        
+        # task_id = request.POST.get('task_id')
+        files = request.FILES.getlist('post_file')
+        # print(task_id)
         # student = Student.objects.get(id=uploaded_by)
-        task = Task.objects.get(id=task_id)
+        # task = Task.objects.get(id=task_id)
         
         for file in files:
             # file_path = default_storage.save(f'task_submissions/{file.name}', file)

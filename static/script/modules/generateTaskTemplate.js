@@ -6,10 +6,10 @@
 function createTaskCard(taskData, templateContent, isTeacher) {
     const taskCard = templateContent.cloneNode(true);
   
+    const taskId = taskData.id;
     if (isTeacher) {
       // Update the task ID in the delete form action URL
       const deleteForm = taskCard.querySelector('.delete-form');
-      const taskId = taskData.id;
       const deleteFormAction = deleteForm.action.replace('__task.id__', taskId);
       deleteForm.action = deleteFormAction;
     }

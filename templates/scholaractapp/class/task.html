@@ -26,8 +26,9 @@
 
     {% elif role == "Student" %}
     <script type="module" src="../../../static/script/task_students.js" defer></script>
-
+    
     {% endif %}
+    <script src="../../../static/script/validate_assign.js" defer></script>
 </head>
 <body>
     <div id="top-layer"></div>
@@ -109,7 +110,7 @@
                         </ul>
                       </div>
                 </div>
-                <div class="task-card-container-stud" data-task="{{task_json}}"> <!--this line-->    
+                <div class="task-card-container-stud"  data-task="{{task_json}}">    
                 </div>
             </div>
         </main>
@@ -248,10 +249,11 @@
                             {% csrf_token %}
                             <p class="title">Submit work</p>
                             <!-- <input type="hidden" name="form_identifier" value="submit_task_form"> -->
-                            <input type="hidden" name="task_id" value="{{ task_id }}">
+                            <!-- <input type="hidden" id = "task_id" name="task_id" value=17> -->
                             <div class="">
-                                <label for="post_file" class="btn">
-                                    Upload a file
+                                <label for="post_file">
+                                    <button class="btn" onclick="(e) => e.prevent
+                                    ();">Upload a file</button>
                                 </label>
                                 <br>
                                 <br>
