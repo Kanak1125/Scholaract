@@ -35,4 +35,101 @@ const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
 const modalArr = [...document.querySelectorAll('.modal')];
 const closeModal = [...document.querySelectorAll('.close-modal')];
 
+
+// const taskCardContainers = document.querySelectorAll('.task-card-container-stud');
+
+// template.forEach((taskCardContainer) => {
+//   taskCardContainer.addEventListener('click', () => {
+//     const task = JSON.parse(taskCardContainer.dataset.task);
+//     const taskId = task.id;
+//     console.log(taskId);  // Output: the task ID value
+//     // Perform further actions with the task ID as needed
+//   });
+// });
+
+
+
+// taskCardLinkArr.forEach((taskCardLink) => {
+//   taskCardLink.addEventListener('click', function(e) {
+//     console.log('Task card clicked'); // Debug statement
+//     e.preventDefault();
+//     const taskId = this.dataset.id;
+//     const taskdes = this.dataset.description;
+//     console.log('Task ID:', taskId); // Debug statement
+//     console.log('Task Description:', taskdes); // Debug statement
+
+//   });
+// });
+
+
 toggleModal(modalArr, taskCardLinkArr, closeModal, true);
+// taskCardLinkArr.forEach((taskCardLink) => {
+//   taskCardLink.addEventListener('click', function(e) {
+//     console.log('Task card clicked'); // Debug statement
+//     e.preventDefault();
+//     const taskContainer = this.closest('.task-card-container-stud');
+//     const taskData = JSON.parse(taskContainer.dataset.task).reverse(); // parsing JSON data stored in data-task
+//     const taskElements = Array.from(taskContainer.children); // converting the live collection  of child elements into an array
+//     // console.log(taskElements)
+//     const index = taskElements.indexOf(this.parentNode); // accessing index of the taskContainer i.e. of class = task-card-container-stud
+//     // console.log('Index:', index);
+//     const taskId = taskData[index].id;
+//     console.log('Task ID:', taskId);
+//     // const taskDes = taskData[index].description;
+//     // console.log('Task Description:', taskDes);
+    
+//   });
+// });
+// // console.log(taskCardLinkArr)
+
+// taskCardLinkArr.forEach((taskCardLink) => {
+//   taskCardLink.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     console.log('Task card clicked'); // Debug statement
+//     const taskContainer = this.closest('.task-card-container-stud');
+//     const taskData = JSON.parse(taskContainer.dataset.task).reverse();
+//     const taskElements = Array.from(taskContainer.children);
+//     const index = taskElements.indexOf(this.parentNode.parentNode);
+//     console.log('Index:', index);
+//     const taskId = taskData[index].id;
+//     console.log('Task ID:', taskId);
+//     const taskDes = taskData[index].description;
+//     console.log('Task Description:', taskDes);
+
+//     // Access the form elements
+//     const form = this.querySelector('form');
+//     const formElements = form.elements;
+
+//     // Access and process form data
+//     const formData = new FormData(form);
+//     for (let pair of formData.entries()) {
+//       console.log(pair[0] + ': ' + pair[1]);
+//     }
+//   });
+// });
+
+// console.log(taskCardLinkArr);
+taskCardLinkArr.forEach((taskCardLink) => {
+  taskCardLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Task card clicked'); // Debug statement
+    const taskContainer = this.closest('.task-card-container-stud');
+    const taskData = JSON.parse(taskContainer.dataset.task).reverse();
+    const taskElements = Array.from(taskContainer.children);
+    const index = taskElements.indexOf(this.parentNode.parentNode);
+    console.log('Index:', index);
+    const taskId = taskData[index].id;
+    console.log('Task ID:', taskId);
+    const taskDes = taskData[index].description;
+    console.log('Task Description:', taskDes);
+
+    const form = this.closest('form');
+    const taskIdInput = form.querySelector('.task-id-input');
+    taskIdInput.value = taskId;
+
+    // Submit the form
+    form.submit();
+  });
+});
+
+console.log(taskCardLinkArr);
