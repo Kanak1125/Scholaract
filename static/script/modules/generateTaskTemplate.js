@@ -29,9 +29,11 @@ function createTaskCard(taskData, templateContent, isTeacher) {
 export const executeTemplate = (templateContent, templateDataArray, taskContainer, isTeacher) => {
     if ('content' in document.createElement('template')) {
       templateDataArray.forEach(task => {
+        // console.log(task);
         const taskCard = createTaskCard(task, templateContent, isTeacher);
-    
+        
         taskContainer.appendChild(taskCard);
+        // console.log(taskCard);
       });
     } else {
       console.log('template not found!');

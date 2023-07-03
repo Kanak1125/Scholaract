@@ -12,7 +12,7 @@ const templateContent = template.content;
 executeTemplate(templateContent, taskArray, taskContainer, false);
 console.log("Execution successful!");
 
-var taskId = '{{ task_id }}';
+// var taskId = '{{ task_id }}';
 
 function handleDropDownClick(e, btn, dropdown) {
   e.stopPropagation(); // prevent event bubbling
