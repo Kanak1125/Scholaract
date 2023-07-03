@@ -73,7 +73,12 @@
                 <div class="task-card-container" data-task="{{task_json}}"></div>
             </div>
             <div class="assign-task-form-container">
-                <form action="" method="post" id="form" enctype="multipart/form-data">
+                <form
+                 action="" 
+                 method="post" 
+                 id="form" 
+                 class="form-main"
+                 enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="error"></div>
                     <p class="title">Assign</p>
@@ -120,7 +125,10 @@
                 <div class="edit-delete-menu">
                     <i class="fas fa-ellipsis-v"></i>
                     <div class="update-drop-down">
-                        <form action="{% url 'deleteTask' pk='__task.id__' %}" method="post" class="delete-form">
+                        <form 
+                        action="{% url 'deleteTask' pk='__task.id__' %}" 
+                        method="post" 
+                        class="delete-form">
                             <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
                             {% csrf_token %}
                             <input type="hidden" name="form_identifier" value="delete_task_form">
@@ -224,7 +232,7 @@
     <template class="task-template-stud">
         <div class="task-card">
             
-            <form method="POST" class="submit-task">
+            <form method="POST" class="submit-task-form">
                 <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
                 {% csrf_token %}
                 <input type="hidden" name="form_identifier" value="submit_task_identifier">
@@ -259,7 +267,7 @@
                     </div>
                     <div class="task-submission-form-container">
                         <form 
-                        action="" 
+                        class="form-main"
                         method="post" 
                         enctype="multipart/form-data" onclick="event.preventDefault();"
                         >

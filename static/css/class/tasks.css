@@ -120,7 +120,7 @@ span.due-date {
     font-weight: var(--fnt-wght-thin);
 }
 
-form {
+.form-main {
     background-color: var(--primary-color);
     border-radius: 5px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -312,6 +312,15 @@ ul > li > div p:nth-child(2) {
     width: 80%;
     margin: auto;
 }
+
+.submit-task-form {
+    padding: 0;
+}
+
+.task-name {
+    padding: 26px 36px 5px;
+}
+
 .task-submission-form-container form .title {
     padding: 5px;
     text-align: center;
