@@ -126,9 +126,29 @@ taskCardLinkArr.forEach((taskCardLink) => {
     const form = this.closest('form');
     const taskIdInput = form.querySelector('.task-id-input');
     taskIdInput.value = taskId;
+    
+    // Submitting the form using AJAX
+    const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
+    const xhr = new XMLHttpRequest(); // creates a new "XMLHttpRequest" object, which is used to send asynchronous HTTP requests.
+    // XMLHttpRequest object provides functionality for making AJAX requests to the server...
+    xhr.open(form.method, form.action); // initializing the AJAX request with form method as POST and form action blank...
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Adding this header for Django to identify it as an AJAX request
 
-    // Submit the form
-    form.submit();
+    // when the request is complete the following function is called with "onload"...
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        // Request was successful
+        console.log("Request was successful");
+      } else {
+        // Request failed
+        console.error('Request failed. Status:', xhr.status);
+      }
+    };
+    xhr.onerror = function() {
+      console.error('Network error occurred');
+    };
+    xhr.send(formData); // this sends the data to the server...
+    
   });
 });
 
