@@ -269,17 +269,14 @@
                         <form 
                         class="form-main"
                         method="post" 
-                        enctype="multipart/form-data" onclick="event.preventDefault();"
+                        enctype="multipart/form-data"
                         >
                             {% csrf_token %}
                             <p class="title">Submit work</p>
                             <!-- <input type="hidden" name="form_identifier" value="submit_task_form"> -->
                             <!-- <input type="hidden" id = "task_id" name="task_id" value=17> -->
-                            <div class="">
-                                <label for="post_file">
-                                    <button class="btn" onclick="(e) => e.prevent
-                                    ();">Upload a file</button>
-                                </label>
+                            <div>
+                                <label for="post_file" class="btn">Upload a file</label>
                                 <br>
                                 <br>
                                 <input type="file" name="post_file" id="post_file" multiple>
