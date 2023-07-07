@@ -124,8 +124,22 @@ taskCardLinkArr.forEach((taskCardLink) => {
     console.log('Task Description:', taskDes);
 
     const form = this.closest('form');
+    submitFormData(form, taskId);
+
+    const taskSubmissionForm = document.getElementById('task-submission-form');
+    const taskSubmitBtn = document.getElementById('task-submit-btn');
+    taskSubmissionForm.addEventListener('submit', (e, taskId) => {
+      e.preventDefault();
+      console.log("submitted")
+      submitFormData(taskSubmissionForm, taskId);
+    })
+  });
+});
+
+
+function submitFormData(form, taskId) {
     const taskIdInput = form.querySelector('.task-id-input');
-    taskIdInput.value = taskId;
+    if (taskId) taskIdInput.value = taskId;
     
     // Submitting the form using AJAX
     const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
@@ -148,8 +162,6 @@ taskCardLinkArr.forEach((taskCardLink) => {
       console.error('Network error occurred');
     };
     xhr.send(formData); // this sends the data to the server...
-    
-  });
-});
+}
 
 console.log(taskCardLinkArr);

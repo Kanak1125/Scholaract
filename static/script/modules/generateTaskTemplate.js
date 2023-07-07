@@ -14,6 +14,15 @@ function createTaskCard(taskData, templateContent, isTeacher) {
       deleteForm.action = deleteFormAction;
     }
   
+    // only if student...
+    if (!isTeacher) {
+      console.log("student task modal");
+      const modalTaskTitle = taskCard.querySelector('.modal-task-title');
+      const modalTaskDescription = taskCard.querySelector('.modal-description');
+      modalTaskTitle.textContent = taskData.title;
+      modalTaskDescription.textContent = taskData.description;
+    }
+
     // Populate other task data
     const taskName = taskCard.querySelector('.task-name');
     const description = taskCard.querySelector('.description');

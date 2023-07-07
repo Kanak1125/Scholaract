@@ -120,6 +120,8 @@
             </div>
         </main>
     {% endif %}
+
+    <!-- template for the teacher_task_page -->
     <template class="task-template">
             <div class="task-card">
                 <div class="edit-delete-menu">
@@ -261,12 +263,13 @@
                 </div>
                 <section class="task-main">
                     <div class="task-info-container">
-                        <p class="title">Task title</p>
+                        <p class="title modal-task-title"></p>
                         <hr>
-                        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nulla vitae non accusamus, quibusdam, totam minus maxime modi, omnis veritatis harum qui. Recusandae fugiat placeat quasi deleniti accusantium ipsa fugit itaque quis reprehenderit molestias quas, magni amet minima accusamus!</p>
+                        <p class="description modal-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nulla vitae non accusamus, quibusdam, totam minus maxime modi, omnis veritatis harum qui. Recusandae fugiat placeat quasi deleniti accusantium ipsa fugit itaque quis reprehenderit molestias quas, magni amet minima accusamus!</p>
                     </div>
                     <div class="task-submission-form-container">
                         <form 
+                        id="task-submission-form"
                         class="form-main"
                         method="post" 
                         enctype="multipart/form-data"
@@ -280,7 +283,8 @@
                                 <br>
                                 <br>
                                 <input type="file" name="post_file" id="post_file" multiple>
-                                <input type="submit" class="btn" value="Submit">
+                                <input type="submit" id="task-submit-btn" class="btn" value="Submit"
+                                >
                             </div>
                         </form>
                     </div>
