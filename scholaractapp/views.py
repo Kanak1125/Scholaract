@@ -521,7 +521,6 @@ def task_student(request, pk):
     user_id = user_data['id']
     uploaded_by = User.objects.get(id=user_id)
 
-
     # listing tasks assigned for current class
     current_tasks = Task.objects.filter(related_class = related_class)
     task_list = []
@@ -538,20 +537,29 @@ def task_student(request, pk):
 
 
     if request.method == 'POST':
-        task_id = request.POST.get('task_id')
-        files = request.FILES.getlist('post_file')
-        print(task_id)
-        # student = Student.objects.get(id=uploaded_by)
-        # task = Task.objects.get(id=task_id)
-        for file in files:
-            # file_path = default_storage.save(f'task_submissions/{file.name}', file)
-            TaskSubmission.objects.create(file=file, task=task, student=uploaded_by, date_of_submission = date.today())
-        
-        
+        print(request.POST)
+        form_identifier = request.POST.get('form_identifier')
+        print("Form Identifier:", form_identifier)
+        if form_identifier == "task_id_identifier":
+            task_id = request.POST.get('task_id')
+            request.session['task_id'] = task_id # storing task id in session
+            # print(task_id)
 
-    
-    
-    
+        elif form_identifier == "submit_task_form":
+            # task_id = request.POST.get('task_id')
+            task_id = request.session.get('task_id') # accessing task id from session
+            task = Task.objects.get(id=task_id)
+            print(task_id)
+            files = request.FILES.getlist('post_file')
+            print(request.FILES)
+            
+            
+            for file in files:
+                TaskSubmission.objects.create(file=file, task=task, student=uploaded_by, date_of_submission=date.today())
+                print(file)
+            # class_pk = classObj.pk
+            # return redirect('task', pk=class_pk)
+            
 
     context = {
         'task_json': task_json,

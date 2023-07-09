@@ -144,8 +144,9 @@ class TaskFile(models.Model):
         return self.file.name
 
 class TaskSubmission(models.Model):
-    student = models.ForeignKey(Student, on_delete= models.CASCADE)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    # student = models.ForeignKey(Student, on_delete= models.CASCADE)
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
     date_of_submission = models.DateField(auto_now_add=True)
     file = models.FileField(upload_to='submission_files/', null=True, blank=True)
     

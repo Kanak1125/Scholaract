@@ -161,8 +161,8 @@ updateEventListener();
 //     // console.log('Index:', index);
 //     const taskId = taskData[index].id;
 //     console.log('Task ID:', taskId);
-//     // const taskDes = taskData[index].description;
-//     // console.log('Task Description:', taskDes);
+//     // const taskDescription = taskData[index].description;
+//     // console.log('Task Description:', taskDescription);
     
 //   });
 // });
@@ -179,8 +179,8 @@ updateEventListener();
 //     console.log('Index:', index);
 //     const taskId = taskData[index].id;
 //     console.log('Task ID:', taskId);
-//     const taskDes = taskData[index].description;
-//     console.log('Task Description:', taskDes);
+//     const taskDescription = taskData[index].description;
+//     console.log('Task Description:', taskDescription);
 
 //     // Access the form elements
 //     const form = this.querySelector('form');
@@ -205,9 +205,10 @@ taskCardLinkArr.forEach((taskCardLink) => {
     const index = taskElements.indexOf(this.parentNode.parentNode);
     console.log('Index:', index);
     const taskId = taskData[index].id;
+    const taskTitle = taskData[index].title;
     console.log('Task ID:', taskId);
-    const taskDes = taskData[index].description;
-    console.log('Task Description:', taskDes);
+    const taskDescription = taskData[index].description;
+    console.log('Task Description:', taskDescription);
 
     const form = this.closest('form');
     submitFormData(form, taskId);
@@ -227,7 +228,7 @@ function submitFormData(form, taskId) {
     const taskIdInput = form.querySelector('.task-id-input');
     if (taskId) taskIdInput.value = taskId;
     
-    // Submitting the form using AJAX
+    // // Submitting the form using AJAX
     const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
     const xhr = new XMLHttpRequest(); // creates a new "XMLHttpRequest" object, which is used to send asynchronous HTTP requests.
     // XMLHttpRequest object provides functionality for making AJAX requests to the server...
