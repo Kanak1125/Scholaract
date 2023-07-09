@@ -107,11 +107,13 @@
                 <div class="sort-by-section">
                     <p>Sort by</p>
                     <div class="select-dropdown">
-                        <button class="dropdown-toggle" onclick="toggleDropdown()">Latest <i class="fas fa-chevron-down drop-down-icon"></i></button>
+                        <button 
+                        class="dropdown-toggle"
+                        >Latest <i class="fas fa-chevron-down drop-down-icon"></i></button>
                         <ul class="dropdown-menu">
-                          <li onclick="selectOption('Latest')">Latest (Default)</li>
-                          <li onclick="selectOption('Due')">Due</li>
-                          <li onclick="selectOption('Oldest')">Oldest</li>
+                          <li class="latest-option">Latest (Default)</li>
+                          <li class="due-option">Due</li>
+                          <li class="oldest-option">Oldest</li>
                         </ul>
                       </div>
                 </div>
@@ -241,7 +243,7 @@
                 <!-- <input type="hidden" name="task_id" value="{{ taskId }}"> -->
                 <input type="hidden" name="task_id" class="task-id-input" value ="">
                 <a href="" class="task-card-link" onclick="event.preventDefault();">
-                    <p class="title task-name">Title 101</p>
+                    <p class="title task-name"></p>
                 </a>
             </form>
 
@@ -250,7 +252,7 @@
             </a> -->
 
             <hr>
-            <p class="description"> Lorem epsum 33000 </p>
+            <p class="description"></p>
             <div class="deadline">Deadline: 
                 <span class="due-date">20th June, 2023</span>
                 <span class="task-status">
@@ -265,7 +267,7 @@
                     <div class="task-info-container">
                         <p class="title modal-task-title"></p>
                         <hr>
-                        <p class="description modal-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus nulla vitae non accusamus, quibusdam, totam minus maxime modi, omnis veritatis harum qui. Recusandae fugiat placeat quasi deleniti accusantium ipsa fugit itaque quis reprehenderit molestias quas, magni amet minima accusamus!</p>
+                        <p class="description modal-description"></p>
                     </div>
                     <div class="task-submission-form-container">
                         <form 
@@ -292,7 +294,9 @@
         </dialog>
         </div>
     </template>
-    <script>
+    <script type="module">
+        import { sortTasks } from "../../../static/script/task_students.js";
+
         function toggleDropdown() {
             const dropdownMenu = document.querySelector('.dropdown-menu');
             const dropdownIcon = document.querySelector('.drop-down-icon');
@@ -300,14 +304,30 @@
             dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
             dropdownIcon.style.transform = dropdownIcon.style.transform === '' || dropdownIcon.style.transform === 'none' ? 'rotate(-180deg)' : 'none';
         }
-
+        
         function selectOption(option) {
-            const dropdownToggle = document.querySelector('.dropdown-toggle');
             dropdownToggle.innerHTML = `${option} <i class="fas fa-chevron-down drop-down-icon"></i>`;
             toggleDropdown();
             const dropdownIcon = document.querySelector('.drop-down-icon');
             dropdownIcon.style.transform = '';
+            
+            sortTasks();    // everytime the option is selected the sortTasks() function is called...
         }
+        
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        dropdownToggle.addEventListener('click', toggleDropdown);
+        const latestOption = document.querySelector('.latest-option');
+        const dueOption = document.querySelector('.due-option');
+        const oldestOption = document.querySelector('.oldest-option');
+
+        latestOption.addEventListener('click', () => selectOption('Latest'));
+        dueOption.addEventListener('click', () => selectOption('Due'));
+        oldestOption.addEventListener('click', () => selectOption('Oldest'));
+        // function sortTasks() {
+        //     const option = dropdownToggle.textContent;
+        //     console.log(option);
+        // }
+
     </script>
 </body>
 </html>

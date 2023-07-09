@@ -2,14 +2,94 @@ import { executeTemplate } from "./modules/generateTaskTemplate.js";  // importi
 import toggleModal from "./modules/modal.js";
 
 const taskContainer = document.querySelector('.task-card-container-stud');
-const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
-console.log(taskArray)
-
+let taskArray = JSON.parse(taskContainer.dataset.task).reverse();
+console.log(taskArray);
 // Retrieve the template content
 const template = document.querySelector('.task-template-stud');
 const templateContent = template.content;
 
-executeTemplate(templateContent, taskArray, taskContainer, false);
+function latestTaskOrder() {
+  executeTemplate(templateContent, taskArray, taskContainer, false);
+  updateEventListener();
+}
+
+function dueTaskOrder() {
+  const dueDateToMillisecondsTask = taskArray.map(task => {
+    const dateString = task.due_date;
+    const [day, month, year] = typeof dateString === 'string' ? dateString.split('-') : dateString;
+    console.log(day, month, year);
+    const newDueDate = new Date(year, month - 1, day);
+
+    const milliseconds = newDueDate.getTime();
+
+    task.due_date = milliseconds;
+    return task;
+  })
+  const sortedTaskArray = dueDateToMillisecondsTask.sort((a, b) => a.due_date - b.due_date);  // sorting according to the due_date 
+  // NOTE: nearer the due date the task will appear ahead...
+
+
+  // reverting the array of objects back to the correct Date format...
+  const revertedDateTaskArray = sortedTaskArray.map (task => {
+    const newDueDate = new Date(task.due_date);
+    const dueDate = newDueDate.getDate();
+    const dueMonth = newDueDate.getMonth() + 1;
+    const dueFullYear = newDueDate.getFullYear();
+
+    task.due_date = `${dueDate < 10 ? 
+      '0' +  dueDate
+      : 
+      dueDate}-${dueMonth < 10 ? 
+        '0' +  dueMonth
+        : 
+        dueMonth}-${dueFullYear}`
+    return task;
+  })
+
+  executeTemplate(templateContent, revertedDateTaskArray, taskContainer, false);
+  updateEventListener();
+}
+
+function oldestTaskOrder() {
+  const oldestTaskArray = taskArray.slice().reverse();  // creating the copy of original taskArray and reversing it so that the original array doesn't change in every render...
+  console.log(oldestTaskArray);
+  executeTemplate(templateContent, oldestTaskArray, taskContainer, false);
+  console.log('reversed');
+  updateEventListener();
+}
+
+const dropdownToggleBtn = document.querySelector('.dropdown-toggle');
+
+// let isTaskSorted = false;
+
+export const sortTasks = () => {
+  // isTaskSorted = true;
+  const option = dropdownToggleBtn.textContent;
+  const trimmedOption = option.trim();  // removing whitespace...
+  
+  console.log(option);
+  switch (trimmedOption) {
+    case 'Latest':
+      latestTaskOrder();
+      break;
+    case 'Due':
+      // reverseTaskOrder();
+      dueTaskOrder();
+      break;
+    case 'Oldest':
+      oldestTaskOrder();
+      console.log("I'm oldest");
+      break;
+    default:
+      // console.log("I'm latest");
+      break;
+  }
+}
+
+console.log(taskArray)
+
+
+// executeTemplate(templateContent, taskArray, taskContainer, false);
 console.log("Execution successful!");
 
 // var taskId = '{{ task_id }}';
@@ -31,9 +111,16 @@ $(document).ready(function() {
   });
 });
 
-const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
-const modalArr = [...document.querySelectorAll('.modal')];
-const closeModal = [...document.querySelectorAll('.close-modal')];
+let taskCardLinkArr;
+
+// we need to update the modalArray everytime the taskArray is sorted out so creating a function to call everytime the array is sorted...
+function updateEventListener() {
+  taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
+  const modalArr = [...document.querySelectorAll('.modal')];
+  const closeModal = [...document.querySelectorAll('.close-modal')];
+
+  toggleModal(modalArr, taskCardLinkArr, closeModal, true);
+}
 
 
 // const taskCardContainers = document.querySelectorAll('.task-card-container-stud');
@@ -60,9 +147,8 @@ const closeModal = [...document.querySelectorAll('.close-modal')];
 
 //   });
 // });
-
-
-toggleModal(modalArr, taskCardLinkArr, closeModal, true);
+executeTemplate(templateContent, taskArray, taskContainer, false);
+updateEventListener();
 // taskCardLinkArr.forEach((taskCardLink) => {
 //   taskCardLink.addEventListener('click', function(e) {
 //     console.log('Task card clicked'); // Debug statement
