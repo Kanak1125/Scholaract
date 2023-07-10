@@ -12,8 +12,109 @@
 
     <!-- jquery cdn -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="../../../static/css/class/report.css">
 </head>
 <body>
     {% include 'scholaractapp/includes/navbar202.html' %}
+
+    {% if role == "Teacher" %}
+    <main class="main">
+        <header>
+            <p class="title">Assign Marks</p>
+            <hr>
+        </header>
+        <form action="">
+            <div class="list marks-container">
+                <!-- from people.html <ul>
+                    {% for student in enrolled_students %}
+                    <li>
+                        <p>{{student.name}}</p>
+                        <div class="edit-delete-menu">
+                            <i class="fas fa-ellipsis-v"></i>
+                            <div class="update-drop-down">
+                                <form action="{% url 'deleteTask' pk='__task.id__' %}" method="post" class="delete-form">
+                                    '__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.
+                                    {% csrf_token %}
+                                    <input type="hidden" name="form_identifier" value="delete_task_form">
+                                    <button type="submit" class="btn delete-post">Delete</button> 
+                                </form>
+                            </div> 
+                        </div>
+                    </li><hr>
+                    {% endfor %}
+                </ul> -->
+                <ul>
+                    <li>
+                        <p>Students</p>
+                        <p class="gpa-title">GPA</p>
+                    </li><hr>
+                    <li>
+                        <p>Student 1</p>
+                        <input class="no-spinner" type="number" min="0" max="4.0">
+                    </li><hr>
+                    <li>
+                        <p>Student 2</p>
+                        <input class="no-spinner" type="number" min="0" max="4.0">
+                    </li><hr>
+                    <li>
+                        <p>Student 3</p>
+                        <input class="no-spinner" type="number" min="0" max="4.0">
+                    </li><hr>
+                    <li>
+                        <p>Student 4</p>
+                        <input class="no-spinner" type="number" min="0" max="4.0">
+                    </li><hr>
+                    <!-- {% for student in enrolled_students %}
+                    <li>
+                        <p>{{student.name}}</p>
+                        <input class="no-spinner" type="number" min="0" max="4.0">
+                    </li><hr> -->
+                    
+                    <!-- {% endfor %} -->
+                </ul>
+            </div>
+            <footer class="marks-section-footer">
+                <input type="button" class="btn submit-btn" value="Submit"/>
+            </footer>
+        </form>
+    </main>
+    {% elif role == "Student" %}
+    <main class="main">
+        <!-- div.table-wrapper to hide the overflow maintaining its border radius... -->
+        <div class="table-wrapper">
+            <table>
+                <tr>
+                    <th colspan="6" class="report-title">Report title</th>
+                </tr>
+                <tr>
+                    <th colspan="3" class="table-std-name">Name: <span>Student name</span></th>
+                    <th colspan="3" class="table-std-id">Student id: <span>14</span></th>
+                </tr>
+                <tr>
+                    <td>SN</td>
+                    <td colspan="2">Subjects</td>
+                    <td>Credit Hour</td>
+                    <td>Grade</td>
+                    <td>Grade Point</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td colspan="2">Statistics</td>
+                    <td>150</td>
+                    <td>A +</td>
+                    <td>3.75</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td colspan="2">DSA</td>
+                    <td>180</td>
+                    <td>A +</td>
+                    <td>3.75</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    {% endif %}
 </body>
 </html>

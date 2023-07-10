@@ -14,3 +14,127 @@
     background-color: var(--primary-color);
     border-radius: 5px;
 }
+
+.main {
+    display: flex !important;
+    flex-direction: column;
+    max-width: 900px;
+}
+
+header .title {
+    padding-left: 0;
+}
+
+.title {
+    font-size: var(--fnt-size-l);
+    font-weight: var(--fnt-wght-b);
+}
+
+header > hr {
+    margin-top: 10px;
+    height: 2px;
+    outline: none !important;
+    border: 1.5px solid var(--accent-color);
+    border-radius: 5px;
+}
+
+.marks-container {
+    padding: 40px 0;
+}
+
+.list ul {
+    list-style-type: none;
+}
+
+.list ul li {
+    margin: 20px 0;
+    font-size: var(--fnt-size-s);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list ul hr {
+    border: 0.5px solid var(--bg-color-op6);
+    border-radius: 5px;
+}
+
+.list ul > li:first-child {
+    font-size: var(--fnt-size-m);
+    font-weight: var(--fnt-wght-m);
+}
+
+.gpa-title {
+    margin-right: 12px;
+}
+
+.list ul input {
+    padding: 5px;
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    outline: none;
+}
+
+.list ul input:focus {
+    border: 2px solid var(--ternary-color);
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.submit-btn {
+    padding: 10px 24px;
+}
+
+.marks-section-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    padding: 20px 0;
+    text-align: center;
+    background-color: var(--primary-color);
+    box-shadow: 0 0 48px 32px var(--primary-color);
+}
+
+.table-wrapper {
+    overflow: hidden;
+    border-radius: 5px !important;
+}
+.main table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table,
+td {
+    border: 1px solid var(--secondary-color);
+}
+
+th,
+td {
+    padding: 7.5px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+th {
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 20px 7.5px;
+}
+
+.report-title {
+    font-size: var(--fnt-size-l);
+}
+.table-std-name {
+    text-align: start;
+}
+
+.table-std-id {
+    text-align: end;
+}
