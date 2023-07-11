@@ -107,6 +107,8 @@ header > hr {
 .main table {
     border-collapse: collapse;
     width: 100%;
+    background-color: hsla(0, 0%, 100%, 0.1);
+    backdrop-filter: blur(2.5px);
 }
 
 table,
@@ -125,16 +127,21 @@ th {
     border: none;
     background-color: var(--secondary-color);
     color: var(--primary-color);
-    padding: 20px 7.5px;
+    padding: 20px;
 }
 
 .report-title {
     font-size: var(--fnt-size-l);
 }
+
 .table-std-name {
     text-align: start;
 }
 
 .table-std-id {
     text-align: end;
+}
+
+.report-headers > td {
+    font-weight: var(--fnt-wght-b);
 }

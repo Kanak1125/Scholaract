@@ -28,6 +28,10 @@
     word-break: break-all;
 }
 
+.class-code {
+    cursor: pointer;
+}
+
 .class-info-card h2 {
     margin-bottom: 1rem;
 }

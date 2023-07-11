@@ -1,5 +1,6 @@
 import { executeTemplate } from "./modules/generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
+import animateCard from "./modules/animateCards.js";
 
 const taskContainer = document.querySelector('.task-card-container-stud');
 let taskArray = JSON.parse(taskContainer.dataset.task).reverse();
@@ -8,16 +9,24 @@ console.log(taskArray);
 const template = document.querySelector('.task-template-stud');
 const templateContent = template.content;
 
+const getAnimation = () => {
+  const studentTaskCardArr = document.querySelectorAll('.student-task-card');
+  studentTaskCardArr.forEach(card => {
+    animateCard(card);
+  })
+}
+
 function latestTaskOrder() {
   executeTemplate(templateContent, taskArray, taskContainer, false);
   updateEventListener();
+  getAnimation();
 }
 
 function dueTaskOrder() {
   const dueDateToMillisecondsTask = taskArray.map(task => {
     const dateString = task.due_date;
     const [day, month, year] = typeof dateString === 'string' ? dateString.split('-') : dateString;
-    console.log(day, month, year);
+    // console.log(day, month, year);
     const newDueDate = new Date(year, month - 1, day);
 
     const milliseconds = newDueDate.getTime();
@@ -25,7 +34,7 @@ function dueTaskOrder() {
     task.due_date = milliseconds;
     return task;
   })
-  const sortedTaskArray = dueDateToMillisecondsTask.sort((a, b) => a.due_date - b.due_date);  // sorting according to the due_date 
+  const sortedTaskArray = dueDateToMillisecondsTask.sort((a, b) => a.due_date - b.due_date);  // sorting according to the due_date
   // NOTE: nearer the due date the task will appear ahead...
 
 
@@ -36,26 +45,28 @@ function dueTaskOrder() {
     const dueMonth = newDueDate.getMonth() + 1;
     const dueFullYear = newDueDate.getFullYear();
 
-    task.due_date = `${dueDate < 10 ? 
+    task.due_date = `${dueDate < 10 ?
       '0' +  dueDate
-      : 
-      dueDate}-${dueMonth < 10 ? 
+      :
+      dueDate}-${dueMonth < 10 ?
         '0' +  dueMonth
-        : 
+        :
         dueMonth}-${dueFullYear}`
     return task;
   })
 
   executeTemplate(templateContent, revertedDateTaskArray, taskContainer, false);
   updateEventListener();
+  getAnimation();
 }
 
 function oldestTaskOrder() {
   const oldestTaskArray = taskArray.slice().reverse();  // creating the copy of original taskArray and reversing it so that the original array doesn't change in every render...
-  console.log(oldestTaskArray);
+  // console.log(oldestTaskArray);
   executeTemplate(templateContent, oldestTaskArray, taskContainer, false);
-  console.log('reversed');
+  // console.log('reversed');
   updateEventListener();
+  getAnimation();
 }
 
 const dropdownToggleBtn = document.querySelector('.dropdown-toggle');
@@ -66,8 +77,8 @@ export const sortTasks = () => {
   // isTaskSorted = true;
   const option = dropdownToggleBtn.textContent;
   const trimmedOption = option.trim();  // removing whitespace...
-  
-  console.log(option);
+
+  // console.log(option);
   switch (trimmedOption) {
     case 'Latest':
       latestTaskOrder();
@@ -78,10 +89,10 @@ export const sortTasks = () => {
       break;
     case 'Oldest':
       oldestTaskOrder();
-      console.log("I'm oldest");
+      // console.log("I'm the oldest");
       break;
     default:
-      // console.log("I'm latest");
+      // console.log("I'm the latest");
       break;
   }
 }
@@ -122,6 +133,20 @@ function updateEventListener() {
   toggleModal(modalArr, taskCardLinkArr, closeModal, true);
 }
 
+// const postFileBtn = document.querySelectorAll('.post-file-btn');
+// const fileInput = document.querySelectorAll('.file-input');
+// console.log(postFileBtn, fileInput)
+
+// postFileBtn.forEach((btn, index) => {
+//   btn.addEventListener('click', () => {
+//     fileInput[index].click();
+//   })
+
+//   fileInput[index].addEventListener('change', () => {
+//     if (fileInput[index].files.length > 0) console.log("File uploaded successfully...");
+//     else console.log("No files uploaded");
+//   })
+// })
 
 // const taskCardContainers = document.querySelectorAll('.task-card-container-stud');
 
@@ -149,6 +174,8 @@ function updateEventListener() {
 // });
 executeTemplate(templateContent, taskArray, taskContainer, false);
 updateEventListener();
+getAnimation();
+
 // taskCardLinkArr.forEach((taskCardLink) => {
 //   taskCardLink.addEventListener('click', function(e) {
 //     console.log('Task card clicked'); // Debug statement
@@ -163,7 +190,7 @@ updateEventListener();
 //     console.log('Task ID:', taskId);
 //     // const taskDescription = taskData[index].description;
 //     // console.log('Task Description:', taskDescription);
-    
+
 //   });
 // });
 // // console.log(taskCardLinkArr)
@@ -213,21 +240,26 @@ taskCardLinkArr.forEach((taskCardLink) => {
     const form = this.closest('form');
     submitFormData(form, taskId);
 
-    const taskSubmissionForm = document.getElementById('task-submission-form');
-    const taskSubmitBtn = document.getElementById('task-submit-btn');
-    taskSubmissionForm.addEventListener('submit', (e, taskId) => {
-      e.preventDefault();
-      console.log("submitted")
-      submitFormData(taskSubmissionForm, taskId);
-    })
   });
 });
 
+const taskSubmissionForm = document.querySelectorAll('.task-submission-form');
+console.log(taskSubmissionForm);
+
+taskSubmissionForm.forEach(form => {
+  // const taskSubmitBtn = document.getElementById('task-submit-btn');
+  form.addEventListener('submit', (e, taskId) => {
+    e.preventDefault();
+    console.log("submitted");
+    submitFormData(form, taskId);
+
+  })
+})
 
 function submitFormData(form, taskId) {
     const taskIdInput = form.querySelector('.task-id-input');
     if (taskId) taskIdInput.value = taskId;
-    
+
     // // Submitting the form using AJAX
     const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
     const xhr = new XMLHttpRequest(); // creates a new "XMLHttpRequest" object, which is used to send asynchronous HTTP requests.

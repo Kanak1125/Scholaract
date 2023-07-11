@@ -83,12 +83,29 @@ hr {
     background-color: var(--primary-color);
 }
 
+.student-task-card {
+    transform: translateX(5vw);
+    opacity: 0;
+    transition: 150ms;
+}
+
+.student-task-card.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
 .task-card:hover {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .task-card .title {
     cursor: pointer;
+}
+
+.file_img_container {
+    width: 160px;
+    height: 80px;
+    margin: 10px auto;
 }
 
 .update-drop-down {
@@ -467,6 +484,7 @@ ul > li > div p:nth-child(2) {
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; 
     border-radius: 5px;
     overflow: hidden;
+    z-index: 11;
   }
   
   .dropdown-menu li {

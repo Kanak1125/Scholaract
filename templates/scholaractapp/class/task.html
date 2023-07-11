@@ -234,8 +234,7 @@
     
     <!-- template for the students_task_page -->
     <template class="task-template-stud">
-        <div class="task-card">
-            
+        <div class="task-card student-task-card">
             <form method="POST" class="submit-task-form">
                 <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
                 {% csrf_token %}
@@ -254,7 +253,7 @@
             <hr>
             <p class="description"></p>
             <div class="deadline">Deadline: 
-                <span class="due-date">20th June, 2023</span>
+                <span class="due-date"></span>
                 <span class="task-status">
                     Due
                 </span>
@@ -271,8 +270,7 @@
                     </div>
                     <div class="task-submission-form-container">
                         <form 
-                        id="task-submission-form"
-                        class="form-main"
+                        class="form-main task-submission-form"
                         method="post" 
                         enctype="multipart/form-data"
                         id="submitForm"
@@ -281,11 +279,12 @@
                             <p class="title">Submit work</p>
                             <input type="hidden" name="form_identifier" value="submit_task_form">
                             <!-- <input type="hidden" id = "task_id" name="task_id" value=17> -->
-                            <div>
-                                <label for="post_file" class="btn">Upload a file</label>
+                            <div class="task-form-info-container">
+                                <label for="post_file" class="btn post-file-btn">Upload a file</label>
                                 <br>
                                 <br>
-                                <input type="file" name="post_file" id="post_file" multiple>
+                                <input type="file" name="post_file" id="post_file"
+                                class="file-input" multiple>
                                 <input type="submit" id="task-submit-btn" class="btn" value="Submit"
                                 >
                             </div>

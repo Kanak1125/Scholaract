@@ -3,6 +3,21 @@
 // 'isTeacher' ---> boolean value to check if the function is getting called from the teacher's page or student's page coz'
 // only the teachers can delete the task (line no. 9)...
 
+const monthNames = {
+  '01' : 'Jan',
+  '02' : 'Feb',
+  '03' : 'Mar',
+  '04' : 'Apr',
+  '05' : 'May',
+  '06' : 'Jun',
+  '07' : 'Jul',
+  '08' : 'Aug',
+  '09' : 'Sep',
+  '10' : 'Oct',
+  '11' : 'Nov',
+  '12' : 'Dec',
+}
+
 function createTaskCard(taskData, templateContent, isTeacher) {
     const taskCard = templateContent.cloneNode(true);
   
@@ -16,7 +31,7 @@ function createTaskCard(taskData, templateContent, isTeacher) {
   
     // only if student...
     if (!isTeacher) {
-      console.log("student task modal");
+      // console.log("student task modal");
       const modalTaskTitle = taskCard.querySelector('.modal-task-title');
       const modalTaskDescription = taskCard.querySelector('.modal-description');
       modalTaskTitle.textContent = taskData.title;
@@ -30,13 +45,17 @@ function createTaskCard(taskData, templateContent, isTeacher) {
   
     taskName.textContent = taskData.title;
     description.textContent = taskData.description;
-    dueDate.textContent = taskData.due_date;
+    const [day, month, year] = typeof taskData.due_date === 'string' ? taskData.due_date.split('-') : taskData.due_date; 
+    const dateFormat = `${day} ${monthNames[month]}, ${year}`;
+    
+    dueDate.textContent = dateFormat;
   
     return taskCard;
   }
   
 export const executeTemplate = (templateContent, templateDataArray, taskContainer, isTeacher) => {
     if ('content' in document.createElement('template')) {
+      taskContainer.innerHTML = ''; // clearing the taskContainer before adding any taskModal...
       templateDataArray.forEach(task => {
         // console.log(task);
         const taskCard = createTaskCard(task, templateContent, isTeacher);

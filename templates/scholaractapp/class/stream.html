@@ -48,7 +48,7 @@
         <div class="class-info-container">
             <div class="class-info-card">
                 {% if role == "Teacher" %}
-                <h2>Class code: <span>{{class.class_code}}</span></h2>  <!--class code to be added dynamically from django-->
+                <h2>Class code: <span class="class-code" title="copy">{{class.class_code}}</span></h2>  <!--class code to be added dynamically from django-->
                 {% endif %}
                 {% if role == "Teacher" %}
                 <p>Subject: <span>{{class.subject_name}}</span></p>
@@ -120,9 +120,11 @@
             </template>
         </div>
     </main>
-    <!-- <script>
-        var pk = `Primary key: {{ pk }}`;
-        console.log(pk);
+    <!-- <script type="module">
+        // import {fetchMaterials} from '../../static/script/modules/fetch.js';
+        // var pk = `Primary key: {{ pk }}`;
+
+        // fetchMaterials(pk);
     </script> -->
 </body>
 </html>

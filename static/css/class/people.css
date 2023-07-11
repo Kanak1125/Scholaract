@@ -77,3 +77,15 @@ a {
     color: var(--bg-color-op6);
     transition: all 300ms ease-in;
 }
+
+.delete-people-btn {
+    background: transparent;
+    color: var(--secondary-color);
+    font-size: var(--fnt-size-m);
+    padding: 0;
+}
+
+.delete-people-btn:hover {
+    background: transparent;
+    color: var(--bg-color-op6);
+}
