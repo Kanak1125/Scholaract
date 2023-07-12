@@ -18,11 +18,14 @@
                 <li><a href="{% url 'class' pk=class.pk  %}">Stream</a></li>
                 <li><a href="{% url 'task' pk=class.pk %}">Tasks</a></li>
                 <li><a href="{% url 'people' pk=class.pk %}">People</a></li>
-                {% if role == "Student" %}
-                    <li><a href="{% url 'report' pk=class.pk %}">Report</a></li>
-                {%elif role == "Teacher" %}
-                    <li><a href="">Marks</a></li>   <!-- This will be role based as student portal will have report and teachers portal will have marks...-->
-                {% endif %}
+                <li><a href="{% url 'report' pk=class.pk %}">
+                    {% if role == "Student" %}
+                        Report
+                    {% elif role == "Teacher" %}
+                        Marks
+                    </a></li>
+                    {% endif %}    
+                    
             </ul>
         </div>
         <div class="nav-links">
