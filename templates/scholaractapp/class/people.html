@@ -44,7 +44,7 @@
                         <!-- only teacher will be able to remove student from the class... -->
                         {% if role == "Teacher" %}
                             <form 
-                            action="{% url 'removeStudent' pk=class.pk student_pk=student.user.pk %}" 
+                            action="{% url 'removeStudent' class_pk=class.pk student_pk=student.user.pk %}" 
                             method="post" 
                             class="delete-form">
                                 {% csrf_token %}
