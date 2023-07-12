@@ -43,18 +43,17 @@
 
                         <!-- only teacher will be able to remove student from the class... -->
                         {% if role == "Teacher" %}
-                        <form 
-                        action="{% url 'deleteTask' pk='__task.id__' %}" 
-                        method="post" 
-                        class="delete-form">
-                            <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
-                            {% csrf_token %}
-                            <input type="hidden" name="" value="">
-                            <!-- value ra name haldeu hai -->
-                            <button type="submit" class="btn delete-people-btn">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </form>
+                            <form 
+                            action="{% url 'removeStudent' pk=class.pk student_pk=student.user.pk %}" 
+                            method="post" 
+                            class="delete-form">
+                                {% csrf_token %}
+                                <!-- <input type="hidden" name="form_identifier" value="remove_student"> yo chaidaina raixa yar -->
+                                <!-- value ra name haldeu hai -->
+                                <button type="submit" class="btn delete-people-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         {% endif %}
                     </li><hr>
                     {% endfor %}

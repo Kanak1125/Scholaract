@@ -242,90 +242,10 @@ def classes_student(request):
     return render(request, 'scholaractapp/classes.html', context)
 
 
-# def single_class(request, pk):
-#     classObj = Class.objects.get(id=pk)
-#     related_class = classObj
-#     print(request.POST)
-#     if request.method == "POST":
-#         title = request.POST.get('post_title')
-#         description = request.POST.get('post_description')
-#         files = request.FILES.getlist('post_file')
-
-#         user_data = request.session.get('user')
-#         user_id = user_data['id']
-#         uploaded_by = User.objects.get(id=user_id)
-
-#         file_count = len(files)
-#         print(f"Number of files uploaded: {file_count}")
-#         material = CourseMaterial.objects.create(
-#             title=title, description=description, related_class=related_class, uploaded_by=uploaded_by,)
-
-#         print(related_class)
-#         print(files)
-
-#         for file in files:
-#             MaterialFile.objects.create(file=file, course_material=material)
-#         class_pk = classObj.pk
-
-#         # Redirect to the class page with class_pk as parameter
-#         return redirect('class', pk=class_pk)
-
-#     course = CourseMaterial.objects.filter(related_class=related_class)
-#     course_list = []
-#     for material in course:
-#         material_data = {
-#             'id': material.id,
-#             'title': material.title,
-#             'description': material.description,
-#             'uploaded_by': material.uploaded_by.name(),
-#             'files': []
-#         }
-
-#         material_files = MaterialFile.objects.filter(course_material=material)
-
-#         for material_file in material_files:
-#             file_data = {
-#                 'file_name': material_file.file.name,
-#                 'file_url': material_file.file.url,
-#                 # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
-#                 'file_extension': os.path.splitext(material_file.file.name)[1]
-#             }
-#             material_data['files'].append(file_data)
-#         course_list.append(material_data)
-
-#     course_json = json.dumps(course_list)
-#     print(course)
-
-#     context = {
-#         'course_json': course_json,
-#         'class': classObj,
-#     }
-#     return render(request, 'scholaractapp/class/stream.html', context)
-
-
-class SingleClassEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Class):
-            # Serialize the 'Class' object as a dictionary
-            return {
-                'id': obj.id,
-                'class_name': obj.class_name,
-                # Include other serializable attributes
-            }
-        elif isinstance(obj, CourseMaterial):
-            # Serialize the 'CourseMaterial' object as a dictionary
-            return {
-                'id': obj.id,
-                'title': obj.title,
-                'description': obj.description,
-                # Include other serializable attributes
-            }
-        return super().default(obj)
-    
 def single_class(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
-    # print(request.POST)
+    print(request.POST)
     if request.method == "POST":
         title = request.POST.get('post_title')
         description = request.POST.get('post_description')
@@ -373,19 +293,99 @@ def single_class(request, pk):
             material_data['files'].append(file_data)
         course_list.append(material_data)
 
-    # course_json = json.dumps(course_list)
+    course_json = json.dumps(course_list)
     print(course)
-    print("pk:",pk)
+
     context = {
-        # 'pk': classObj.pk,
-        'pk' : pk,
-        'course_list': course_list,
+        'course_json': course_json,
         'class': classObj,
-    }   
-    if request.headers.get('Accept') == 'application/json':
-        return JsonResponse(context, encoder = SingleClassEncoder)
-    # print(request.headers.get('Accept'))
-    return render(request, 'scholaractapp/class/stream.html', {'class': classObj, 'pk': pk})
+    }
+    return render(request, 'scholaractapp/class/stream.html', context)
+
+
+class SingleClassEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Class):
+            # Serialize the 'Class' object as a dictionary
+            return {
+                'id': obj.id,
+                'class_name': obj.class_name,
+                # Include other serializable attributes
+            }
+        elif isinstance(obj, CourseMaterial):
+            # Serialize the 'CourseMaterial' object as a dictionary
+            return {
+                'id': obj.id,
+                'title': obj.title,
+                'description': obj.description,
+                # Include other serializable attributes
+            }
+        return super().default(obj)
+    
+# def single_class(request, pk):
+#     classObj = Class.objects.get(id=pk)
+#     related_class = classObj
+#     # print(request.POST)
+#     if request.method == "POST":
+#         title = request.POST.get('post_title')
+#         description = request.POST.get('post_description')
+#         files = request.FILES.getlist('post_file')
+
+#         user_data = request.session.get('user')
+#         user_id = user_data['id']
+#         uploaded_by = User.objects.get(id=user_id)
+
+#         file_count = len(files)
+#         print(f"Number of files uploaded: {file_count}")
+#         material = CourseMaterial.objects.create(
+#             title=title, description=description, related_class=related_class, uploaded_by=uploaded_by,)
+
+#         print(related_class)
+#         print(files)
+
+#         for file in files:
+#             MaterialFile.objects.create(file=file, course_material=material)
+#         class_pk = classObj.pk
+
+#         # Redirect to the class page with class_pk as parameter
+#         return redirect('class', pk=class_pk)
+
+#     course = CourseMaterial.objects.filter(related_class=related_class)
+#     course_list = []
+#     for material in course:
+#         material_data = {
+#             'id': material.id,
+#             'title': material.title,
+#             'description': material.description,
+#             'uploaded_by': material.uploaded_by.name(),
+#             'files': []
+#         }
+
+#         material_files = MaterialFile.objects.filter(course_material=material)
+
+#         for material_file in material_files:
+#             file_data = {
+#                 'file_name': material_file.file.name,
+#                 'file_url': material_file.file.url,
+#                 # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+#                 'file_extension': os.path.splitext(material_file.file.name)[1]
+#             }
+#             material_data['files'].append(file_data)
+#         course_list.append(material_data)
+
+#     # course_json = json.dumps(course_list)
+#     print(course)
+#     print("pk:",pk)
+#     context = {
+#         # 'pk': classObj.pk,
+#         'pk' : pk,
+#         'course_list': course_list,
+#         'class': classObj,
+#     }   
+#     if request.headers.get('Accept') == 'application/json':
+#         return JsonResponse(context, encoder = SingleClassEncoder)
+#     # print(request.headers.get('Accept'))
+#     return render(request, 'scholaractapp/class/stream.html', {'class': classObj, 'pk': pk})
 
 
 
@@ -557,8 +557,9 @@ def task_student(request, pk):
             for file in files:
                 TaskSubmission.objects.create(file=file, task=task, student=uploaded_by, date_of_submission=date.today())
                 print(file)
+
             # class_pk = classObj.pk
-            # return redirect('task', pk=class_pk)
+            return redirect('task', pk=related_class.pk)
             
 
     context = {
@@ -610,6 +611,14 @@ def people(request, pk):
     }
     return render(request, 'scholaractapp/class/people.html', context)
 
+def removeStudent(request, class_pk, student_pk):
+    # classObj = Class.objects.get(pk=class_pk)
+    student = Student.objects.get(pk=student_pk)
+
+    if request.method == 'POST':
+        student.classes.remove(class_pk)
+
+    return redirect('people', pk=class_pk)
 
 def report(request, pk):
     classObj = Class.objects.get(id=pk)

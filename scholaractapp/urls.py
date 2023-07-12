@@ -16,6 +16,7 @@ urlpatterns = [
     # path('class/task/submitTask/<str:pk>', views.submitTask, name="submitTask"),
     path('class/task/deleteTask/<str:pk>', views.deleteTask, name="deleteTask"),
     path('class/<str:pk>/people/', views.people, name="people"),
+    path('class/<str:class_pk>/people/removeStudent/<str:student_pk>', views.removeStudent, name="removeStudent"),
     path('class/<str:pk>/report/', views.report, name="report"),
     path('logout/',views.logout, name = "logout"), 
 ]
