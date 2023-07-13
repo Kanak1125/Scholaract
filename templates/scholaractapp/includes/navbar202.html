@@ -11,7 +11,7 @@
 <section class="nav-bar-container">
     <nav>
         <a href="#">
-            <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+            <img src="{% static 'images/logo.svg' %}" width="60" alt="Scholaract logo" class="logo">
         </a>
         <div class="nav-links links nav-sub-container">
             <ul>
@@ -23,8 +23,9 @@
                         Report
                     {% elif role == "Teacher" %}
                         Marks
-                    </a></li>
+                    </a>
                     {% endif %}    
+                </li>
                     
             </ul>
         </div>
