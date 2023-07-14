@@ -9,14 +9,14 @@
 
 <div class="nav-bar-container">
     <nav>
-      <a href="#">
-          <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
+      <a href="{% url 'landingPage' %}">
+          <img src="{% static 'images/logo.svg' %}" width="60" alt="Scholaract logo" class="logo">
       </a>
       <div class="nav-sub-container">
           <ul class="nav-links">
               <li><a href="{% url 'aboutUs' %}">About</a></li>
-              <li><a href="#">Support</a></li>
-              <li><a href="#">FAQ</a></li>
+              <li><a href="{% url ''}">Support</a></li>
+              <li><a href="{% url 'faq' %}">FAQ</a></li>
           </ul>
           <!-- {% csrf_token%} -->
           <a href="{% url 'login' %}">

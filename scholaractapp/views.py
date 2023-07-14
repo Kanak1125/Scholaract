@@ -29,6 +29,12 @@ def landingPage(request):
 def aboutUs(request):
     return render(request, 'scholaractapp/aboutUs.html')
 
+def faq(request):
+    return render(request,'scholaractapp/faq.html')
+
+# def support(request):
+#     return render(request, 'scholaractapp/support.html')
+
 
 # view for signup page
 def signup(request):
@@ -303,24 +309,24 @@ def single_class(request, pk):
     return render(request, 'scholaractapp/class/stream.html', context)
 
 
-class SingleClassEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Class):
-            # Serialize the 'Class' object as a dictionary
-            return {
-                'id': obj.id,
-                'class_name': obj.class_name,
-                # Include other serializable attributes
-            }
-        elif isinstance(obj, CourseMaterial):
-            # Serialize the 'CourseMaterial' object as a dictionary
-            return {
-                'id': obj.id,
-                'title': obj.title,
-                'description': obj.description,
-                # Include other serializable attributes
-            }
-        return super().default(obj)
+# class SingleClassEncoder(DjangoJSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, Class):
+#             # Serialize the 'Class' object as a dictionary
+#             return {
+#                 'id': obj.id,
+#                 'class_name': obj.class_name,
+#                 # Include other serializable attributes
+#             }
+#         elif isinstance(obj, CourseMaterial):
+#             # Serialize the 'CourseMaterial' object as a dictionary
+#             return {
+#                 'id': obj.id,
+#                 'title': obj.title,
+#                 'description': obj.description,
+#                 # Include other serializable attributes
+#             }
+#         return super().default(obj)
     
 # def single_class(request, pk):
 #     classObj = Class.objects.get(id=pk)

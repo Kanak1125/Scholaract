@@ -254,6 +254,7 @@ taskSubmissionForm.forEach(form => {
   form.addEventListener('submit', (e, taskId) => {
     e.preventDefault();
     console.log("submitted");
+    // console.log("task id being passed is" + taskId)
     submitFormData(form, taskId);
 
   })

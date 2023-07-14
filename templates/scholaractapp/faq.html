@@ -20,7 +20,7 @@
     <script src="../../static/script/faq.js" defer></script>
 </head>
 <body>
-    <div class="nav-bar-container">
+    <!-- <div class="nav-bar-container">
         <nav>
           <a href="#">
               <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
@@ -31,7 +31,7 @@
                   <li><a href="#">Support</a></li>
                   <li><a href="#">FAQ</a></li>
               </ul>
-              <!-- {% csrf_token%} -->
+              {% csrf_token%}
               <a href="{% url 'login' %}">
                   <button class="btn login-btn" id="login-btn">Login</button>
               </a>
@@ -42,7 +42,9 @@
             <span class="bar"></span>
         </div>
         </nav>
-    </div>
+    </div> -->
+
+    {% include 'scholaractapp/includes/navbar101.html' %}
     <main class="main">
         <h1>FAQs</h1>
         <div class="accordion-container">
@@ -105,5 +107,6 @@
             </div>
         </div>
     </main>
+    {% include 'scholaractapp/includes/footer.html' %}
 </body>
 </html>

@@ -15,7 +15,7 @@
     <script src="../../static/script/hamburger.js" defer></script>
 </head>
 <body>
-    <div class="nav-bar-container">
+    <!-- <div class="nav-bar-container">
         <nav>
             <a href="{% url 'landingPage' %}">
                 <img src="/static/images/logo.svg" width="60" alt="Scholaract logo" class="logo">
@@ -26,7 +26,7 @@
                     <li><a href="#">Support</a></li>
                     <li><a href="#">FAQ</a></li>
                 </ul>
-                <!-- {% csrf_token%} -->
+                {% csrf_token%}
                 <a href="{% url 'login' %}">
                     <button class="btn login-btn" id="login-btn">Login</button>
                 </a>
@@ -37,7 +37,9 @@
               <span class="bar"></span>
           </div>
         </nav>
-    </div>
+    </div> -->
+
+    {% include 'scholaractapp/includes/navbar101.html' %}
 
     <section class="hero">
         <div class="hero-description">
@@ -120,7 +122,7 @@
         </div>
     </section>
 
-    <footer>
+    <!-- <footer>
         <hr>
         <div class="links">
             <div class="short_description">
@@ -155,17 +157,7 @@
                 </li>
             </ul>
             </div>
-            <!-- <div class="category">
-            <p class="sub_heading">Category</p>
-            <ul>
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Children</a></li>
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Fiction</a></li>
-                <li><a href="#">Romance & erotic</a></li>
-                <li><a href="#">Toys & games</a></li>
-            </ul>
-            </div> -->
+            
             <div class="social_media">
             <ul>
                 <li>
@@ -184,6 +176,8 @@
             </div>
         </div>
         <div class="copyright_sec">Copyright © 2023 Scholaract. All rights reserved.</div>
-    </footer>
+    </footer> -->
+
+    {% include 'scholaractapp/includes/footer.html' %}
 </body>
 </html>
