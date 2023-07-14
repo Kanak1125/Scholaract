@@ -140,9 +140,15 @@
                         </form>
                     </div>
                 </div>
-                <a href="" class="task-card-link" onclick="event.preventDefault();">
-                    <p class="title task-name"></p>
-                </a>
+                <form method="POST"  action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_identifier" value="task_id_identifier">
+                    <!-- <input type="hidden" name="task_id" value="{{ taskId }}"> -->
+                    <input type="hidden" name="task_id" class="task-id-input" value ="">
+                    <a href="" class="task-card-link" onclick="event.preventDefault();">
+                        <p class="title task-name"></p>
+                    </a>
+                </form>
                 <hr>
                 <p class="description"></p>
                 <div class="deadline">Deadline:

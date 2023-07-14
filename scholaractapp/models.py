@@ -152,3 +152,10 @@ class TaskSubmission(models.Model):
     
     def __str__(self):
         return self.file.name    
+
+class Marks(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Class, on_delete=models.CASCADE)
+    marks = models.DecimalField(max_digits=4, decimal_places=2)
+
+    

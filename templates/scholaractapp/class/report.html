@@ -24,7 +24,8 @@
             <p class="title">Assign Marks</p>
             <hr>
         </header>
-        <form action="">
+        <form action="" method="POST">
+            {% csrf_token %}
             <div class="list marks-container">
                 <!-- from people.html <ul>
                     {% for student in enrolled_students %}
@@ -49,7 +50,7 @@
                         <p>Students</p>
                         <p class="gpa-title">GPA</p>
                     </li><hr>
-                    <li>
+                    <!-- <li>
                         <p>Student 1</p>
                         <input class="no-spinner" type="number" min="0" max="4.0">
                     </li><hr>
@@ -64,18 +65,20 @@
                     <li>
                         <p>Student 4</p>
                         <input class="no-spinner" type="number" min="0" max="4.0">
-                    </li><hr>
-                    <!-- {% for student in enrolled_students %}
-                    <li>
-                        <p>{{student.name}}</p>
-                        <input class="no-spinner" type="number" min="0" max="4.0">
                     </li><hr> -->
+                    {% for student in enrolled_students %}
+                    <li>
+                        <p>{{ student.name }}</p>
+                        <input class="no-spinner" type="number" min="0" max="4.0" name="marks">
+                        <input type="hidden" name="student_id" value="{{ student.user.id }}">
+                        <input type="hidden" name="teacher_id" value="{{ class.teacher.user.id }}">
+                    </li><hr>
                     
-                    <!-- {% endfor %} -->
+                    {% endfor %}
                 </ul>
             </div>
             <footer class="marks-section-footer">
-                <input type="button" class="btn submit-btn" value="Submit"/>
+                <input type="submit" class="btn submit-btn" value="Submit"/>
             </footer>
         </form>
     </main>

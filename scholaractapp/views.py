@@ -4,7 +4,8 @@ from django.http import JsonResponse
 from django.core import serializers
 
 # importing Users model from the models.py file
-from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission
+from django.db.models import Count
+from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
@@ -424,9 +425,11 @@ def task_teacher(request, pk):
     # user_name = user_data['fname']
     # user_id = user_data['id']
     # role = user_data.get('role')
-    print(request.POST)
+
+    # print(request.POST)
     if request.method == "POST":
         form_identifier = request.POST.get('form_identifier')
+        print("Form Identifier:", form_identifier)
         if form_identifier == "assign_task_form":
             title = request.POST.get('post_title')
             description = request.POST.get('post_description')
@@ -441,6 +444,10 @@ def task_teacher(request, pk):
             class_pk = classObj.pk
 
             return redirect('task', pk=class_pk)
+
+        if form_identifier == "task_id_identifier":
+            task_id = request.POST.get('task-id')
+            print(task_id)
 
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
@@ -474,6 +481,10 @@ def task_teacher(request, pk):
         task_list.append(task_data)
     # cls=DateEncoder is provided to specify a custom JSON encoder class for serializing objects that are not natively serializable by default. In this case, we have defined a custom encoder class called DateEncoder that subclasses DjangoJSONEncoder and overrides its default() method.
     task_json = json.dumps(task_list, cls=DateEncoder)
+
+
+    # total_tasks_submitted = TaskSubmission.objects.aggregate(total=Count(3))['total']
+    # print(total_tasks_submitted)
 
     context = {
         'task_json': task_json,
@@ -626,13 +637,56 @@ def removeStudent(request, class_pk, student_pk):
 
     return redirect('people', pk=class_pk)
 
+# def report(request, pk):
+#     classObj = Class.objects.get(id=pk)
+#     context = {
+#         'class': classObj,
+#     }
+#     return render(request, 'scholaractapp/class/report.html', context)
+
+
 def report(request, pk):
+    # session data
+    user_data = request.session.get('user')
+
+    # since role is being assigned by admin, it is being accessed this way
+    role = user_data.get('role')
+    if role == "Teacher":
+        return report_teacher(request, pk)
+    elif role == "Student":
+        return report_student(request, pk)
+    else:
+        return HttpResponse("Invalid role")
+    
+def report_teacher(request, pk):
     classObj = Class.objects.get(id=pk)
+    related_class = classObj
+
+    enrolled_students = classObj.student_set.all()
+
+    if request.method == 'POST':
+        print(request.POST)
+        student_id = request.POST.get('student_id')
+        marks = request.POST.get('marks')
+        # class_id = request.POST.get('teacher_id')
+        # teacher_id=Class.objects.get(teacher=pk)
+        student = Student.objects.get(pk=student_id)
+        subject = Class.objects.get(id=pk)
+        print(f"Student id is {student_id}")
+        print(f"Class id is {pk}")
+        
+        marks = Marks.objects.create(student=student, subject=subject, marks=marks)
+        return redirect('report', pk=classObj.id)
+    
     context = {
         'class': classObj,
+        'enrolled_students': enrolled_students,
+        # 'created_by': created_by,
     }
     return render(request, 'scholaractapp/class/report.html', context)
 
+def report_student(request, pk):
+    pass
 
 def logout(request):
     # Delete the session data
