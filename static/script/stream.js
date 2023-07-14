@@ -1,6 +1,6 @@
 import toggleModal from "./modules/modal.js";
 
-const dropBtn = document.querySelector('.drop-btn');
+// const dropBtn = document.querySelector('.drop-btn');
 
 // // var pk = 12;
 // var pk = '{{pk}}';
@@ -77,10 +77,14 @@ const dropBtn = document.querySelector('.drop-btn');
 // }
 
 // copy the classcode to clipboard using clipboard API (where Navigator is interface and clipboard is its property)...
-const classCode = document.querySelector('.class-code');
-
-const copyToClipboard = (content) => navigator.clipboard.writeText(content);
-classCode.addEventListener('click', () => copyToClipboard(classCode.textContent));
+try {
+    const classCode = document.querySelector('.class-code');
+    
+    const copyToClipboard = (content) => navigator.clipboard.writeText(content);
+    classCode.addEventListener('click', () => copyToClipboard(classCode.textContent));
+} catch(err) {
+    console.log(`Err: stream page for students don't have class code...`);
+}
 
 // when the document is ready run the function inside of it...
 function handleDropDownClick(e, btn, dropdown) {
@@ -90,14 +94,14 @@ function handleDropDownClick(e, btn, dropdown) {
 }
 
 $(document).ready(function() {
-    const userDropDown = document.querySelector('.drop-down');
+    // const userDropDown = document.querySelector('.drop-down');
     const materialCardDropDown = [...document.querySelectorAll('.update-drop-down')];
-    const userDropDownBtn = dropBtn;
+    // const userDropDownBtn = dropBtn;
     const materialCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
 
-    $(userDropDownBtn).click(function (e) {     // when an element with '.drop-btn' in html is clicked it runs the function inside of click() method again...
-        handleDropDownClick(e, userDropDownBtn, userDropDown);
-    });
+    // $(userDropDownBtn).click(function (e) {     // when an element with '.drop-btn' in html is clicked it runs the function inside of click() method again...
+    //     handleDropDownClick(e, userDropDownBtn, userDropDown);
+    // });
 
     materialCardDropDownBtn.forEach((dropDown, index) => {
         $(dropDown).click(function (e) {
@@ -105,20 +109,20 @@ $(document).ready(function() {
         });
     })
 
-    $(document).click(function (event) {
-        event.stopPropagation();
-        var target = $(event.target);
-        if(!target.is('.drop-btn') && !target.closest('.drop-down').length) {
-            $('.drop-down').slideUp('fast');
-            dropBtn.classList.remove('active');
-        }
-    })
+    // $(document).click(function (event) {
+    //     event.stopPropagation();
+    //     var target = $(event.target);
+    //     if(!target.is('.drop-btn') && !target.closest('.drop-down').length) {
+    //         $('.drop-down').slideUp('fast');
+    //         dropBtn.classList.remove('active');
+    //     }
+    // })
 
     // slideUp the drop-down even when the document is scrolled by the user...
-    $(document).scroll(function () {
-        $('.drop-down').slideUp('fast');
-        dropBtn.classList.remove('active');
-    })
+    // $(document).scroll(function () {
+    //     $('.drop-down').slideUp('fast');
+    //     dropBtn.classList.remove('active');
+    // })
 });
 
 // javaSCript code that will listen to the scoll event of the page and when the vertical scroll is more than '100px' '.scroll-active' class is added to the classInfoCard...
