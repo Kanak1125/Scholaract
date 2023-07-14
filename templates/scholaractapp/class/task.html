@@ -28,9 +28,37 @@
     <script type="module" src="../../../static/script/task_students.js" defer></script>
     
     {% endif %}
-    <script src="../../../static/script/validate_assign.js" defer></script>
+    <!-- <script src="../../../static/script/validate_assign.js" defer></script> -->
+    <!-- <script type="module" src="../../../static/script/file_input_pop_up.js" defer></script> -->
+
+    <script type = "module" src="../../../static/script/pop_up.js" defer></script>
+    <style>
+        .popup {
+            background-color: hsla(0, 0%, 100%, 0.2);
+            width: max-content;
+            /* height: 20px; */
+            padding: 10px 20px;
+            /* color: var(--secondary-color); */
+            position: fixed;
+            top: 40px;
+            right: 20px;
+            transform: translateX(-50%);
+            z-index: 15;
+            opacity: 0;
+            border-radius: 5px;
+        }
+    
+        .popup.show {
+            opacity: 1;
+        }
+    </style>
+
+    
 </head>
 <body>
+    <div class="popup">
+        <span class="msg">msg</span>
+    </div>
     <div id="top-layer"></div>
     <!-- <section class="nav-bar-container">
         <nav>
@@ -125,7 +153,7 @@
 
     <!-- template for the teacher_task_page -->
     <template class="task-template">
-            <div class="task-card">
+            <div class="task-card teacher-task-card">
                 <div class="edit-delete-menu">
                     <i class="fas fa-ellipsis-v"></i>
                     <div class="update-drop-down">
@@ -140,9 +168,16 @@
                         </form>
                     </div>
                 </div>
+                <form method="POST" class="assign-task-form">
+                    <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
+                    {% csrf_token %}
+                    <input type="hidden" name="form_identifier" value="task_id_identifier">
+                    <!-- <input type="hidden" name="task_id" value="{{ taskId }}"> -->
+                    <input type="hidden" name="task_id" class="task-id-input" value ="">
                 <a href="" class="task-card-link" onclick="event.preventDefault();">
                     <p class="title task-name"></p>
                 </a>
+                </form>
                 <hr>
                 <p class="description"></p>
                 <div class="deadline">Deadline:
