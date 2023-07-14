@@ -60,7 +60,7 @@ function submitFormData(form, taskId) {
   // console.log(taskId);
   if (taskId) taskIdInput.value = taskId;
   // console.log(taskIdInput.value);
-
+  console.log(taskId)
   console.log("running...");
 
   // // Submitting the form using AJAX
@@ -84,4 +84,5 @@ function submitFormData(form, taskId) {
     console.error('Network error occurred');
   };
   xhr.send(formData); // this sends the data to the server...
+  print(formData)
 }

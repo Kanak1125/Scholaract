@@ -4,7 +4,8 @@ from django.http import JsonResponse
 from django.core import serializers
 
 # importing Users model from the models.py file
-from django.db.models import Count
+from django.db.models import Count, Sum
+
 from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
@@ -461,8 +462,11 @@ def task_teacher(request, pk):
             return redirect('task', pk=class_pk)
 
         if form_identifier == "task_id_identifier":
-            task_id = request.POST.get('task-id')
-            print(task_id)
+            task_id = request.POST.get('task_id')
+            print(f"Task id is {task_id}")
+
+            total_submitted = TaskSubmission.objects.filter(task_id=task_id).count() # filters the tasks submitted by student which has the same task id as the one being passed and counts them
+            print(f"The total number of entries is: {total_submitted}")
 
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
