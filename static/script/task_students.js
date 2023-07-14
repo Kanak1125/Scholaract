@@ -69,6 +69,7 @@ function oldestTaskOrder() {
   getAnimation();
 }
 
+// for sorting dropdown...
 const dropdownToggleBtn = document.querySelector('.dropdown-toggle');
 
 // let isTaskSorted = false;
@@ -105,22 +106,23 @@ console.log("Execution successful!");
 
 // var taskId = '{{ task_id }}';
 
-function handleDropDownClick(e, btn, dropdown) {
-  e.stopPropagation(); // prevent event bubbling
-  btn.classList.toggle('active');
-  $(dropdown).slideToggle('fast');
-}
+// NO NEED OF THIS LINE coz no dropdowns except in navbar...
+/* function handleDropDownClick(e, btn, dropdown) {
+//   e.stopPropagation(); // prevent event bubbling
+//   btn.classList.toggle('active');
+//   $(dropdown).slideToggle('fast');
+// }
 
-$(document).ready(function() {
-  const taskCardDropDown = [...document.querySelectorAll('.update-drop-down')];
-  const taskCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
+// $(document).ready(function() {
+//   const taskCardDropDown = [...document.querySelectorAll('.update-drop-down')];
+//   const taskCardDropDownBtn = [...document.querySelectorAll('.edit-delete-menu')];
 
-  taskCardDropDownBtn.forEach((dropDown, index) => {
-    $(dropDown).click(function(e) {
-      handleDropDownClick(e, dropDown, taskCardDropDown[index]);
-    });
-  });
-});
+//   taskCardDropDownBtn.forEach((dropDown, index) => {
+//     $(dropDown).click(function(e) {
+//       handleDropDownClick(e, dropDown, taskCardDropDown[index]);
+//     });
+//   });
+// }); */
 
 let taskCardLinkArr;
 
@@ -246,6 +248,7 @@ taskCardLinkArr.forEach((taskCardLink) => {
 const taskSubmissionForm = document.querySelectorAll('.task-submission-form');
 console.log(taskSubmissionForm);
 
+// for submitting the task...
 taskSubmissionForm.forEach(form => {
   // const taskSubmitBtn = document.getElementById('task-submit-btn');
   form.addEventListener('submit', (e, taskId) => {
