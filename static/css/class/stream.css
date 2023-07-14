@@ -22,7 +22,7 @@
     padding: 40px;
     line-height: 2rem;
     border-radius: 5px;
-    box-shadow: 1px 1px 5px var(--secondary-color);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     color: var(--primary-color);
     word-wrap: break-word;
     word-break: break-all;
@@ -62,6 +62,12 @@ legend {
     margin-left: 20px;
 }
 
+.error {
+    margin: -12px 0;
+    font-size: 14px;
+    color: var(--error-color);
+}
+
 #post_file {
     display: none;
 }
@@ -83,11 +89,12 @@ legend {
 
 .material-container {
     padding: 20px 0px;
+    margin: 40px 0;
 }
 
 .material-card {
     width: 100%;
-    margin: 40px 0;
+    margin: 20px 0;
     color: var(--secondary-color);
     background-color: var(--primary-color);
     position: relative;
@@ -196,6 +203,12 @@ p.uploaded-by {
     background-color: var(--secondary-color);
     padding: 5px 20px;
     text-align: center;
+    display: none;
+    position: absolute;
+    top: 45px;
+    right: 0;
+    border-radius: 10px;
+    z-index: 11;
 }
 
 .material-card .update-drop-down p {
@@ -206,6 +219,10 @@ p.uploaded-by {
 
 .material-card .update-drop-down p:hover {
     opacity: 0.6;
+}
+
+.material-card .update-drop-down.active {
+    display: block;
 }
 
 /* modal styles... */

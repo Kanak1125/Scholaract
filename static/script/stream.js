@@ -109,20 +109,20 @@ $(document).ready(function() {
         });
     })
 
-    // $(document).click(function (event) {
-    //     event.stopPropagation();
-    //     var target = $(event.target);
-    //     if(!target.is('.drop-btn') && !target.closest('.drop-down').length) {
-    //         $('.drop-down').slideUp('fast');
-    //         dropBtn.classList.remove('active');
-    //     }
-    // })
+    $(document).click(function (event) {
+        event.stopPropagation();
+        var target = $(event.target);
+        if(!target.is('.edit-delete-btn') && !target.closest('.update-drop-down').length) {
+            $('.update-drop-down').slideUp('fast');
+            dropBtn.classList.remove('active');
+        }
+    })
 
     // slideUp the drop-down even when the document is scrolled by the user...
-    // $(document).scroll(function () {
-    //     $('.drop-down').slideUp('fast');
-    //     dropBtn.classList.remove('active');
-    // })
+    $(document).scroll(function () {
+        $('.update-drop-down').slideUp('fast');
+        dropBtn.classList.remove('active');
+    })
 });
 
 // javaSCript code that will listen to the scoll event of the page and when the vertical scroll is more than '100px' '.scroll-active' class is added to the classInfoCard...

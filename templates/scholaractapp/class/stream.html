@@ -19,6 +19,8 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js" defer></script> -->
     <!-- link to stream.js file -->
     <script type="module" src="{% static 'script/stream.js' %}" defer></script>
+
+    <script src="../../../static/script/validate_assign.js" defer></script>
     
 </head>
 <body>
@@ -61,10 +63,12 @@
         <div class="material-section">
             <fieldset>
                 <legend>Upload</legend>
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="" method="post" id="form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="text" name="post_title" id="post_title" placeholder="Title here...">
-                    <textarea name="post_description" id="post_description" cols="30" rows="10" placeholder="Body..." resize></textarea>
+                    <!-- here the error is relatively positioned so the height of the form will change as the error appears... -->
+                    <p class="error"></p>
+                    <input type="text" class="input" name="post_title" id="post_title" placeholder="Title here...">
+                    <textarea name="post_description" id="post_description" class="input" cols="30" rows="10" placeholder="Body..." resize></textarea>
                     <div class="add-file-and-post-container">
                         <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
                         <input type="file" name="post_file" id="post_file" multiple>
