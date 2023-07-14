@@ -3,8 +3,14 @@ import toggleModal from "./modules/modal.js";
 import animateCard from "./modules/animateCards.js";
 
 const taskContainer = document.querySelector('.task-card-container-stud');
-let taskArray = JSON.parse(taskContainer.dataset.task).reverse();
-console.log(taskArray);
+let taskArray = [];
+// console.log('TaskContainer from stud...' + taskContainer);
+try {
+  taskArray = JSON.parse(taskContainer.dataset.task).reverse();
+} catch (err) {
+  console.log(`Err: ${err}`);
+}
+
 // Retrieve the template content
 const template = document.querySelector('.task-template-stud');
 const templateContent = template.content;

@@ -83,12 +83,14 @@ hr {
     background-color: var(--primary-color);
 }
 
+.teacher-task-card,
 .student-task-card {
     transform: translateX(5vw);
     opacity: 0;
     transition: 150ms;
 }
 
+.teacher-task-card.show,
 .student-task-card.show {
     transform: translateX(0);
     opacity: 1;

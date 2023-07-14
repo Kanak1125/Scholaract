@@ -168,24 +168,25 @@
                         </form>
                     </div>
                 </div>
-                <form method="POST"  action="">
+                <!-- duplicate form... -->
+                <!-- <form method="POST"  action="">
                     {% csrf_token %}
                     <input type="hidden" name="form_identifier" value="task_id_identifier">
-                    <!-- <input type="hidden" name="task_id" value="{{ taskId }}"> -->
+                    <input type="hidden" name="task_id" value="{{ taskId }}"> 
                     <input type="hidden" name="task_id" class="task-id-input" value ="">
                     <a href="" class="task-card-link" onclick="event.preventDefault();">
                         <p class="title task-name"></p>
                     </a>
-                </form>
-                <form method="POST" class="assign-task-form">
+                </form> -->
+                <form method="POST" class="assigned-task-modal-open-form">
                     <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
                     {% csrf_token %}
                     <input type="hidden" name="form_identifier" value="task_id_identifier">
                     <!-- <input type="hidden" name="task_id" value="{{ taskId }}"> -->
-                    <input type="hidden" name="task_id" class="task-id-input" value ="">
-                <a href="" class="task-card-link" onclick="event.preventDefault();">
-                    <p class="title task-name"></p>
-                </a>
+                    <input type="hidden" name="task_id" class="task-id-input-for-teach" value ="">
+                    <a href="" class="task-card-link" onclick="event.preventDefault();">
+                        <p class="title task-name"></p>
+                    </a>
                 </form>
                 <hr>
                 <p class="description"></p>
@@ -338,6 +339,7 @@
         </dialog>
         </div>
     </template>
+    {% if role == "Student" %}  
     <script type="module">
         import { sortTasks } from "../../../static/script/task_students.js";
 
@@ -373,5 +375,6 @@
         // }
 
     </script>
+    {% endif %}  
 </body>
 </html>

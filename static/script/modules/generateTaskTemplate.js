@@ -55,6 +55,7 @@ function createTaskCard(taskData, templateContent, isTeacher) {
   
 export const executeTemplate = (templateContent, templateDataArray, taskContainer, isTeacher) => {
     if ('content' in document.createElement('template')) {
+      // console.log('TaskContainer' + taskContainer);
       taskContainer.innerHTML = ''; // clearing the taskContainer before adding any taskModal...
       templateDataArray.forEach(task => {
         // console.log(task);
