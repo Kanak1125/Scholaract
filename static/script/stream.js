@@ -211,7 +211,14 @@ if ('content' in document.createElement('template')) {
             uploader.textContent = `${material.uploaded_by}`;
             description.textContent = `${material.description}`; 
             
+            const materialId = material.id;
+            console.log("Material id is " + materialId)
             const fileContainer = clone.querySelector('.file-container');
+
+
+            const deleteMaterialform = clone.querySelector('.delete_material_form');
+            const deleteMaterialformAction = deleteMaterialform.action.replace('__material.id__', materialId);
+            deleteMaterialform.action = deleteMaterialformAction;
 
             // for every material.files array we will be performing the mapping and creating image thumbnails for every material cards
             (material.files).map(file => {
