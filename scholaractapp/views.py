@@ -309,6 +309,21 @@ def single_class(request, pk):
     }
     return render(request, 'scholaractapp/class/stream.html', context)
 
+# def updateMaterial(request, pk):
+#     material = CourseMaterial.objects.get(id=pk)
+#     if request.method == 'POST':
+        
+#     return render(request, 'scholaractapp/class/stream.html')
+def deleteMaterial(request, pk):
+    material = CourseMaterial.objects.get(id=pk)
+    print(pk)
+    if request.method == 'POST':
+        material.delete()
+        # Redirect to the desired page after deleting the task
+        return redirect('class', pk=material.related_class.pk)
+    
+    return render(request, 'scholaractapp/class/stream.html')
+
 
 # class SingleClassEncoder(DjangoJSONEncoder):
 #     def default(self, obj):
