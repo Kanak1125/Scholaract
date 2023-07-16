@@ -7,7 +7,8 @@ export default function toggleModal(modalArr, modalOpenBtnArr, modalCloseBtnArr,
         modalOpenBtnArr[index].addEventListener('click', () => {
             modal.showModal();  // displays the modal with .showModal() method for dialog elements, to show dialog just use show() inbuilt() method...
             if (isFromTask) {
-                modal.style.left = "20vw";
+                // modal.style.left = "20vw";
+                modal.classList.add('show');
                 // const postFileBtn = document.querySelectorAll('.post-file-btn');
                 // const fileInput = document.querySelectorAll('.file-input');
                 // const taskFromInfoContainer = document.querySelectorAll('.task-form-info-container');
@@ -84,7 +85,9 @@ export default function toggleModal(modalArr, modalOpenBtnArr, modalCloseBtnArr,
         
         modalCloseBtnArr[index].addEventListener('click', () => {
             modal.close();  // closes the modal...
-            if (isFromTask) modal.style.left = "100vw";
+            if (isFromTask)
+            modal.classList.remove('show');
+
             // fileList = []; // clearing the fileList array after closing the modal...
 
             // Clear the imgContainers from the modal

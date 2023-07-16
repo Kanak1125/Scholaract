@@ -87,6 +87,10 @@ hr {
     padding: 0;
 }
 
+.teacher-task-card {
+    height: fit-content !important;
+}
+
 .teacher-task-card,
 .student-task-card {
     transform: translateX(5vw);
@@ -108,10 +112,21 @@ hr {
     cursor: pointer;
 }
 
-.file_img_container {
-    width: 160px;
-    height: 80px;
+/* .file_img_container {
+    width: 100px;
+    height: 60px;
     margin: 10px auto;
+} */
+
+.teacher-task-card .file_img_container {
+    width: 100px;
+    height: 60px;
+    margin: 10px auto;
+}
+
+.teacher-task-card .img-file-name {
+    width: 100%;
+    height: 24px;
 }
 
 .update-drop-down {
@@ -128,6 +143,9 @@ hr {
     z-index: 11;
     backdrop-filter: blur(5px);
 }
+.update-drop-down form {
+    padding: 0;
+}
 .task-card hr {
     border: 1.5px solid var(--bg-color-op6);
     border-radius: 0 !important;
@@ -138,6 +156,11 @@ hr {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     justify-content: start;
     padding: 20px 36px;
+}
+
+.teacher-task-card .file-container {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    padding: 20px;
 }
 
 div.deadline {
@@ -198,6 +221,10 @@ form#form {
     transform: translateY(-50%);
     left: 100vw;
     transition: all 300ms ease-out;
+}
+
+.modal.show {
+    left: 20vw;
 }
 
 .modal .title {
@@ -397,13 +424,17 @@ ul > li > div p:nth-child(2) {
     .modal {
         width: 100%;
         border-radius: 10px;
-        left: 0vw !important;
         margin: 0 auto 0 auto;
+        left: 0vw !important;
+        transform: translateY(10px) scale(0.6);
+    }
+
+    .modal.show {
+        transform: translateY(-50%) scale(1);
     }
 
     .task-progress-container {
         grid-template-columns: auto ;
-        /* border: 1px solid blue; */
         margin: 5px 0;
         line-height: 4.5rem;
     }

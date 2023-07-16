@@ -1,0 +1,26 @@
+<!-- popup for UX -->
+<!-- only for files added msg-->
+
+<style>
+    .popup {
+        background-color: hsla(0, 0%, 100%, 0.2);
+        width: max-content;
+        height: 20px;
+        padding: 10px 20px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 11;
+        opacity: 0;
+    }
+
+    .popup.show {
+        opacity: 1;
+    }
+</style>
+<script src="../../static/script/popUp.js" defer></script>
+
+<div class="popup">
+    <span class="msg">File recently added</span>
+</div>

@@ -44,14 +44,13 @@ teacherTaskCardArr.forEach((card, index) => {
   // console.log("I'm being animated...");
   animateCard(card);
 
-    card.addEventListener('click', e => {
-      e.preventDefault();
-      const taskId = taskArray[index].id;
-      // console.log(`ID: ${taskId}`);  
-      const form = card.querySelector('.assigned-task-modal-open-form');  // taking card as the base... to find the correct index(ed) form...
-      // console.log(form);
-      submitFormData(form, taskId);
-    })
+  const form = card.querySelector('.assigned-task-modal-open-form');  // taking card as the base... to find the correct index(ed) form...
+  form.addEventListener('click', e => {
+    e.preventDefault();
+    const taskId = taskArray[index].id;
+    // console.log(`ID: ${taskId}`);  
+    submitFormData(form, taskId);
+  })
 })
 
 function submitFormData(form, taskId) {
