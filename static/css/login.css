@@ -15,3 +15,103 @@
     background-size: contain;
     /* margin-top: 70px; */
 }
+
+.btn-and-forgot-password-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 0;
+}
+
+.btn-and-forgot-password-container .btn {
+    margin-top: 0;
+}
+
+.forgot-btn {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: var(--accent-color);
+    font-size: var(--fnt-size-s);
+}
+
+.modal {
+    inset: 50%;
+    transform: translate(-50%, 10px) scale(0.4);
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    width: max-content;
+    padding: 60px 40px 0;
+    text-align: center;
+    width: 40vw;
+    max-width: 444px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    transition: all 300ms ease-out;
+}
+
+.modal::backdrop {
+    background-color: hsla(222, 11%, 18%, 0.75);
+}
+.modal.show {
+    transform: translate(-50%, -50%) scale(1);
+
+}
+
+.modal > * {
+    margin-bottom: 20px;
+}
+
+.modal form {
+    margin-top: 24px;
+}
+
+.modal form input:first-child {
+    width: 100%;
+    height: 50px;
+    padding:  10px;
+    border: 2px solid var(--ternary-color);
+    outline: none;
+    border-radius: 5px;
+    transition: all 300ms linear;
+    font-family: 'Poppins', sans-serif;
+}
+
+.modal form input:first-child:focus {
+    border-color: var(--accent-color);
+}
+
+.submit-btn {
+    width: 100%;
+    height: 50px;
+    margin-top: 40px;
+}
+
+.back-to-login-btn {
+    border: none;
+    background: none;
+    color: var(--bg-color-op6);
+    margin-top: 40px;
+}
+
+.back-to-login-btn:hover {
+    border: none;
+    background: none;
+    color: var(--accent-color);
+    margin-right: 40px;
+}
+
+.back-to-login-btn i {
+    margin-right: 8px;
+    transition: all 200ms ease-out;
+}
+
+.back-to-login-btn:hover i{
+    margin-right: 20px;
+}
+
+@media (max-width: 834px) {
+    .modal {
+        width: 75vw;
+    }
+}

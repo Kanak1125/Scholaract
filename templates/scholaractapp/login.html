@@ -10,11 +10,33 @@
     <!-- linking stylesheet to the html -->
     <link rel="stylesheet" href="{% static '/css/login.css' %}">
 
+    <!-- fontawesome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <!-- link to user_validation script -->
     <!-- <script src="{% static '/script/validate_login.js' %}" defer></script> -->
     <script src="/static/script/validate_login.js" defer></script>
 </head>
 <body>
+    <dialog class="modal">
+        <h3>Forgot password</h3>
+        <p>Enter your email and we'll send you a link to reset your password.</p>
+        <form action="">
+            <input type="email" name="" id="" placeholder="someone@example.com">
+            <div class="error" style="display: none;"></div>
+            <input type="submit" class="btn submit-btn" value="Submit">
+        </form>
+        <button class="btn back-to-login-btn">
+            <i class="fas fa-chevron-left"></i>
+            Back to login
+        </button>
+    </dialog>
     <div class="nav-bar-container">
         <nav>
             <a href="{% url 'landingPage' %}">
@@ -45,10 +67,23 @@
                     <div class="error">{{ error_password }} {{error_role}}</div>
                 </div>
                 
-                <input type="submit" id="login-btn" class="btn login-btn" value="Login">
+                <div class="btn-and-forgot-password-container">
+                    <input type="submit" id="login-btn" class="btn login-btn" value="Login">
+                    <button class="forgot-btn" onclick="event.preventDefault();">Forgot Password?</button>
+                </div>
             </form>
             
         </div>
     </main>
+    <script type="module">
+        import toggleModal from '../static/script/modules/modal.js'
+
+        const modal = [...document.querySelectorAll('.modal')];
+        const openBtn = [...document.querySelectorAll('.forgot-btn')];
+        const closeBtn = [...document.querySelectorAll('.back-to-login-btn')];
+        console.log(modal)
+        console.log('hi')
+        toggleModal(modal, openBtn, closeBtn, true);
+    </script>
 </body>
 </html>
