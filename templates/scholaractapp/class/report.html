@@ -100,20 +100,16 @@
                     <td>Grade</td>
                     <td>Grade Point</td>
                 </tr>
+
+                {% for subject in subjects %}
                 <tr>
-                    <td>1</td>
-                    <td colspan="2">Statistics</td>
+                    <td>{{ forloop.counter }}</td> <!--'forloop.counter' is a template variable that keeps track of current iteration count and increments automatically-->
+                    <td colspan="2">{{ subject.subject }}</td>
                     <td>150</td>
                     <td>A +</td>
-                    <td>3.75</td>
+                    <td>{{ subject.marks }}</td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td colspan="2">DSA</td>
-                    <td>180</td>
-                    <td>A +</td>
-                    <td>3.75</td>
-                </tr>
+                {% endfor %}
 
                 <!-- total row -->
                 <tr>

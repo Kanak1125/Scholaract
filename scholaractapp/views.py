@@ -753,9 +753,15 @@ def report_teacher(request, pk):
 
 def report_student(request, pk):
     classObj = Class.objects.get(id=pk)
+    user_data = request.session.get('user')
+    user_id = user_data['id']
+    print(user_id)
 
+    subjects = Marks.objects.filter(student=user_id) # filtering instances of Marks model which has student field or attribute same as or corresponding to the user id
+    # print(subjects)
     context={
         'class': classObj,
+        'subjects': subjects,
     }
     
     return render(request, 'scholaractapp/class/report.html', context)
