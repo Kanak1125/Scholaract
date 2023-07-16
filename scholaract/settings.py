@@ -101,7 +101,8 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD':'',
         'HOST':'127.0.0.1',
-        # 'PORT': ''
+       p
+       
         'OPTIONS': {
             'sql_mode': 'STRICT_ALL_TABLES',
         }
