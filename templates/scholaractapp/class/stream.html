@@ -88,12 +88,12 @@
                         <i class="fas fa-ellipsis-v"></i>
                         <!-- removed drop-down class from div.update-drop-down -->
                         <div class="update-drop-down">
-                            {% if role == "Teacher" %}
+                            <!-- {% if role == "Teacher" %} -->
                             <form action="" 
                             method="post" class="update_material_form">
                                 {% csrf_token %}
                                 <input type="hidden" name="form_identifier" value="delete_material_form_identifier">
-                                <button type="submit" class="btn edit-post">Edir</button>
+                                <button type="submit" class="btn edit-post">Edit</button>
                             </form>
                             <!-- <p class="edit-post">Edit</p> -->
                 
@@ -104,7 +104,7 @@
                                 <input type="hidden" name="form_identifier" value="delete_material_form_identifier">
                                 <button type="submit" class="delete-post">Delete</button>
                             </form>
-                            {% endif %}
+                            <!-- {% endif %} -->
                             
                             <!-- <p class="delete-post" onclick="">Delete</p> -->
                         </div>

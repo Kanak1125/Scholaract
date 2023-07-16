@@ -215,8 +215,8 @@ if ('content' in document.createElement('template')) {
             console.log("Material id is " + materialId)
             const fileContainer = clone.querySelector('.file-container');
 
-
             const deleteMaterialform = clone.querySelector('.delete_material_form');
+            console.log(deleteMaterialform);
             const deleteMaterialformAction = deleteMaterialform.action.replace('__material.id__', materialId);
             deleteMaterialform.action = deleteMaterialformAction;
 

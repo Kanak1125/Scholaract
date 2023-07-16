@@ -99,7 +99,7 @@ legend {
     background-color: var(--primary-color);
     position: relative;
     padding: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
     /* border: 1px solid var(--secondary-color); */
 }
 
@@ -148,6 +148,7 @@ p.uploaded-by {
     height: 100%;
     filter: grayscale(100%);
     transition: all 300ms linear;
+    object-fit: cover;
 }
 
 .file_image:hover {
@@ -204,7 +205,6 @@ p.uploaded-by {
     padding: 5px 20px;
     text-align: center;
     display: none;
-    position: absolute;
     top: 45px;
     right: 0;
     border-radius: 10px;
@@ -276,8 +276,27 @@ p.uploaded-by {
         row-gap: 1rem;
     }
 
+    .material-container {
+        padding: 24px 0px !important;
+    }
+
     .material-card {
-        width: 100%;
+        width: 90%;
         padding: 5px 12px;
+    }
+
+    .file-container {
+        padding: 20px 12px;
+    }
+}
+
+@media (max-width: 375px) {
+    .file-container {
+        grid-template-columns: none;
+    }
+
+    .file_img_container {
+        width: 120px;
+        height: 80px;
     }
 }
