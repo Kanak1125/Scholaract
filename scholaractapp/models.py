@@ -149,6 +149,7 @@ class TaskSubmission(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
     date_of_submission = models.DateField(auto_now_add=True)
     file = models.FileField(upload_to='submission_files/', null=True, blank=True)
+    approved = models.BooleanField(default=False)
     
     def __str__(self):
         return self.file.name    

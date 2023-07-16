@@ -325,6 +325,13 @@ def deleteMaterial(request, pk):
     
     return render(request, 'scholaractapp/class/stream.html')
 
+def updateMaterial(request, pk):
+    material = CourseMaterial.objects.get(id=pk)
+    if request.method == 'POST':
+        pass
+
+    return render(request, 'scholaractapp/class/stream.html')
+
 
 # class SingleClassEncoder(DjangoJSONEncoder):
 #     def default(self, obj):
@@ -443,6 +450,7 @@ def task_teacher(request, pk):
     # role = user_data.get('role')
 
     # print(request.POST)
+    task_submitted_json = ""
     if request.method == "POST":
         form_identifier = request.POST.get('form_identifier')
         print("Form Identifier:", form_identifier)
@@ -465,8 +473,31 @@ def task_teacher(request, pk):
             task_id = request.POST.get('task_id')
             print(f"Task id is {task_id}")
 
-            total_submitted = TaskSubmission.objects.filter(task_id=task_id).count() # filters the tasks submitted by student which has the same task id as the one being passed and counts them
+            # filters the tasks submitted by student which has the same task id as the one being passed and counts them
+            task_submitted = TaskSubmission.objects.filter(task_id=task_id)
+            total_submitted = task_submitted.count() 
             print(f"The total number of entries is: {total_submitted}")
+
+            # task_submitted_list = []
+            # for task in task_submitted:
+            #     task_data = {
+            #         'name': task.student,
+            #         'date_of_submission': task.date_of_submission,
+            #         'file_url': task.file.url,
+            #     }
+            task_submitted_list = list(task_submitted.values('date_of_submission'))
+
+            for submission in task_submitted:
+                name = submission.student.name()
+                file_url = submission.file.url
+                task_submitted_list.append(file_url)
+                task_submitted_list.append(name)
+            print(task_submitted_list)
+
+
+            task_submitted_json = json.dumps(task_submitted_list, cls=DateEncoder)
+        
+
 
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
@@ -508,6 +539,7 @@ def task_teacher(request, pk):
     context = {
         'task_json': task_json,
         'class': classObj,
+        'task_submitted_json': task_submitted_json,
     }
     return render(request, 'scholaractapp/class/task.html', context)
 
