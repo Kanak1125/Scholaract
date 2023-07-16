@@ -84,5 +84,5 @@ function submitFormData(form, taskId) {
     console.error('Network error occurred');
   };
   xhr.send(formData); // this sends the data to the server...
-  print(formData)
+  
 }
