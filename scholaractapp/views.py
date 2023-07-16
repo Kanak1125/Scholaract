@@ -717,16 +717,19 @@ def report_teacher(request, pk):
 
     if request.method == 'POST':
         print(request.POST)
-        student_id = request.POST.get('student_id')
-        marks = request.POST.get('marks')
+        student_ids = request.POST.getlist('student_id')
+        marks_values = request.POST.getlist('marks')
         # class_id = request.POST.get('teacher_id')
         # teacher_id=Class.objects.get(teacher=pk)
-        student = Student.objects.get(pk=student_id)
-        subject = Class.objects.get(id=pk)
-        print(f"Student id is {student_id}")
-        print(f"Class id is {pk}")
+        print(student_ids)
+        print(marks_values)
         
-        marks = Marks.objects.create(student=student, subject=subject, marks=marks)
+        subject = Class.objects.get(id=pk)
+        for student_id, marks in zip(student_ids, marks_values):
+            student = Student.objects.get(pk=student_id)
+            # print(f"Student id is {student_id}")
+            # print(f"Class id is {pk}")    
+            marks = Marks.objects.create(student=student, subject=subject, marks=marks)
         return redirect('report', pk=classObj.id)
     
     context = {
