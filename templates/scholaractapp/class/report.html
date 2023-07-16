@@ -71,7 +71,6 @@
                         <p>{{ student.name }}</p>
                         <input class="no-spinner" type="number" min="0" max="4.0" name="marks">
                         <input type="hidden" name="student_id" value="{{ student.user.id }}">
-                        <input type="hidden" name="teacher_id" value="{{ class.teacher.user.id }}">
                     </li><hr>
                     
                     {% endfor %}
