@@ -740,7 +740,16 @@ def report_teacher(request, pk):
     return render(request, 'scholaractapp/class/report.html', context)
 
 def report_student(request, pk):
-    pass
+    classObj = Class.objects.get(id=pk)
+
+    context={
+        'class': classObj,
+    }
+    
+    return render(request, 'scholaractapp/class/report.html', context)
+
+def popUp(request):
+    return render(request, 'scholaractapp/popUp.html')
 
 def logout(request):
     # Delete the session data

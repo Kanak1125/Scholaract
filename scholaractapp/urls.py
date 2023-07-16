@@ -23,6 +23,7 @@ urlpatterns = [
     path('class/<str:class_pk>/people/removeStudent/<str:student_pk>', views.removeStudent, name="removeStudent"),
     path('class/<str:pk>/report/', views.report, name="report"),
     path('logout/',views.logout, name="logout"), 
+    path('popup/', views.popUp, name="popUp"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
