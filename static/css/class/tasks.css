@@ -83,6 +83,10 @@ hr {
     background-color: var(--primary-color);
 }
 
+.task-card > form {
+    padding: 0;
+}
+
 .teacher-task-card,
 .student-task-card {
     transform: translateX(5vw);
@@ -127,6 +131,13 @@ hr {
 .task-card hr {
     border: 1.5px solid var(--bg-color-op6);
     border-radius: 0 !important;
+}
+
+.file-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    justify-content: start;
+    padding: 20px 36px;
 }
 
 div.deadline {
@@ -379,6 +390,10 @@ ul > li > div p:nth-child(2) {
         row-gap: 2.5rem;
     }
 
+    .file-container {
+        padding: 20px 12px;
+    }
+
     .modal {
         width: 100%;
         border-radius: 10px;
@@ -448,6 +463,14 @@ ul > li > div p:nth-child(2) {
     }
     .task-submission-form-container form .btn{
         font-size: var(--fnt-size-v-s);
+    }
+    .file-container {
+        grid-template-columns: none;
+    }
+
+    .file_img_container {
+        width: 120px;
+        height: 80px;
     }
 }
 

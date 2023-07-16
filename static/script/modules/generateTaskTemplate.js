@@ -20,7 +20,7 @@ const monthNames = {
 
 function createTaskCard(taskData, templateContent, isTeacher) {
     const taskCard = templateContent.cloneNode(true);
-  
+    
     const taskId = taskData.id;
     if (isTeacher) {
       // Update the task ID in the delete form action URL
@@ -49,6 +49,36 @@ function createTaskCard(taskData, templateContent, isTeacher) {
     const dateFormat = `${day} ${monthNames[month]}, ${year}`;
     
     dueDate.textContent = dateFormat;
+
+    if (isTeacher) {
+      const fileContainer = taskCard.querySelector('.file-container');
+
+      (taskData.files).map(file => {
+        console.log(file);
+
+        const fileTemplate = document.querySelector(".file-template");
+
+        const clone2 = fileTemplate.content.cloneNode(true);
+
+        let fileLink = clone2.querySelector('.file_link');
+          let fileImage = clone2.querySelector('.file_image');
+          let imgFileName = clone2.querySelector('.img-file-name');
+
+          if (file.file_url){
+            fileLink.href = `${file.file_url}`;
+            imgFileName.textContent = file.file_name;
+          }else{
+            fileLink.style.display = 'none';
+          }
+
+          if (file.file_extension == '.pdf') {
+            fileImage.src = "../../../static/images/pdf watermark img.png";
+          } else {
+            fileImage.src = '../../../static/images/image watermark img.png'
+          }
+          fileContainer.appendChild(clone2);
+      })
+    }
   
     return taskCard;
   }

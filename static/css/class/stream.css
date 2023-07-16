@@ -225,6 +225,19 @@ p.uploaded-by {
     display: block;
 }
 
+.update-btn {
+    background: none;
+    outline: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: var(--fnt-size-m);
+}
+
+.update-drop-down > form {
+    display: inline-block;
+    padding: 5px 10px;
+}
+
 /* modal styles... */
 .modal {
     width: 60vw;

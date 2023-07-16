@@ -190,6 +190,7 @@
                 </form>
                 <hr>
                 <p class="description"></p>
+                <div class="file-container"></div>
                 <div class="deadline">Deadline:
                     <span class="due-date">20th June, 2023</span>
                 </div>
@@ -337,6 +338,14 @@
                     </div>
                 </section>
         </dialog>
+        </div>
+    </template>
+    <template class="file-template">
+        <div class="file_img_container">
+            <a href="#" class="file_link" target="_blank">
+                <img src="" alt="file image" class="file_image">
+                <div class="img-file-name"></div>
+            </a>
         </div>
     </template>
     {% if role == "Student" %}  
