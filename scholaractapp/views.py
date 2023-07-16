@@ -598,7 +598,19 @@ def task_student(request, pk):
             'title': single_task.title,
             'description': single_task.description,
             'due_date': single_task.due_date,
+            'files': [],
         }
+
+        task_files = TaskFile.objects.filter(task=single_task)
+        for task_file in task_files:
+            file_data = {
+                'file_name': task_file.file.name,
+                'file_url': task_file.file.url,
+                # The os.path.splitext() function splits the filename by identifying the last occurrence of a dot ('.') character. It considers everything before the dot as the base name and everything after the dot (including the dot) as the extension.
+                'file_extension': os.path.splitext(task_file.file.name)[1]
+            }
+            task_dict['files'].append(file_data)
+        
         task_list.append(task_dict)
     task_json = json.dumps(task_list, cls = DateEncoder)
 
