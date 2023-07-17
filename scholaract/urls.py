@@ -26,5 +26,11 @@ urlpatterns = [
 
     # 'auth_views.PasswordResetView' is a view class provided by Django's authentication view that handles password reset functionality
     # '.as_view()' is a method used to create an instance of the view class as a callable object.
-    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="scholaractapp/reset_password.html"), name="reset_password"),
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name="reset_password"),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
+
+    # uidb64 = encrypts user id in base64 encryption. It even has an expiration date 
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete")
+
 ]

@@ -479,21 +479,22 @@ def task_teacher(request, pk):
             print(f"The total number of entries is: {total_submitted}")
 
             # task_submitted_list = []
-            # for task in task_submitted:
-            #     task_data = {
-            #         'name': task.student,
-            #         'date_of_submission': task.date_of_submission,
-            #         'file_url': task.file.url,
-            #     }
             task_submitted_list = []
+            for task in task_submitted:
+                task_data = {
+                    'name': task.student.name(),
+                    'date_of_submission': task.date_of_submission,
+                    'file_url': task.file.url,
+                }
+                task_submitted_list.append(task_data)
 
-            for submission in task_submitted:
-                name = submission.student.name()
-                file_url = submission.file.url
-                date_of_submission = submission.date_of_submission
-                task_submitted_list.append(file_url)
-                task_submitted_list.append(name)
-                task_submitted_list.append(date_of_submission)
+            # for submission in task_submitted:
+            #     name = submission.student.name()
+            #     file_url = submission.file.url
+            #     date_of_submission = submission.date_of_submission
+            #     task_submitted_list.append(file_url)
+            #     task_submitted_list.append(name)
+            #     task_submitted_list.append(date_of_submission)
             # print(task_submitted_list)
 
 
@@ -533,7 +534,7 @@ def task_teacher(request, pk):
         task_list.append(task_data)
     # cls=DateEncoder is provided to specify a custom JSON encoder class for serializing objects that are not natively serializable by default. In this case, we have defined a custom encoder class called DateEncoder that subclasses DjangoJSONEncoder and overrides its default() method.
     task_json = json.dumps(task_list, cls=DateEncoder)
-
+    # print(task_json)
 
     # total_tasks_submitted = TaskSubmission.objects.aggregate(total=Count(3))['total']
     # print(total_tasks_submitted)
