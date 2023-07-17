@@ -485,18 +485,20 @@ def task_teacher(request, pk):
             #         'date_of_submission': task.date_of_submission,
             #         'file_url': task.file.url,
             #     }
-            task_submitted_list = list(task_submitted.values('date_of_submission'))
+            task_submitted_list = []
 
             for submission in task_submitted:
                 name = submission.student.name()
                 file_url = submission.file.url
+                date_of_submission = submission.date_of_submission
                 task_submitted_list.append(file_url)
                 task_submitted_list.append(name)
-            print(task_submitted_list)
+                task_submitted_list.append(date_of_submission)
+            # print(task_submitted_list)
 
 
             task_submitted_json = json.dumps(task_submitted_list, cls=DateEncoder)
-        
+            print(task_submitted_json)
 
 
     current_task = Task.objects.filter(related_class=related_class)

@@ -69,7 +69,7 @@
                 
                 <div class="btn-and-forgot-password-container">
                     <input type="submit" id="login-btn" class="btn login-btn" value="Login">
-                    <button class="forgot-btn" onclick="event.preventDefault();">Forgot Password?</button>
+                    <a  href="{% url 'reset_password' %}">Forgot Password?</a>
                 </div>
             </form>
             

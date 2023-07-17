@@ -17,10 +17,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views as admin_views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # path('admin/login/', admin_views.LoginView.as_view(template_name='scholaractapp/login.html'), name='login'), #new
     path('admin/', admin.site.urls),
     path('',include('scholaractapp.urls')),
+
+    # 'auth_views.PasswordResetView' is a view class provided by Django's authentication view that handles password reset functionality
+    # '.as_view()' is a method used to create an instance of the view class as a callable object.
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name="scholaractapp/reset_password.html"), name="reset_password"),
 ]
