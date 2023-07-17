@@ -31,3 +31,25 @@
     row-gap: 1.25rem;
   }
 }
+
+.popup {
+  background: linear-gradient(to left, var(--accent-color), var(--primary-color));
+  width: 500px;
+  box-shadow: var(--ternary-color) 0px 8px 24px;
+  padding: 10px 20px;
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.4);
+  z-index: 111;
+  opacity: 0;
+  border-radius: 20px;
+  transition: all 200ms ease-out;
+  text-align: center;
+}
+
+.popup.show {
+  top: 40px;
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}

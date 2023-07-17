@@ -6,7 +6,8 @@ const password = document.getElementById('password');
 const confirmPassword = document.getElementById('c_password');
 // const submitBtn = document.getElementById('login-btn');
 
-
+const popUp = document.querySelector('.popup');
+const msg = document.querySelector('.msg');
 // submitBtn.setAttribute('disabled');
 // fires when the form is submitted...
 form.addEventListener('submit', function(e){
@@ -16,7 +17,12 @@ form.addEventListener('submit', function(e){
 
     if (validateInputs()){
         // var validated = document.getElementById('form')
-        form.submit(); //if the function returns true, then submit the data
+        msg.innerHTML = "Congratulations on signing up!<br><br>Keep an eye on your email for the admin-assigned role notification.";
+        popUp.classList.add('show');
+        setTimeout(() => {
+            form.submit();
+        }, 5000)
+         //if the function returns true, then submit the data
     }
 })
 

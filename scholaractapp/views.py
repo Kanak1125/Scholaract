@@ -76,7 +76,7 @@ def signup(request):
 
             user_data.save()  # saves data into the database into their respective columns
 
-            return redirect('success')
+            return redirect('login')
 
     context = {
         'error_message': error_message,
