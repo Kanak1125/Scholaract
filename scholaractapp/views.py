@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
 from rest_framework.decorators import api_view
-
+import requests
 # importing Users model from the models.py file
 from django.db.models import Count, Sum
 
@@ -24,10 +24,14 @@ import os
 # Create your views here.
 
 @api_view(['GET'])
-def api_endpoint(request):
+def api_endpoint(request, task_id):
     #API logic here
+    task_submitted_json = request.GET.get('task_submitted_json')
+    print("Task Submitted JSON:", task_submitted_json)
     data = {
-        'message' : "Hello world!"
+        'message' : "Hello world!",
+        'task_submitted_json':task_submitted_json,
+        'task_id':task_id,
     }
 
     return JsonResponse(data)
@@ -61,7 +65,7 @@ def signup(request):
         last_name = request.POST.get('lname')
         email = request.POST.get('email')
         password = request.POST.get('password')
-        hashed_pwd = make_password(password)  # hashing the password using
+        hashed_pwd = make_password(password) # hashing the password using
 
         # query which checks if the email entered by the user already exists in yhe db, if it exists it will return true else it will return false
         email_exits = User.objects.filter(email=email).exists()
@@ -441,7 +445,7 @@ def task(request, pk):
     user_data = request.session.get('user')
 
     # since role is being assigned by admin, it is being accessed this way
-    role = user_data.get('role')
+    role = user_data.get('role')  if user_data else None
     if role == "Teacher":
         return task_teacher(request, pk)
     elif role == "Student":
@@ -488,7 +492,6 @@ def task_teacher(request, pk):
             total_submitted = task_submitted.count() 
             print(f"The total number of entries is: {total_submitted}")
 
-            # task_submitted_list = []
             task_submitted_list = []
             for task in task_submitted:
                 task_data = {
@@ -498,18 +501,15 @@ def task_teacher(request, pk):
                 }
                 task_submitted_list.append(task_data)
 
-            # for submission in task_submitted:
-            #     name = submission.student.name()
-            #     file_url = submission.file.url
-            #     date_of_submission = submission.date_of_submission
-            #     task_submitted_list.append(file_url)
-            #     task_submitted_list.append(name)
-            #     task_submitted_list.append(date_of_submission)
-            # print(task_submitted_list)
-
-
             task_submitted_json = json.dumps(task_submitted_list, cls=DateEncoder)
-            print(task_submitted_json)
+            # print(task_submitted_json)
+            # task_id=1
+            url = f'http://127.0.0.1:8000/api/{task_id}'
+            data = {
+            'task_submitted_json': task_submitted_json
+            }
+            response = requests.get(url, params={'task_submitted_json': task_submitted_json})
+            print(response.json)
 
 
     current_task = Task.objects.filter(related_class=related_class)

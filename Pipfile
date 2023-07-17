@@ -8,6 +8,8 @@ django = "*"
 mysqlclient = "*"
 argon2-cffi = "*"
 django-jazzmin = "*"
+djangorestframework = "*"
+requests = "*"
 
 [dev-packages]
 
