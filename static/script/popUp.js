@@ -70,7 +70,7 @@ for ( let i = 0; i < popUp.length; i++ ) {
     
             clearInterval(timer);
         
-            timer = setInterval(() => {
+            timer = setTimeout(() => {
                 p.classList.remove('show');
             }, 2500);
         })
