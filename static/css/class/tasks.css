@@ -163,6 +163,11 @@ hr {
     padding: 20px;
 }
 
+.student-task-card .file-container {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
 div.deadline {
     padding: 15px 36px;
     font-weight: var(--fnt-wght-b);
@@ -222,6 +227,11 @@ form#form {
     left: 100vw;
     transition: all 300ms ease-out;
 }
+
+/* .student-task-card .modal {
+    position: fixed;
+    z-index: -1;
+} */
 
 .modal.show {
     left: 20vw;
@@ -417,7 +427,7 @@ ul > li > div p:nth-child(2) {
         row-gap: 2.5rem;
     }
 
-    .file-container {
+    .teacher-task-card .file-container {
         padding: 20px 12px;
     }
 
@@ -552,4 +562,3 @@ ul > li > div p:nth-child(2) {
   .dropdown-menu li:hover {
     background-color: hsl(222, 11%, 25%);
   }
-  

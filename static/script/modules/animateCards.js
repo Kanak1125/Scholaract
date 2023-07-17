@@ -6,7 +6,7 @@ export default function animateCard(target) {
             if (entry.isIntersecting) observer.unobserve(target);
         })
     }, {
-        threshold: 1.0
+        threshold: 0.8
     });
     observer.observe(target);
 }

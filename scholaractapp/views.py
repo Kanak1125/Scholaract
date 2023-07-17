@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
 from django.core import serializers
+from rest_framework.decorators import api_view
 
 # importing Users model from the models.py file
 from django.db.models import Count, Sum
@@ -21,6 +22,15 @@ from datetime import date
 import os
 
 # Create your views here.
+
+@api_view(['GET'])
+def api_endpoint(request):
+    #API logic here
+    data = {
+        'message' : "Hello world!"
+    }
+
+    return JsonResponse(data)
 
 
 # view for landing page

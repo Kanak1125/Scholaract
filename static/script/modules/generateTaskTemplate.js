@@ -50,7 +50,7 @@ function createTaskCard(taskData, templateContent, isTeacher) {
     
     dueDate.textContent = dateFormat;
 
-    if (isTeacher) {
+    // if (isTeacher) {
       const fileContainer = taskCard.querySelector('.file-container');
 
       (taskData.files).map(file => {
@@ -78,7 +78,7 @@ function createTaskCard(taskData, templateContent, isTeacher) {
           }
           fileContainer.appendChild(clone2);
       })
-    }
+    // }
   
     return taskCard;
   }

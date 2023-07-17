@@ -5,6 +5,7 @@ import animateCard from "./modules/animateCards.js";
 const taskContainer = document.querySelector('.task-card-container');
 const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
 console.log(taskArray);
+
 // console.log(taskArray.reverse());
 
 // Retrieve the template content
@@ -13,6 +14,10 @@ const templateContent = template.content;
 
 
 executeTemplate(templateContent, taskArray, taskContainer, true);
+
+const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
+const modalArr = [...document.querySelectorAll('.modal')];
+const closeModal = [...document.querySelectorAll('.close-modal')];
 
 function handleDropDownClick(e, btn, dropdown) {
   e.stopPropagation(); // prevent event bubbling
@@ -31,13 +36,13 @@ $(document).ready(function() {
   });
 });
 
-const taskCardLinkArr = [...document.querySelectorAll('.task-card-link')];
-const modalArr = [...document.querySelectorAll('.modal')];
-const closeModal = [...document.querySelectorAll('.close-modal')];
 
 console.log(taskCardLinkArr, modalArr);
 
 toggleModal(modalArr, taskCardLinkArr, closeModal, true);
+
+// const submittedTaskArr = JSON.parse(taskContainer.dataset.taskList);
+// console.log(submittedTaskArr);
 
 const teacherTaskCardArr = document.querySelectorAll('.teacher-task-card');
 teacherTaskCardArr.forEach((card, index) => {
@@ -49,11 +54,14 @@ teacherTaskCardArr.forEach((card, index) => {
     e.preventDefault();
     const taskId = taskArray[index].id;
     // console.log(`ID: ${taskId}`);  
-    submitFormData(form, taskId);
+    submitFormData(form, taskId, index);
+refreshTemplate();
+
   })
 })
 
-function submitFormData(form, taskId) {
+function submitFormData(form, taskId, index) {
+  modalArr[index].setAttribute('data-list', "{{ task_submitted_json }}")
   // console.log("Im running...");
   const taskIdInput = form.querySelector('.task-id-input-for-teach');
   // console.log(taskId);
@@ -84,4 +92,11 @@ function submitFormData(form, taskId) {
   };
   xhr.send(formData); // this sends the data to the server...
   
+}
+
+function refreshTemplate() {
+  fetch("http://127.0.0.1:8000/api/")
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log("Error while fetching, " + error));
 }

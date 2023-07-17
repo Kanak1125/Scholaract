@@ -23,42 +23,19 @@
     {% if role == "Teacher" %}  
     <script type="module" src="../../../static/script/task_teacher.js" defer></script>
     <script src="../../../static/script/validate_assign.js" defer></script>
-
+    <script type = "module" src="../../../static/script/popUp.js" defer></script>
+    
     {% elif role == "Student" %}
     <script type="module" src="../../../static/script/task_students.js" defer></script>
+    <script type = "module" src="../../../static/script/popUp.js" defer></script>
     
     {% endif %}
     <!-- <script src="../../../static/script/validate_assign.js" defer></script> -->
     <!-- <script type="module" src="../../../static/script/file_input_pop_up.js" defer></script> -->
 
-    <script type = "module" src="../../../static/script/pop_up.js" defer></script>
-    <style>
-        .popup {
-            background-color: hsla(0, 0%, 100%, 0.2);
-            width: max-content;
-            /* height: 20px; */
-            padding: 10px 20px;
-            /* color: var(--secondary-color); */
-            position: fixed;
-            top: 40px;
-            right: 20px;
-            transform: translateX(-50%);
-            z-index: 15;
-            opacity: 0;
-            border-radius: 5px;
-        }
-    
-        .popup.show {
-            opacity: 1;
-        }
-    </style>
-
     
 </head>
 <body>
-    <div class="popup">
-        <span class="msg">msg</span>
-    </div>
     <div id="top-layer"></div>
     <!-- <section class="nav-bar-container">
         <nav>
@@ -93,6 +70,7 @@
 
     {% if role == "Teacher" %}
         <main class="main">
+            {% include 'scholaractapp/popUp.html' %}
             <div class="task-container">
                 <header>
                     <p class="title">Task assigned</p>
@@ -119,7 +97,7 @@
                     </div>
                     <div class="add-file-and-post-container">
                         <label for="post_file">Attach a file  <i class="fas fa-paperclip"></i></label>
-                        <input type="file" name="post_file" id="post_file" multiple>
+                        <input type="file" name="post_file" id="post_file" class="upload_files" multiple>
                         <input type="submit" class="btn" value="Assign">
                     </div>
                 </form>
@@ -195,7 +173,7 @@
                     <span class="due-date">20th June, 2023</span>
                 </div>
             </div>
-            <dialog class="modal">
+            <dialog class="modal" data-list="">
                     <div class="modal-nav">
                         <i class="fas fa-chevron-left close-modal"></i>
                     </div>
@@ -305,6 +283,7 @@
                 </span>
             </div>
             <dialog class="modal">
+                {% include 'scholaractapp/popUp.html' %}
                 <div class="modal-nav">
                     <i class="fas fa-chevron-left close-modal"></i>
                 </div>
@@ -313,6 +292,7 @@
                         <p class="title modal-task-title"></p>
                         <hr>
                         <p class="description modal-description"></p>
+                        <div class="file-container"></div>
                     </div>
                     <div class="task-submission-form-container">
                         <form 
@@ -331,7 +311,7 @@
                                 <br>
                                 <br>
                                 <input type="file" name="post_file" id="post_file"
-                                class="file-input" multiple>
+                                class="file-input upload_files" multiple>
                                 <input type="submit" id="task-submit-btn" class="btn" value="Submit"
                                 >
                             </div>
@@ -383,7 +363,6 @@
         //     const option = dropdownToggle.textContent;
         //     console.log(option);
         // }
-
     </script>
     {% endif %}  
 </body>
