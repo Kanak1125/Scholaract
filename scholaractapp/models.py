@@ -86,7 +86,7 @@ class Class(models.Model):
         max_length=5, null=True, blank=True, unique=True, editable=False)
     class_name = models.CharField(max_length=300, null=True, blank=True)
     subject_name = models.CharField(max_length=300, null=True, blank=True)
-   
+    credit_hour = models.IntegerField(default=150, null=False, blank=False)
     
 
     teacher = models.ForeignKey(User, on_delete=models.CASCADE,null = True)
@@ -159,4 +159,24 @@ class Marks(models.Model):
     subject = models.ForeignKey(Class, on_delete=models.CASCADE)
     marks = models.DecimalField(max_digits=4, decimal_places=2)
 
-    
+    def calculate_grade(self):
+        if self.marks >= 4.0:
+            return "A+"
+        elif 3.7 <= self.marks < 4.0:
+            return "A"
+        elif 3.3 <= self.marks < 3.7:
+            return "A-"
+        elif 3.0 <= self.marks < 3.3:
+            return "B+"
+        elif 2.7 <= self.marks < 3.0:
+            return "B"
+        elif 2.3 <= self.marks < 2.7:
+            return "B-"
+        elif 2.0 <= self.marks < 2.3:
+            return "C+"
+        elif 1.7 <= self.marks < 2.0:
+            return "C"
+        elif 1.0 <= self.marks < 1.7:
+            return "C-"
+        else:
+            return "F"

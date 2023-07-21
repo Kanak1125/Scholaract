@@ -76,7 +76,7 @@
                     <p class="title">Task assigned</p>
                     <hr>
                 </header>
-                <div class="task-card-container" data-task="{{task_json}}"></div>
+                <div class="task-card-container" data-task="{{task_json}}" data-task-submitted="{{ task_submitted_json }}"></div>
             </div>
             <div class="assign-task-form-container">
                 <form
@@ -162,7 +162,7 @@
                     <input type="hidden" name="form_identifier" value="task_id_identifier">
                     <!-- <input type="hidden" name="task_id" value="{{ taskId }}"> -->
                     <input type="hidden" name="task_id" class="task-id-input-for-teach" value ="">
-                    <a href="" class="task-card-link" onclick="event.preventDefault();">
+                    <a href="" class="task-card-link" onclick="event.preventDefault();" >
                         <p class="title task-name"></p>
                     </a>
                 </form>
@@ -173,7 +173,7 @@
                     <span class="due-date">20th June, 2023</span>
                 </div>
             </div>
-            <dialog class="modal" data-list="">
+            <dialog class="modal" >
                     <div class="modal-nav">
                         <i class="fas fa-chevron-left close-modal"></i>
                     </div>

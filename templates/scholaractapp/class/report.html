@@ -106,7 +106,7 @@
                     <td>{{ forloop.counter }}</td> <!--'forloop.counter' is a template variable that keeps track of current iteration count and increments automatically-->
                     <td colspan="2">{{ subject.subject }}</td>
                     <td>150</td>
-                    <td>A +</td>
+                    <td>{{subject.calculate_grade }}</td>
                     <td>{{ subject.marks }}</td>
                 </tr>
                 {% endfor %}
@@ -114,9 +114,9 @@
                 <!-- total row -->
                 <tr>
                     <td colspan="3">Total</td>
-                    <td>{total crhr}</td>
-                    <td>{CGPA point}</td>
-                    <td>{CGPA}</td>
+                    <td>{{ total_crhr }}</td>
+                    <td>{{ avg_grade }}</td>
+                    <td>{{ gpa }}</td>
                 </tr>
             </table>
         </div>

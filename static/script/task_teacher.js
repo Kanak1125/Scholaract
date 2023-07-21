@@ -4,6 +4,8 @@ import animateCard from "./modules/animateCards.js";
 
 const taskContainer = document.querySelector('.task-card-container');
 const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
+
+// const taskSubmitted = document.querySelector('.')
 console.log(taskArray);
 
 // console.log(taskArray.reverse());
@@ -55,13 +57,13 @@ teacherTaskCardArr.forEach((card, index) => {
     const taskId = taskArray[index].id;
     // console.log(`ID: ${taskId}`);  
     submitFormData(form, taskId, index);
-refreshTemplate();
+    refreshTemplate();
 
   })
 })
 
 function submitFormData(form, taskId, index) {
-  modalArr[index].setAttribute('data-list', "{{ task_submitted_json }}")
+  // modalArr[index].setAttribute('data-list', "{{ task_submitted_json }}")
   // console.log("Im running...");
   const taskIdInput = form.querySelector('.task-id-input-for-teach');
   // console.log(taskId);
