@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+
+    <link rel="stylesheet" href="../../static/css/support.css">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% include 'scholaractapp/includes/navbar101.html' %}
+    <main class="main">
+        <div class="img-container">
+            <img src="../../static/images/customer_support_image.jpg" alt="">
+        </div>
+        <div class="support-section">
+            <h2>Scholaract Support</h2>
+            <div class="card-container">
+                <div class="support-card forgot-password-card">
+                    <i class="fas fa-key"></i>
+                    <a href="">Forgot Password</a> <!-- this will lead to the forgot password page... -->
+                </div>
+                <div class="support-card contact-us-card">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>Contact Us</p>
+                    <small>+997 9009999998</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    {% include 'scholaractapp/includes/footer.html' %}
+</body>
+</html>

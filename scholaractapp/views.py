@@ -41,9 +41,11 @@ def api_endpoint(request, task_id):
 def landingPage(request):
     return render(request, 'scholaractapp/landingPage.html')
 
-
 def aboutUs(request):
     return render(request, 'scholaractapp/aboutUs.html')
+
+def support(request):
+    return render(request, 'scholaractapp/support.html')
 
 def faq(request):
     return render(request,'scholaractapp/faq.html')

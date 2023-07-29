@@ -1,0 +1,80 @@
+@import url('./landingPage.css');
+
+.nav-bar-container {
+    position: static !important;
+}
+
+.nav-links li:nth-child(2) a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    scale: 1.1;
+}
+
+.img-container {
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+    margin: 40px auto;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.support-section {
+    text-align: center;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 40px auto;
+}
+
+.support-card {
+    width: 60%;
+    padding: 40px;
+    line-height: 40px;
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    transition: all 200ms ease-out;
+    max-width: 400px;
+}
+
+.support-card a {
+    display: block;
+    text-decoration: none;
+    color: var(--default-text-color);
+}
+
+.support-card i {
+    color: var(--accent-color);
+}
+
+.support-card:hover {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 4px 0px, rgba(60, 64, 67, 0.15) 0px 1px 5px 1px;
+}
+
+.forgot-password-card:hover > a {
+    text-decoration: underline !important;
+}
+
+@media (max-width: 834px) {
+    .img-container img {
+        object-fit: contain;
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

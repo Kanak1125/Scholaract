@@ -8,6 +8,7 @@ urlpatterns = [
     path('api/<str:task_id>', views.api_endpoint, name='api_endpoint'),
     path('', views.landingPage, name = "landingPage"),
     path('aboutUs/', views.aboutUs, name = "aboutUs"),
+    path('support/', views.support, name = "support"),
     path('faq/', views.faq, name="faq"),
     # path('support/', views.support, name="support"),
     path('signup/',views.signup, name="signup"),
