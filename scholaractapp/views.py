@@ -23,18 +23,7 @@ import os
 
 # Create your views here.
 
-@api_view(['GET'])
-def api_endpoint(request, task_id):
-    #API logic here
-    task_submitted_json = request.GET.get('task_submitted_json')
-    print("Task Submitted JSON:", task_submitted_json)
-    data = {
-        'message' : "Hello world!",
-        'task_submitted_json':task_submitted_json,
-        'task_id':task_id,
-    }
 
-    return JsonResponse(data)
 
 
 # view for landing page
@@ -506,13 +495,14 @@ def task_teacher(request, pk):
             task_submitted_json = json.dumps(task_submitted_list, cls=DateEncoder)
             # print(task_submitted_json)
             # task_id=1
-            url = f'http://127.0.0.1:8000/api/{task_id}'
+            url = "http://127.0.0.1:8000/api/"
             data = {
             'task_submitted_json': task_submitted_json
             }
-            response = requests.get(url, params={'task_submitted_json': task_submitted_json})
+            response = requests.get(url, data)
             print(response.json)
-
+            # print(f"Url is:"+ url)
+            
 
     current_task = Task.objects.filter(related_class=related_class)
     task_list = []
@@ -773,13 +763,47 @@ def report_student(request, pk):
     print(user_id)
 
     subjects = Marks.objects.filter(student=user_id) # filtering instances of Marks model which has student field or attribute same as or corresponding to the user id
-    # print(subjects)
+    
+    # 'subject__credit_hour' calculates sum of the credit_hour field for all the related Class objects in the subjects queryset
+    # aggregate() function, it returns a dictionary where the keys represent the names of the aggregation functions
+    # 'subject__credit_hour__sum' is a key
+    total_crhr = subjects.aggregate(Sum("subject__credit_hour"))['subject__credit_hour__sum']
+    gpa = round(subjects.aggregate(Sum('marks'))['marks__sum'] / subjects.count(), 2)
+    print(gpa)
+    print(total_crhr)
+    def calculate_avg_grade(gpa):
+        if gpa >= 4.0:
+            return "A+"
+        elif 3.7 <= gpa < 4.0:
+            return "A"
+        elif 3.3 <= gpa < 3.7:
+            return "A-"
+        elif 3.0 <= gpa < 3.3:
+            return "B+"
+        elif 2.7 <= gpa < 3.0:
+            return "B"
+        elif 2.3 <= gpa < 2.7:
+            return "B-"
+        elif 2.0 <= gpa < 2.3:
+            return "C+"
+        elif 1.7 <= gpa < 2.0:
+            return "C"
+        elif 1.0 <= gpa < 1.7:
+            return "C-"
+        else:
+            return "F"
+    avg_grade = calculate_avg_grade(gpa)
     context={
         'class': classObj,
         'subjects': subjects,
+        'total_crhr': total_crhr,
+        'gpa': gpa,
+        'avg_grade': avg_grade,
     }
     
     return render(request, 'scholaractapp/class/report.html', context)
+
+
 
 def popUp(request):
     return render(request, 'scholaractapp/popUp.html')
@@ -825,3 +849,16 @@ def logout(request):
 #     course_json = json.dumps(course_list)
 
 #     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
+
+@api_view(['GET'])
+def api_endpoint(request):
+    #API logic here
+    task_submitted_json = request.GET.get('task_submitted_json')
+    print("Task Submitted JSON:", task_submitted_json)
+    data = {
+        'message' : "Hello world!",
+        'task_submitted_json':task_submitted_json,
+        # 'task_id':task_id,
+    }
+
+    return JsonResponse(data)

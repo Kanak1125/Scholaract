@@ -4,6 +4,8 @@ import animateCard from "./modules/animateCards.js";
 
 const taskContainer = document.querySelector('.task-card-container');
 const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
+
+// const taskSubmitted = document.querySelector('.')
 console.log(taskArray);
 
 // console.log(taskArray.reverse());
