@@ -55,13 +55,12 @@ teacherTaskCardArr.forEach((card, index) => {
     const taskId = taskArray[index].id;
     // console.log(`ID: ${taskId}`);  
     submitFormData(form, taskId, index);
-refreshTemplate();
-
+    refreshTemplate(taskId);
   })
 })
 
 function submitFormData(form, taskId, index) {
-  modalArr[index].setAttribute('data-list', "{{ task_submitted_json }}")
+  // modalArr[index].setAttribute('data-list', "{{ task_submitted_json }}")
   // console.log("Im running...");
   const taskIdInput = form.querySelector('.task-id-input-for-teach');
   // console.log(taskId);
@@ -94,8 +93,8 @@ function submitFormData(form, taskId, index) {
   
 }
 
-function refreshTemplate() {
-  fetch("http://127.0.0.1:8000/api/")
+function refreshTemplate(taskId) {
+  fetch(`http://127.0.0.1:8000/api/${taskId}`)
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.log("Error while fetching, " + error));

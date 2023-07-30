@@ -60,9 +60,9 @@ for ( let i = 0; i < popUp.length; i++ ) {
     const uploadFiles = [...document.querySelectorAll('.upload_files')][i];
     const msg = [...document.querySelectorAll('.msg')][i];
     let timer;
+    const p = popUp[i];
     
     uploadFiles.addEventListener('change', () => {
-        popUp.forEach(p => {
             p.classList.add("show");
             msg.textContent = uploadFiles.files.length > 1 ? 
             'File(s) recently added' :
@@ -78,7 +78,6 @@ for ( let i = 0; i < popUp.length; i++ ) {
         // currentPopUp.classList.add('show');
 
         // console.log("Files added.......")
-    })
 }
 
 // uploadFiles.forEach(up => up.addEventListener('change', addPopUp));

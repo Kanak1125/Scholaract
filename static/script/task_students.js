@@ -26,6 +26,7 @@ function latestTaskOrder() {
   executeTemplate(templateContent, taskArray, taskContainer, false);
   updateEventListener();
   getAnimation();
+  performFormSubmission(taskArray);
 }
 
 function dueTaskOrder() {
@@ -64,6 +65,7 @@ function dueTaskOrder() {
   executeTemplate(templateContent, revertedDateTaskArray, taskContainer, false);
   updateEventListener();
   getAnimation();
+  performFormSubmission(revertedDateTaskArray);
 }
 
 function oldestTaskOrder() {
@@ -73,6 +75,7 @@ function oldestTaskOrder() {
   // console.log('reversed');
   updateEventListener();
   getAnimation();
+  performFormSubmission(oldestTaskArray);
 }
 
 // for sorting dropdown...
@@ -230,67 +233,78 @@ getAnimation();
 // });
 
 // console.log(taskCardLinkArr);
-taskCardLinkArr.forEach((taskCardLink) => {
-  taskCardLink.addEventListener('click', function(e) {
-    e.preventDefault();
-    console.log('Task card clicked'); // Debug statement
-    const taskContainer = this.closest('.task-card-container-stud');
-    const taskData = JSON.parse(taskContainer.dataset.task).reverse();
-    const taskElements = Array.from(taskContainer.children);
-    const index = taskElements.indexOf(this.parentNode.parentNode);
-    console.log('Index:', index);
-    const taskId = taskData[index].id;
-    const taskTitle = taskData[index].title;
-    console.log('Task ID:', taskId);
-    const taskDescription = taskData[index].description;
-    console.log('Task Description:', taskDescription);
-
-    const form = this.closest('form');
-    submitFormData(form, taskId);
-
+function performFormSubmission(taskArr) {
+  taskCardLinkArr.forEach((taskCardLink) => {
+    taskCardLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Task card clicked'); // Debug statement
+      const taskContainer = this.closest('.task-card-container-stud');
+      const taskData = taskArr;
+      const taskElements = Array.from(taskContainer.children);
+      const index = taskElements.indexOf(this.parentNode.parentNode);
+      console.log('Index:', index);
+      const taskId = taskData[index].id;
+      const taskTitle = taskData[index].title;
+      console.log('Task-title: ---------------->' + taskTitle);
+      console.log('Task ID:', taskId);
+      const taskDescription = taskData[index].description;
+      console.log('Task Description:', taskDescription);
+  
+      const form = this.closest('.submit-task-form');
+      submitFormData(form, taskId);
+  
+    });
   });
-});
-
-const taskSubmissionForm = document.querySelectorAll('.task-submission-form');
-console.log(taskSubmissionForm);
-
-// for submitting the task...
-taskSubmissionForm.forEach(form => {
-  // const taskSubmitBtn = document.getElementById('task-submit-btn');
-  form.addEventListener('submit', (e, taskId) => {
-    e.preventDefault();
-    console.log("submitted");
-    // console.log("task id being passed is" + taskId)
-    submitFormData(form, taskId);
-
+  
+  const taskSubmissionForm = document.querySelectorAll('.task-submission-form');
+  console.log(taskSubmissionForm);
+  
+  // for submitting the task...
+  taskSubmissionForm.forEach((form, index) => {
+    // const taskSubmitBtn = document.getElementById('task-submit-btn');
+    taskSubmissionForm[index].addEventListener('submit', (e) => {
+      console.log(form);
+      e.preventDefault();
+      // console.log(form);
+      console.log("submitted");
+      // console.log("task id being passed is" + taskId)
+      submitFormData(taskSubmissionForm[index], null);
+  
+    })
   })
-})
-
-function submitFormData(form, taskId) {
-    const taskIdInput = form.querySelector('.task-id-input');
-    if (taskId) taskIdInput.value = taskId;
-
-    // // Submitting the form using AJAX
-    const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
-    const xhr = new XMLHttpRequest(); // creates a new "XMLHttpRequest" object, which is used to send asynchronous HTTP requests.
-    // XMLHttpRequest object provides functionality for making AJAX requests to the server...
-    xhr.open(form.method, form.action); // initializing the AJAX request with form method as POST and form action blank...
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Adding this header for Django to identify it as an AJAX request
-
-    // when the request is complete the following function is called with "onload"...
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        // Request was successful
-        console.log("Request was successful");
-      } else {
-        // Request failed
-        console.error('Request failed. Status:', xhr.status);
+  
+  function submitFormData(form, taskId) {
+      const taskIdInput = form.querySelector('.task-id-input');
+      if (taskId) taskIdInput.value = taskId;
+      console.log("----------------");
+      console.log(form);
+      // // Submitting the form using AJAX
+      const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
+      for (const [name, value] of formData.entries()) {
+        console.log(name, value);
       }
-    };
-    xhr.onerror = function() {
-      console.error('Network error occurred');
-    };
-    xhr.send(formData); // this sends the data to the server...
+      const xhr = new XMLHttpRequest(); // creates a new "XMLHttpRequest" object, which is used to send asynchronous HTTP requests.
+      // XMLHttpRequest object provides functionality for making AJAX requests to the server...
+      xhr.open(form.method, form.action); // initializing the AJAX request with form method as POST and form action blank...
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Adding this header for Django to identify it as an AJAX request
+  
+      // when the request is complete the following function is called with "onload"...
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          // Request was successful
+          console.log("Request was successful");
+        } else {
+          // Request failed
+          console.error('Request failed. Status:', xhr.status);
+        }
+      };
+      xhr.onerror = function() {
+        console.error('Network error occurred');
+      };
+      xhr.send(formData); // this sends the data to the server...
+  }
+  
+  console.log(taskCardLinkArr);
 }
 
-console.log(taskCardLinkArr);
+performFormSubmission(taskArray);
