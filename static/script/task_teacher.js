@@ -96,7 +96,7 @@ function submitFormData(form, taskId, index) {
 }
 
 function refreshTemplate(taskId) {
-  fetch(`http://127.0.0.1:8000/api/${taskId}`)
+  fetch(`http://127.0.0.1:8000/api/${taskId}/`)
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.log("Error while fetching, " + error));
