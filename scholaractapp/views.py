@@ -1,8 +1,12 @@
 # we edited this file
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
-from django.core import serializers
+
+from rest_framework import generics
+from .serializers import TaskSubmissionSerializer, TaskSerializer
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
 import requests
 # importing Users model from the models.py file
 from django.db.models import Count, Sum
@@ -21,7 +25,6 @@ from datetime import date
 # os module for that will be used to extract the extension of the file...
 import os
 
-from .my_globals import MY_GLOBAL_TASK_SUBMITTED_JSON
 # Create your views here.
 
 
@@ -31,11 +34,9 @@ from .my_globals import MY_GLOBAL_TASK_SUBMITTED_JSON
 def landingPage(request):
     return render(request, 'scholaractapp/landingPage.html')
 
+
 def aboutUs(request):
     return render(request, 'scholaractapp/aboutUs.html')
-
-def support(request):
-    return render(request, 'scholaractapp/support.html')
 
 def faq(request):
     return render(request,'scholaractapp/faq.html')
@@ -494,7 +495,6 @@ def task_teacher(request, pk):
                 task_submitted_list.append(task_data)
 
             task_submitted_json = json.dumps(task_submitted_list, cls=DateEncoder)
-            MY_GLOBAL_TASK_SUBMITTED_JSON = task_submitted_list
             # print(task_submitted_json)
             # task_id=1
             url = "http://127.0.0.1:8000/api/"
@@ -502,7 +502,7 @@ def task_teacher(request, pk):
             'task_submitted_json': task_submitted_json
             }
             response = requests.get(url, data)
-            print(response.json)
+            print(f"Here it is:{response.headers}")
             # print(f"Url is:"+ url)
             
 
@@ -852,16 +852,40 @@ def logout(request):
 
 #     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
 
-@api_view(['GET'])
-def api_endpoint(request, pk):
-    #API logic here
-    # task_submitted_json = request.GET.get(pk)
-    # task_submitted_json = task_teacher(pk)
-    # print("Task Submitted JSON:", task_submitted_json)
-    # data = {
-    #     'message' : "Hello world!",
-    #     'task_submitted_json': MY_GLOBAL_TASK_SUBMITTED_JSON,
-    #     # 'task_id':task_id,
-    # }
+# @api_view(['GET'])
+# def api_endpoint(request):
+#     #API logic here
+#     task_submitted_json = request.GET.get('task_submitted_json')
+#     print("Task Submitted JSON:", task_submitted_json)
+#     data = {
+#         'message' : "Hello world!",
+#         'task_submitted_json':task_submitted_json,
+#         # 'task_id':task_id,
+#     }
 
-    return JsonResponse(MY_GLOBAL_TASK_SUBMITTED_JSON)
+#     return JsonResponse(data)
+
+
+# @api_view(['GET'])
+# def api_endpoint(request):
+#     task = TaskSubmission.objects.all()
+#     serializer = TaskSubmissionSerializer(task, many=True)
+#     return Response(serializer.data)
+
+class TaskSubmissionAPIView(generics.ListAPIView):
+    # queryset = TaskSubmission.objects.all()
+    serializer_class = TaskSubmissionSerializer
+    # lookup_field = pk
+    def get_queryset(self):
+        task_id = self.kwargs.get('pk')  # Get the 'task_id' from the URL parameter
+        print(task_id)
+        return TaskSubmission.objects.filter(task=task_id)
+    
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.get_queryset()
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return JsonResponse(serializer.data, safe=False)
+
+
+def support():
+    pass
