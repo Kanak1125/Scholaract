@@ -21,6 +21,7 @@ from datetime import date
 # os module for that will be used to extract the extension of the file...
 import os
 
+from .my_globals import MY_GLOBAL_TASK_SUBMITTED_JSON
 # Create your views here.
 
 
@@ -493,6 +494,7 @@ def task_teacher(request, pk):
                 task_submitted_list.append(task_data)
 
             task_submitted_json = json.dumps(task_submitted_list, cls=DateEncoder)
+            MY_GLOBAL_TASK_SUBMITTED_JSON = task_submitted_list
             # print(task_submitted_json)
             # task_id=1
             url = "http://127.0.0.1:8000/api/"
@@ -851,14 +853,15 @@ def logout(request):
 #     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
 
 @api_view(['GET'])
-def api_endpoint(request):
+def api_endpoint(request, pk):
     #API logic here
-    task_submitted_json = request.GET.get('task_submitted_json')
-    print("Task Submitted JSON:", task_submitted_json)
-    data = {
-        'message' : "Hello world!",
-        'task_submitted_json':task_submitted_json,
-        # 'task_id':task_id,
-    }
+    # task_submitted_json = request.GET.get(pk)
+    # task_submitted_json = task_teacher(pk)
+    # print("Task Submitted JSON:", task_submitted_json)
+    # data = {
+    #     'message' : "Hello world!",
+    #     'task_submitted_json': MY_GLOBAL_TASK_SUBMITTED_JSON,
+    #     # 'task_id':task_id,
+    # }
 
-    return JsonResponse(data)
+    return JsonResponse(MY_GLOBAL_TASK_SUBMITTED_JSON)
