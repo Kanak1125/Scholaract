@@ -1,6 +1,6 @@
 import { executeTemplate } from "./modules/generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
-import animateCard from "./modules/animateCards.js";
+import animateCard from "./modules/animateCards.mjs";
 
 const taskContainer = document.querySelector('.task-card-container');
 const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
@@ -9,6 +9,55 @@ const taskArray = JSON.parse(taskContainer.dataset.task).reverse();
 console.log(taskArray);
 
 // console.log(taskArray.reverse());
+
+let currentAssignmentData = [];
+
+async function refreshTemplate(taskId, index) { // index to tell at which task modal, the task_submitted_data be added...
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/`); // asynchronously fetches the data from the api endpoint which results in response if the promise is fulfilled...
+    const data = await response.json(); // then the data is extracted and assigned to data by converting the response to json format...
+    currentAssignmentData = data.reverse();
+    console.log(currentAssignmentData);
+
+    const closestAssignmentList = document.querySelectorAll('.assignment-lists')[index];
+    // console.log(closestAssignmentList);
+
+    if (currentAssignmentData.length === 0) {
+      closestAssignmentList.textContent = "No one has submitted yet...";
+      return;
+    }
+
+    if (closestAssignmentList) {
+      currentAssignmentData.forEach(data => {
+        const taskSubmittedListTemplate = document.querySelector('.task-submitted-list-template');
+        const cloneTemplate = taskSubmittedListTemplate.content.cloneNode(true);
+        const studentName = cloneTemplate.querySelector('.student-name');
+        const submittedDate = cloneTemplate.querySelector('.date');
+        const viewTaskSubmitted = cloneTemplate.querySelector('.view-task-submitted');
+      
+        studentName.textContent = data.student;
+        submittedDate.textContent = data.date_of_submission;
+        viewTaskSubmitted.href = data.file;
+      
+        // dropdowns for small screen devices to view and approve btn...
+        const viewApproveMenu = cloneTemplate.querySelector('.view-approve-menu');
+        const viewApproveDropdown = cloneTemplate.querySelector('.drop-down');
+
+        viewApproveMenu.addEventListener('click', (e) => {
+          handleDropDownClick(e, viewApproveMenu, viewApproveDropdown);
+        })
+
+        closestAssignmentList.appendChild(cloneTemplate);
+
+      });
+    } else {
+      console.log("No assignment-lists element found...");
+    }
+
+  } catch (err) {
+    console.error("Error while fetching, " + err);
+  }
+}
 
 // Retrieve the template content
 const template = document.querySelector('.task-template');
@@ -52,16 +101,19 @@ teacherTaskCardArr.forEach((card, index) => {
   animateCard(card);
 
   const form = card.querySelector('.assigned-task-modal-open-form');  // taking card as the base... to find the correct index(ed) form...
-  form.addEventListener('click', e => {
+ 
+  form.addEventListener('click', (e) => {
     e.preventDefault();
+    const closestAssignmentList = document.querySelectorAll('.assignment-lists')[index];
+    closestAssignmentList.innerHTML = "";
     const taskId = taskArray[index].id;
     // console.log(`ID: ${taskId}`);  
-    submitFormData(form, taskId, index);
-    refreshTemplate(taskId);
-  })
-})
+    submitFormData(form, taskId);
+    refreshTemplate(taskId, index);
+  });
+});
 
-function submitFormData(form, taskId, index) {
+function submitFormData(form, taskId) {
   // modalArr[index].setAttribute('data-list', "{{ task_submitted_json }}")
   // console.log("Im running...");
   const taskIdInput = form.querySelector('.task-id-input-for-teach');
@@ -93,11 +145,4 @@ function submitFormData(form, taskId, index) {
   };
   xhr.send(formData); // this sends the data to the server...
   
-}
-
-function refreshTemplate(taskId) {
-  fetch(`http://127.0.0.1:8000/api/${taskId}/`)
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.log("Error while fetching, " + error));
 }

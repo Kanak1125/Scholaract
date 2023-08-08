@@ -283,7 +283,7 @@ form#form {
     padding: 20px 0;
 }
 
-.assignment-lists {
+.assignment-lists-container {
     /* border: 1px solid orange; */
     margin: 10px 0;
 }
@@ -330,7 +330,7 @@ ul > li > div p:nth-child(2) {
     color: var(--accent-color);   
 }
 
-.assignment-lists hr {
+.assignment-lists-container hr {
     height: 1px !important;
     border: 1px solid var(--bg-color-op6);
     margin-bottom: 20px;

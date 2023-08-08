@@ -1,6 +1,6 @@
 import { executeTemplate } from "./modules/generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
-import animateCard from "./modules/animateCards.js";
+import animateCard from "./modules/animateCards.mjs";
 
 const taskContainer = document.querySelector('.task-card-container-stud');
 let taskArray = [];
