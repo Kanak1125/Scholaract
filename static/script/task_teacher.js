@@ -34,10 +34,12 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         const studentName = cloneTemplate.querySelector('.student-name');
         const submittedDate = cloneTemplate.querySelector('.date');
         const viewTaskSubmitted = cloneTemplate.querySelector('.view-task-submitted');
+        const viewTaskSubmittedFromDropdown = cloneTemplate.querySelector('.view-task-submitted-dropdown');
       
         studentName.textContent = data.student;
         submittedDate.textContent = data.date_of_submission;
         viewTaskSubmitted.href = data.file;
+        viewTaskSubmittedFromDropdown.href = data.file;
       
         // dropdowns for small screen devices to view and approve btn...
         const viewApproveMenu = cloneTemplate.querySelector('.view-approve-menu');
