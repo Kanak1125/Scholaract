@@ -23,11 +23,11 @@
     {% if role == "Teacher" %}  
     <script type="module" src="../../../static/script/task_teacher.js" defer></script>
     <script src="../../../static/script/validate_assign.js" defer></script>
-    <script type = "module" src="../../../static/script/popUp.js" defer></script>
+    <script type = "module" src="../../../static/script/popUp.mjs" defer></script>
     
     {% elif role == "Student" %}
     <script type="module" src="../../../static/script/task_students.js" defer></script>
-    <script type = "module" src="../../../static/script/popUp.js" defer></script>
+    <script type = "module" src="../../../static/script/popUp.mjs" defer></script>
     
     {% endif %}
     <!-- <script src="../../../static/script/validate_assign.js" defer></script> -->
@@ -103,7 +103,7 @@
 
     <!-- template for the teacher_task_page -->
     <template class="task-template">
-            <div class="task-card teacher-task-card">
+            <div class="task-card teacher-task-card card-shadow">
                 <div class="edit-delete-menu">
                     <i class="fas fa-ellipsis-v"></i>
                     <div class="update-drop-down">
@@ -152,15 +152,15 @@
                     <div class="task-progress-container">
                         <div>
                             <h2 class="title">Tasks Submitted</h2>
-                            <p class="number-of-progress">14</p>
+                            <p class="number-of-progress num-of-task-submission">14</p>
                         </div>
                         <div>
                             <h2 class="title">Due</h2>
-                            <p class="number-of-progress">3</p>
+                            <p class="number-of-progress num-of-due">3</p>
                         </div>
                         <div>
                             <h2 class="title">Approved</h2>
-                            <p class="number-of-progress">7</p>
+                            <p class="number-of-progress num-of-approval">7</p>
                         </div>
                     </div>
                     <section class="submitted-assignment-list-container">
@@ -194,7 +194,7 @@
     
     <!-- template for the students_task_page -->
     <template class="task-template-stud">
-        <div class="task-card student-task-card">
+        <div class="task-card student-task-card card-shadow">
             <form method="POST" class="submit-task-form">
                 <!--'__task_id__' used in the template code are just a placeholder to indicate that it needs to be replaced with the actual task.id value in JavaScript.-->
                 {% csrf_token %}
@@ -236,20 +236,24 @@
                         method="post" 
                         action=""
                         enctype="multipart/form-data"
-                        id="submitForm"
                         >
+                        <!-- id="submitForm" above form's ID -->
                             {% csrf_token %}
                             <p class="title">Submit work</p>
                             <input type="hidden" name="form_identifier" value="submit_task_form">
                             <!-- <input type="hidden" id = "task_id" name="task_id" value=17> -->
                             <div class="task-form-info-container">
-                                <label for="post_file" class="btn post-file-btn">Upload a file</label>
+                                <label for="" class="btn post-file-btn">Upload a file</label>
                                 <br>
                                 <br>
-                                <input type="file" name="post_file" id="post_file"
-                                class="file-input upload_files" multiple>
-                                <input type="submit" id="task-submit-btn" class="btn" value="Submit"
+                                <input type="file" name="post_file" 
+                                id=""
+                                class="file-input upload_files" multiple
+                                hidden>
+                                <!-- id="post_file" -->
+                                <input type="submit" class="btn" value="Submit"
                                 >
+                                <!-- id="task-submit-btn" -->
                             </div>
                         </form>
                     </div>

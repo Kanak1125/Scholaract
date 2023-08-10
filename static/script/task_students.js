@@ -1,6 +1,7 @@
 import { executeTemplate } from "./modules/generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
 import animateCard from "./modules/animateCards.mjs";
+import { showPopup } from "./popUp.mjs";
 
 const taskContainer = document.querySelector('.task-card-container-stud');
 let taskArray = [];
@@ -105,6 +106,7 @@ export const sortTasks = () => {
       // console.log("I'm the latest");
       break;
   }
+  showPopup();
 }
 
 console.log(taskArray)
@@ -234,11 +236,13 @@ getAnimation();
 
 // console.log(taskCardLinkArr);
 function performFormSubmission(taskArr) {
+  // console.log(taskCardLinkArr);
   taskCardLinkArr.forEach((taskCardLink) => {
     taskCardLink.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('Task card clicked'); // Debug statement
-      const taskContainer = this.closest('.task-card-container-stud');
+      // console.log('Task card clicked'); // Debug statement
+      const taskContainer = taskCardLink.closest('.task-card-container-stud');
+      console.log(taskContainer);
       const taskData = taskArr;
       const taskElements = Array.from(taskContainer.children);
       const index = taskElements.indexOf(this.parentNode.parentNode);
@@ -257,18 +261,23 @@ function performFormSubmission(taskArr) {
   });
   
   const taskSubmissionForm = document.querySelectorAll('.task-submission-form');
-  console.log(taskSubmissionForm);
+  // console.log(taskSubmissionForm);
   
   // for submitting the task...
   taskSubmissionForm.forEach((form, index) => {
     // const taskSubmitBtn = document.getElementById('task-submit-btn');
-    taskSubmissionForm[index].addEventListener('submit', (e) => {
+    const labelForUploadingFile = form.querySelector('.post-file-btn'); // label for uploading file for task submission...
+    const inputFieldFile = form.querySelector('.file-input');
+    labelForUploadingFile.setAttribute('for', `post_file-${index}`);
+    inputFieldFile.setAttribute('id', `post_file-${index}`);
+    
+    form.addEventListener('submit', (e) => {
       console.log(form);
       e.preventDefault();
       // console.log(form);
       console.log("submitted");
       // console.log("task id being passed is" + taskId)
-      submitFormData(taskSubmissionForm[index], null);
+      submitFormData(form, null);
   
     })
   })
@@ -277,7 +286,7 @@ function performFormSubmission(taskArr) {
       const taskIdInput = form.querySelector('.task-id-input');
       if (taskId) taskIdInput.value = taskId;
       console.log("----------------");
-      console.log(form);
+      // console.log(form);
       // // Submitting the form using AJAX
       const formData = new FormData(form);  // gathers all the form fields and their values from the 'form' element...
       for (const [name, value] of formData.entries()) {
@@ -307,4 +316,5 @@ function performFormSubmission(taskArr) {
   console.log(taskCardLinkArr);
 }
 
+showPopup();
 performFormSubmission(taskArray);

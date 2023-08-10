@@ -104,13 +104,11 @@ nav {
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: .5px 1px 5px var(--secondary-color);
     background-color: var(--primary-color);
     transition: all 300ms ease-out;
 }
 
 .class-card:hover {
-    box-shadow: 1px 1px 7.5px var(--secondary-color);
     scale: 1.01;
 }
 
