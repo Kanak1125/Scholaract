@@ -12,6 +12,25 @@ console.log(taskArray);
 
 let currentAssignmentData = [];
 
+async function approveTaskSubmitted(taskId) {
+  try {
+    let data;
+    const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/update/`,
+      {
+        method: 'POST', // Use the appropriate method
+        headers: {
+          'Content-Type': 'application/json', // Set appropriate headers
+      },
+        body: JSON.stringify(data) // Provide the data to be updated
+      }
+    );
+    data = response.json();
+    console.log(data);
+  } catch (err) {
+    console.log("Error while fetching data: " + err);
+  }
+}
+
 async function refreshTemplate(taskId, index) { // index to tell at which task modal, the task_submitted_data be added...
   try {
     const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/`); // asynchronously fetches the data from the api endpoint which results in response if the promise is fulfilled...
@@ -49,6 +68,10 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         // dropdowns for small screen devices to view and approve btn...
         const viewApproveMenu = cloneTemplate.querySelector('.view-approve-menu');
         const viewApproveDropdown = cloneTemplate.querySelector('.drop-down');
+
+        const approveBtn = cloneTemplate.querySelector('.approve-btn');
+        console.log(approveBtn);
+        approveBtn.addEventListener('click', () => approveTaskSubmitted(taskId));
 
         viewApproveMenu.addEventListener('click', (e) => {
           handleDropDownClick(e, viewApproveMenu, viewApproveDropdown);
