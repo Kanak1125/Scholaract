@@ -872,20 +872,31 @@ def logout(request):
 #     serializer = TaskSubmissionSerializer(task, many=True)
 #     return Response(serializer.data)
 
-class TaskSubmissionAPIView(generics.ListAPIView):
-    # queryset = TaskSubmission.objects.all()
-    serializer_class = TaskSubmissionSerializer
-    # lookup_field = pk
-    def get_queryset(self):
-        task_id = self.kwargs.get('pk')  # Get the 'task_id' from the URL parameter
-        print(task_id)
-        return TaskSubmission.objects.filter(task=task_id)
-    
-    # def list(self, request, *args, **kwargs):
-    #     queryset = self.get_queryset()
-    #     serializer = self.get_serializer(queryset, many=True)
-    #     return JsonResponse(serializer.data, safe=False)
+# class TaskSubmissionAPIView(generics.ListAPIView):
+#     # queryset = TaskSubmission.objects.all()
+#     serializer_class = TaskSubmissionSerializer
+#     # lookup_field = pk
+#     def get_queryset(self):
+#         task_id = self.kwargs.get('pk')  # Get the 'task_id' from the URL parameter
+#         print(task_id)
+#         return TaskSubmission.objects.filter(task=task_id)
 
+@api_view(['GET'])
+def task_submission_list(request, pk):
+    task_submissions = TaskSubmission.objects.filter(task=pk)
+    serializer = TaskSubmissionSerializer(task_submissions, many=True)
+    return Response(serializer.data)
+
+from rest_framework import status
+
+@api_view(['PATCH'])  
+def task_submission_update(request,pk):
+    task_submissions = TaskSubmission.objects.get(id=pk)
+    # serializer = TaskSubmissionSerializer(data = request.data)
+
+    task_submissions.approved = True
+    task_submissions.save()
+    return Response(status=status.HTTP_200_OK)
 
 def support():
     pass

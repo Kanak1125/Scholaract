@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path('api/<str:pk>/', views.TaskSubmissionAPIView.as_view(), name='api_endpoint'),
+    path('api/<str:pk>/', views.task_submission_list, name='api_endpoint'),
+    path('api/<str:pk>/update/', views.task_submission_update, name='api_update_endpoint'),
     path('', views.landingPage, name = "landingPage"),
     path('aboutUs/', views.aboutUs, name = "aboutUs"),
     path('support/', views.support, name = "support"),

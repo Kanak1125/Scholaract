@@ -19,4 +19,4 @@ class TaskSubmissionSerializer(serializers.ModelSerializer):
     task = serializers.StringRelatedField()     # Display task's title
     class Meta:
         model=TaskSubmission
-        fields=('id', 'student', 'task', 'date_of_submission', 'file')
+        fields=('id', 'student', 'task', 'date_of_submission', 'file', 'approved')

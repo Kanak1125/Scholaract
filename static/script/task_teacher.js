@@ -60,7 +60,6 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
     console.error("Error while fetching, " + err);
   }
 }
-
 // Retrieve the template content
 const template = document.querySelector('.task-template');
 const templateContent = template.content;
