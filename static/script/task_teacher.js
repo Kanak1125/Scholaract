@@ -20,6 +20,11 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
     console.log(currentAssignmentData);
 
     const closestAssignmentList = document.querySelectorAll('.assignment-lists')[index];
+    const numberOfTaskSubmission = document.querySelectorAll('.num-of-task-submission')[index];
+    const numberOfTaskDue = document.querySelectorAll('.num-of-due')[index];
+    const numberOfTaskApproval = document.querySelectorAll('.num-of-approval')[index];
+    
+    numberOfTaskSubmission.textContent = currentAssignmentData.length;
     // console.log(closestAssignmentList);
 
     if (currentAssignmentData.length === 0) {
