@@ -14,17 +14,24 @@ let currentAssignmentData = [];
 
 async function approveTaskSubmitted(taskId) {
   try {
-    let data;
+    let data = {
+      status: "approved",
+    };
     const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/update/`,
       {
-        method: 'POST', // Use the appropriate method
+        method: 'PATCH', // Use the appropriate method
         headers: {
           'Content-Type': 'application/json', // Set appropriate headers
       },
         body: JSON.stringify(data) // Provide the data to be updated
       }
     );
-    data = response.json();
+    if (response.ok) {
+      const responseData = await response.json();
+      console.log(responseData);
+    } else {
+      console.log("Failed to update task: ", response.statusText);
+    }
     console.log(data);
   } catch (err) {
     console.log("Error while fetching data: " + err);
@@ -70,7 +77,6 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         const viewApproveDropdown = cloneTemplate.querySelector('.drop-down');
 
         const approveBtn = cloneTemplate.querySelector('.approve-btn');
-        console.log(approveBtn);
         approveBtn.addEventListener('click', () => approveTaskSubmitted(taskId));
 
         viewApproveMenu.addEventListener('click', (e) => {
