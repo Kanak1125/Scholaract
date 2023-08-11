@@ -12,29 +12,19 @@ console.log(taskArray);
 
 let currentAssignmentData = [];
 
-async function approveTaskSubmitted(taskId) {
+async function approveTaskSubmitted(submissionId) {
   try {
-    let data = {
-      status: "approved",
-    };
-    const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/update/`,
-      {
-        method: 'PATCH', // Use the appropriate method
-        headers: {
-          'Content-Type': 'application/json', // Set appropriate headers
-      },
-        body: JSON.stringify(data) // Provide the data to be updated
-      }
-    );
-    if (response.ok) {
-      const responseData = await response.json();
-      console.log(responseData);
-    } else {
-      console.log("Failed to update task: ", response.statusText);
-    }
-    console.log(data);
+      const response = await fetch(`http://127.0.0.1:8000/api/${submissionId}/update/`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ approved: true }), // Set the "approved" attribute to true
+      });
+      // data = response.json();
+      // console.log(data);
   } catch (err) {
-    console.log("Error while fetching data: " + err);
+      console.error('Error while fetching data:', err);
   }
 }
 
@@ -66,7 +56,8 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         const submittedDate = cloneTemplate.querySelector('.date');
         const viewTaskSubmitted = cloneTemplate.querySelector('.view-task-submitted');
         const viewTaskSubmittedFromDropdown = cloneTemplate.querySelector('.view-task-submitted-dropdown');
-      
+        const taskSubmissionId = data.id;
+        console.log("task submission id is " + taskSubmissionId)
         studentName.textContent = data.student;
         submittedDate.textContent = data.date_of_submission;
         viewTaskSubmitted.href = data.file;
@@ -77,6 +68,7 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         const viewApproveDropdown = cloneTemplate.querySelector('.drop-down');
 
         const approveBtn = cloneTemplate.querySelector('.approve-btn');
+        console.log(approveBtn);
         approveBtn.addEventListener('click', () => approveTaskSubmitted(taskId));
 
         viewApproveMenu.addEventListener('click', (e) => {
@@ -181,3 +173,6 @@ function submitFormData(form, taskId) {
   xhr.send(formData); // this sends the data to the server...
   
 }
+
+
+

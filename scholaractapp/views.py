@@ -889,14 +889,15 @@ def task_submission_list(request, pk):
 
 from rest_framework import status
 
-@api_view(['PATCH'])  
+@api_view(['POST', 'GET'])  
 def task_submission_update(request,pk):
     task_submissions = TaskSubmission.objects.get(id=pk)
-    # serializer = TaskSubmissionSerializer(data = request.data)
+    serializer = TaskSubmissionSerializer(instance = task_submissions, data = request.data)
+    if serializer.is_valid():
 
-    task_submissions.approved = True
-    task_submissions.save()
-    return Response(status=status.HTTP_200_OK)
+        serializer.save()
+        # task_submissions.approved = True
+    return Response(serializer.data)
 
 def support():
     pass
