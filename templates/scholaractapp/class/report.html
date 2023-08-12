@@ -66,13 +66,12 @@
                         <p>Student 4</p>
                         <input class="no-spinner" type="number" min="0" max="4.0">
                     </li><hr> -->
-                    {% for student in enrolled_students %}
-                    <li>
-                        <p>{{ student.name }}</p>
-                        <input class="no-spinner" type="number" step="0.01" min="0" max="4.0" name="marks">
-                        <input type="hidden" name="student_id" value="{{ student.user.id }}">
-                    </li><hr>
-                    
+                    {% for student, marks in student_data %}
+                        <li>
+                            <p>{{ student.name }}</p>
+                            <input class="no-spinner" type="number" step="0.01" min="0" max="4.0" name="marks" value = "{{marks.marks}}">
+                            <input type="hidden" name="student_id" value="{{ student.user.id }}">
+                        </li><hr>
                     {% endfor %}
                 </ul>
             </div>

@@ -730,7 +730,7 @@ def report(request, pk):
     
 def report_teacher(request, pk):
     classObj = Class.objects.get(id=pk)
-    related_class = classObj
+    # related_class = classObj
 
     enrolled_students = classObj.student_set.all()
 
@@ -748,12 +748,25 @@ def report_teacher(request, pk):
             student = Student.objects.get(pk=student_id)
             # print(f"Student id is {student_id}")
             # print(f"Class id is {pk}")    
-            marks = Marks.objects.create(student=student, subject=subject, marks=marks)
+            marks_instance, created = Marks.objects.get_or_create(student=student, subject=subject, defaults={'marks': marks})
+            if not created:
+                marks_instance.marks = marks
+                marks_instance.save()
         return redirect('report', pk=classObj.id)
+
+    student_marks = Marks.objects.filter(subject = pk)
+
+    # for student_n in student_marks:
+    #     marks = student_n.marks
+    #     print(marks)
+    # print(student_marks)
     
+    student_data = [(student, marks) for student, marks in zip(enrolled_students, student_marks)]
     context = {
         'class': classObj,
-        'enrolled_students': enrolled_students,
+        # 'enrolled_students': enrolled_students,
+        # 'student_marks': student_marks,
+        'student_data': student_data,
         # 'created_by': created_by,
     }
     return render(request, 'scholaractapp/class/report.html', context)
@@ -894,7 +907,6 @@ def task_submission_update(request,pk):
     task_submissions = TaskSubmission.objects.get(id=pk)
     serializer = TaskSubmissionSerializer(instance = task_submissions, data = request.data)
     if serializer.is_valid():
-
         serializer.save()
         # task_submissions.approved = True
     return Response(serializer.data)

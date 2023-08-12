@@ -1,5 +1,9 @@
 # we edited this file
 from django.db import models
+
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
+
 import secrets  # for generating random alphanumeric number for class code
 # import uuid
 
@@ -180,3 +184,11 @@ class Marks(models.Model):
             return "C-"
         else:
             return "F"
+        
+# signals => similar purpose like triggers in mysql
+# 'm2m_changed' is a signal that is emitted whenever a change is made to a many-to-many (m2m) relationship between two models
+@receiver(m2m_changed, sender=Student.classes.through)
+def delete_related_marks(sender, instance, action, reverse, pk_set, **kwargs):
+    if action == "post_remove" and not reverse:
+        student = instance
+        Marks.objects.filter(student=student, subject_id__in=pk_set).delete()
