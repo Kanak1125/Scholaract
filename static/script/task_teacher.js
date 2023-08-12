@@ -69,7 +69,7 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
 
         const approveBtn = cloneTemplate.querySelector('.approve-btn');
         console.log(approveBtn);
-        approveBtn.addEventListener('click', () => approveTaskSubmitted(taskSubmissionId));
+        approveBtn.addEventListener('click', () => approveTaskSubmitted(taskId));
 
         viewApproveMenu.addEventListener('click', (e) => {
           handleDropDownClick(e, viewApproveMenu, viewApproveDropdown);
