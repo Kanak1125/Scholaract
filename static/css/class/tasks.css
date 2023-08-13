@@ -325,6 +325,11 @@ ul > li > div p:nth-child(2) {
     color: var(--accent-color);   
 }
 
+.btn-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 .assignment-lists-container hr {
     height: 1px !important;
     border: 1px solid var(--bg-color-op6);

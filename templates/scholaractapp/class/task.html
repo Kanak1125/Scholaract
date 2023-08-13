@@ -214,9 +214,7 @@
             <p class="description"></p>
             <div class="deadline">Deadline: 
                 <span class="due-date"></span>
-                <span class="task-status">
-                    Due
-                </span>
+                <span class="task-status"></span>
             </div>
             <dialog class="modal">
                 {% include 'scholaractapp/popUp.html' %}
@@ -251,7 +249,7 @@
                                 class="file-input upload_files" multiple
                                 hidden>
                                 <!-- id="post_file" -->
-                                <input type="submit" class="btn" value="Submit"
+                                <input type="submit" class="btn task-submit-btn btn-disabled" value="Submit"
                                 >
                                 <!-- id="task-submit-btn" -->
                             </div>

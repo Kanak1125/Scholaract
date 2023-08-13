@@ -1,7 +1,7 @@
 import { executeTemplate } from "./modules/generateTaskTemplate.js";  // importing the executeTemplate() function...
 import toggleModal from "./modules/modal.js";
 import animateCard from "./modules/animateCards.mjs";
-import { showPopup } from "./popUp.mjs";
+import { showPopup, submissionSuccessPopup } from "./popUp.mjs";
 
 const taskContainer = document.querySelector('.task-card-container-stud');
 let taskArray = [];
@@ -107,6 +107,7 @@ export const sortTasks = () => {
       break;
   }
   showPopup();
+  submissionSuccessPopup();
 }
 
 console.log(taskArray)
@@ -161,19 +162,6 @@ function updateEventListener() {
 //   })
 // })
 
-// const taskCardContainers = document.querySelectorAll('.task-card-container-stud');
-
-// template.forEach((taskCardContainer) => {
-//   taskCardContainer.addEventListener('click', () => {
-//     const task = JSON.parse(taskCardContainer.dataset.task);
-//     const taskId = task.id;
-//     console.log(taskId);  // Output: the task ID value
-//     // Perform further actions with the task ID as needed
-//   });
-// });
-
-
-
 // taskCardLinkArr.forEach((taskCardLink) => {
 //   taskCardLink.addEventListener('click', function(e) {
 //     console.log('Task card clicked'); // Debug statement
@@ -188,25 +176,6 @@ function updateEventListener() {
 executeTemplate(templateContent, taskArray, taskContainer, false);
 updateEventListener();
 getAnimation();
-
-// taskCardLinkArr.forEach((taskCardLink) => {
-//   taskCardLink.addEventListener('click', function(e) {
-//     console.log('Task card clicked'); // Debug statement
-//     e.preventDefault();
-//     const taskContainer = this.closest('.task-card-container-stud');
-//     const taskData = JSON.parse(taskContainer.dataset.task).reverse(); // parsing JSON data stored in data-task
-//     const taskElements = Array.from(taskContainer.children); // converting the live collection  of child elements into an array
-//     // console.log(taskElements)
-//     const index = taskElements.indexOf(this.parentNode); // accessing index of the taskContainer i.e. of class = task-card-container-stud
-//     // console.log('Index:', index);
-//     const taskId = taskData[index].id;
-//     console.log('Task ID:', taskId);
-//     // const taskDescription = taskData[index].description;
-//     // console.log('Task Description:', taskDescription);
-
-//   });
-// });
-// // console.log(taskCardLinkArr)
 
 // taskCardLinkArr.forEach((taskCardLink) => {
 //   taskCardLink.addEventListener('click', function(e) {
@@ -235,6 +204,17 @@ getAnimation();
 // });
 
 // console.log(taskCardLinkArr);
+
+// should be debugged...
+async function getApprovedStatus(taskContainer, taskId) {
+  const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/`);
+  const data = await response.json();
+  
+  const taskStatus = taskContainer.querySelector('.task-status');
+  if (data[0].approved) taskStatus.textContent = "Approved";
+  else taskStatus.textContent = "Due";
+}
+
 function performFormSubmission(taskArr) {
   // console.log(taskCardLinkArr);
   taskCardLinkArr.forEach((taskCardLink) => {
@@ -256,7 +236,7 @@ function performFormSubmission(taskArr) {
   
       const form = this.closest('.submit-task-form');
       submitFormData(form, taskId);
-  
+      getApprovedStatus(taskContainer, taskId);
     });
   });
   
@@ -266,20 +246,26 @@ function performFormSubmission(taskArr) {
   // for submitting the task...
   taskSubmissionForm.forEach((form, index) => {
     // const taskSubmitBtn = document.getElementById('task-submit-btn');
+
     const labelForUploadingFile = form.querySelector('.post-file-btn'); // label for uploading file for task submission...
     const inputFieldFile = form.querySelector('.file-input');
     labelForUploadingFile.setAttribute('for', `post_file-${index}`);
     inputFieldFile.setAttribute('id', `post_file-${index}`);
+    const taskSubmitBtn = form.querySelector('.task-submit-btn');
     
-    form.addEventListener('submit', (e) => {
-      console.log(form);
-      e.preventDefault();
-      // console.log(form);
-      console.log("submitted");
-      // console.log("task id being passed is" + taskId)
-      submitFormData(form, null);
-  
-    })
+      form.addEventListener('submit', (e) => {
+        console.log(form);
+        e.preventDefault();
+        if (taskSubmitBtn.classList.contains('btn-disabled')) return; // return if the file is not uploaded...
+        // console.log(form);
+        console.log("submitted");
+        // console.log("task id being passed is" + taskId)
+        submitFormData(form, null);
+
+        setTimeout(() => {
+          taskSubmitBtn.classList.add('btn-disabled');
+        }, 200);
+      })
   })
   
   function submitFormData(form, taskId) {
@@ -317,4 +303,5 @@ function performFormSubmission(taskArr) {
 }
 
 showPopup();
+submissionSuccessPopup();
 performFormSubmission(taskArray);
