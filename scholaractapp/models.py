@@ -35,7 +35,13 @@ class User(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+class resetCode(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    code = models.CharField(max_length=5, null=True, blank=True, unique=True, editable=False)
+    expiry_timestamp =models.DateTimeField()
 
+    def __str__(self):
+        return f"Reset code for {self.user.first_name} {self.user.last_name}"
 class Student(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
