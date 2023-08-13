@@ -35,7 +35,7 @@ class User(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
-class resetCode(models.Model):
+class ResetCode(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=5, null=True, blank=True, unique=True, editable=False)
     expiry_timestamp =models.DateTimeField()

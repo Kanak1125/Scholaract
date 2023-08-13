@@ -1,19 +1,22 @@
 # we edited this file
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.utils.html import strip_tags 
 from rest_framework import generics
 from .serializers import TaskSubmissionSerializer, TaskSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 import secrets
+from django.template.loader import render_to_string
+
 
 import requests
 # importing Users model from the models.py file
 from django.db.models import Count, Sum
 
-from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks, resetCode
+from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks, ResetCode
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
@@ -85,8 +88,6 @@ def signup(request):
     return render(request, 'scholaractapp/signup.html', context)
 
 # view for temporary solution of redirecting users to a success page after creatig an account to overcome resubmitting of previously submitter data
-
-
 def success(request):
 
     return render(request, 'scholaractapp/success.html')
@@ -840,22 +841,36 @@ def resetPassword(request):
             print(reset_code)
             print(user.id)
             
+            request.session['reset_email'] = user.email
+            request.session.save()
+
             expiry_timestamp = timezone.now() + timedelta(hours=1)   
             print(timezone.now())  
             print(expiry_timestamp)
-            previous_request = resetCode.objects.filter(user=user)
+            previous_request = ResetCode.objects.filter(user=user)
             if previous_request:
                 code_already_sent = 'Please check your email, your code has already been sent.'
             else:
-                resetCode.objects.create(user=user, code=reset_code, expiry_timestamp=expiry_timestamp)     
-                user_resetcode = resetCode.objects.get(user=user)
+                ResetCode.objects.create(user=user, code=reset_code, expiry_timestamp=expiry_timestamp)     
+                user_resetcode = ResetCode.objects.get(user=user)
                 # email
+                domain = '127.0.0.1:8000/'
+                context = {
+                    'user': user,
+                    'user_resetcode': user_resetcode,
+                    'domain': domain,
+                }
+                html_content = render_to_string('scholaractapp/forgotPassword/reset_password_email.html', context)
+                text_content = strip_tags(html_content)
                 subject = 'Password reset code'
-                message = f'Hi {user.first_name}, your password reset code is {user_resetcode.code}. '
+                # message = f'Hi {user.first_name}, your password reset code is {user_resetcode.code}. '
                 from_email = 'mailsender227@gmail.com'
                 recipient_list = [user.email]
-                send_mail(subject, message, from_email, recipient_list) 
-
+                # send_mail(subject, html_content, from_email, recipient_list) 
+                email = EmailMultiAlternatives(subject, text_content, from_email, recipient_list)
+                email.attach_alternative(html_content, "text/html")
+                email.send()
+                return redirect('resetPasswordWithCode')
         except User.DoesNotExist:
             error_email = 'Email does not exist'
         print(email)
@@ -864,8 +879,38 @@ def resetPassword(request):
         'error_email': error_email,
         'code_already_sent': code_already_sent,
     }
-    return render(request, 'scholaractapp/reset_password.html', context)
+    return render(request, 'scholaractapp/forgotPassword/reset_password.html', context)
 
+def resetPasswordWithCode(request):
+    error_code = ''
+    if request.method == "POST":
+        reset_code = request.POST.get('reset_code')
+        try:
+            code = ResetCode.objects.get(code=reset_code)
+            return redirect('resetPasswordNew')
+
+        except ResetCode.DoesNotExist:
+            error_code = 'Please enter a valid code'
+    context = {
+        'error_code': error_code,
+    }
+    return render(request, 'scholaractapp/forgotPassword/reset_code_confirm.html',context)
+
+def resetPasswordNew(request):
+    if request.method == "POST":
+        password = request.POST.get('password')
+        hashed_pwd = make_password(password)
+        email = request.session.get('reset_email')
+        print(request.session.keys())
+        print(email)
+        print('working')
+        user = User.objects.get(email=email)
+        user.password = hashed_pwd
+        user.save()
+        print("password changed")
+        
+
+    return render(request, 'scholaractapp/forgotPassword/reset_password_new.html')
 
 def popUp(request):
     return render(request, 'scholaractapp/popUp.html')
