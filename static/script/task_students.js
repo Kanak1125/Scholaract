@@ -206,14 +206,14 @@ getAnimation();
 // console.log(taskCardLinkArr);
 
 // should be debugged...
-async function getApprovedStatus(taskContainer, taskId) {
-  const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/`);
-  const data = await response.json();
+// async function getApprovedStatus(taskContainer, taskId) {
+//   const response = await fetch(`http://127.0.0.1:8000/api/${taskId}/`);
+//   const data = await response.json();
   
-  const taskStatus = taskContainer.querySelector('.task-status');
-  if (data[0].approved) taskStatus.textContent = "Approved";
-  else taskStatus.textContent = "Due";
-}
+//   const taskStatus = taskContainer.querySelector('.task-status');
+//   if (data[0].approved) taskStatus.textContent = "Approved";
+//   else taskStatus.textContent = "Due";
+// }
 
 function performFormSubmission(taskArr) {
   // console.log(taskCardLinkArr);
@@ -236,7 +236,7 @@ function performFormSubmission(taskArr) {
   
       const form = this.closest('.submit-task-form');
       submitFormData(form, taskId);
-      getApprovedStatus(taskContainer, taskId);
+      // getApprovedStatus(taskContainer, taskId);
     });
   });
   

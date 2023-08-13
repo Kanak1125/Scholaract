@@ -12,10 +12,10 @@ console.log(taskArray);
 
 let currentAssignmentData = [];
 
-async function approveTaskSubmitted(submissionIds, approveBtn) {
-  submissionIds.forEach(async id => {
+async function approveTaskSubmitted(submissionId, approveBtn) {
+  // submissionIds.forEach(async id => {
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/${id}/update/`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/${submissionId}/update/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ async function approveTaskSubmitted(submissionIds, approveBtn) {
     } catch (err) {
         console.error('Error while fetching data:', err);
     }
-  })
+  // })
 }
 
 async function refreshTemplate(taskId, index) { // index to tell at which task modal, the task_submitted_data be added...
@@ -42,43 +42,43 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
     currentAssignmentData = data.reverse();
     console.log(currentAssignmentData);
 
-    const reducedAssignmentData = Object.values(currentAssignmentData.reduce((result, item) => {
-      const {id, student, task, date_of_submission, file, approved} = item;
-      const key = `${student}-${task}-${date_of_submission}`;
+    // const reducedAssignmentData = Object.values(currentAssignmentData.reduce((result, item) => {
+    //   const {id, student, task, date_of_submission, file, approved} = item;
+    //   const key = `${student}-${task}-${date_of_submission}`;
 
-      if (!result[key]) {
-        result[key] = {
-          student,
-          task,
-          date_of_submission,
-          id : [],
-          file : [],
-          approved
-        };
-      }
+    //   if (!result[key]) {
+    //     result[key] = {
+    //       student,
+    //       task,
+    //       date_of_submission,
+    //       id : [],
+    //       file : [],
+    //       approved
+    //     };
+    //   }
 
-      result[key].id.push(id);
-      result[key].file.push(file);
+    //   result[key].id.push(id);
+    //   result[key].file.push(file);
 
-      return result;
-    }, {}));
-    console.log(reducedAssignmentData);
+    //   return result;
+    // }, {}));
+    // console.log(reducedAssignmentData);
 
     const closestAssignmentList = document.querySelectorAll('.assignment-lists')[index];
     const numberOfTaskSubmission = document.querySelectorAll('.num-of-task-submission')[index];
     const numberOfTaskDue = document.querySelectorAll('.num-of-due')[index];
     const numberOfTaskApproval = document.querySelectorAll('.num-of-approval')[index];
     
-    numberOfTaskSubmission.textContent = reducedAssignmentData.length;
+    numberOfTaskSubmission.textContent = currentAssignmentData.length;
     // console.log(closestAssignmentList);
 
-    if (reducedAssignmentData.length === 0) {
+    if (currentAssignmentData.length === 0) {
       closestAssignmentList.textContent = "No one has submitted yet...";
       return;
     }
 
     if (closestAssignmentList) {
-      reducedAssignmentData.forEach(data => {
+      currentAssignmentData.forEach(data => {
         const taskSubmittedListTemplate = document.querySelector('.task-submitted-list-template');
         const cloneTemplate = taskSubmittedListTemplate.content.cloneNode(true);
         const studentName = cloneTemplate.querySelector('.student-name');
@@ -89,22 +89,22 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         console.log("task submission id is " + taskSubmissionId)
         studentName.textContent = data.student;
         submittedDate.textContent = data.date_of_submission;
-        // viewTaskSubmitted.href = data.file;
-        viewTaskSubmitted.addEventListener('click', e => {
-          e.preventDefault();
+        viewTaskSubmitted.href = data.file;
+        // viewTaskSubmitted.addEventListener('click', e => {
+        //   e.preventDefault();
 
-          data.file.forEach(file => {
-            window.open(file, '_blank');
-          })
-        })
-        // viewTaskSubmittedFromDropdown.href = data.file;
-        viewTaskSubmittedFromDropdown.addEventListener('click', e => {
-          e.preventDefault();
+        //   data.file.forEach(file => {
+        //     window.open(file, '_blank');
+        //   })
+        // })
+        viewTaskSubmittedFromDropdown.href = data.file;
+        // viewTaskSubmittedFromDropdown.addEventListener('click', e => {
+        //   e.preventDefault();
 
-          data.file.forEach(file => {
-            window.open(file, '_blank');
-          })
-        })
+        //   data.file.forEach(file => {
+        //     window.open(file, '_blank');
+        //   })
+        // })
         
         // dropdowns for small screen devices to view and approve btn...
         const viewApproveMenu = cloneTemplate.querySelector('.view-approve-menu');
@@ -128,6 +128,7 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
         closestAssignmentList.appendChild(cloneTemplate);
 
       });
+      // console.log(reducedAssignmentData);
     } else {
       console.log("No assignment-lists element found...");
     }
