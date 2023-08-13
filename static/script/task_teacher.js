@@ -22,6 +22,7 @@ async function approveTaskSubmitted(submissionIds, approveBtn) {
             },
             body: JSON.stringify({ approved: true }), // Set the "approved" attribute to true
         });
+        console.log(id)
         const data = await response.json();
         console.log(data);
         if (data.approved) {

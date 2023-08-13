@@ -1,17 +1,19 @@
 # we edited this file
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.http import JsonResponse
-
+from django.core.mail import send_mail
 from rest_framework import generics
 from .serializers import TaskSubmissionSerializer, TaskSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
+import secrets
+
 import requests
 # importing Users model from the models.py file
 from django.db.models import Count, Sum
 
-from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks
+from .models import User, Class, Student, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks, resetCode
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
@@ -20,7 +22,9 @@ from django.contrib.auth.decorators import login_required
 # from django.core.mail import send_mail
 import json
 from django.core.serializers.json import DjangoJSONEncoder
-from datetime import date
+
+from datetime import date, timedelta
+from django.utils import timezone
 
 # os module for that will be used to extract the extension of the file...
 import os
@@ -598,6 +602,7 @@ def task_student(request, pk):
 
     # listing tasks assigned for current class
     current_tasks = Task.objects.filter(related_class = related_class)
+    # approved_task = TaskSubmission.objects.filter(student = uploaded_by, task__in=current_tasks)
     task_list = []
     for single_task in current_tasks:
         task_dict = {
@@ -606,8 +611,13 @@ def task_student(request, pk):
             'description': single_task.description,
             'due_date': single_task.due_date,
             'files': [],
+            'approved': False,
         }
-
+        try:
+            task_submission = TaskSubmission.objects.get(student=uploaded_by, task=single_task)
+            task_dict['approved'] = task_submission.approved
+        except TaskSubmission.DoesNotExist:
+            pass
         task_files = TaskFile.objects.filter(task=single_task)
         for task_file in task_files:
             file_data = {
@@ -617,7 +627,7 @@ def task_student(request, pk):
                 'file_extension': os.path.splitext(task_file.file.name)[1]
             }
             task_dict['files'].append(file_data)
-        
+        print(task_dict)
         task_list.append(task_dict)
     task_json = json.dumps(task_list, cls = DateEncoder)
 
@@ -819,6 +829,43 @@ def report_student(request, pk):
     return render(request, 'scholaractapp/class/report.html', context)
 
 
+def resetPassword(request):
+    error_email = ''
+    code_already_sent = ''
+    if request.method == "POST":
+        email = request.POST.get("email")
+        try:
+            user = User.objects.get(email=email)
+            reset_code = ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(5))   
+            print(reset_code)
+            print(user.id)
+            
+            expiry_timestamp = timezone.now() + timedelta(hours=1)   
+            print(timezone.now())  
+            print(expiry_timestamp)
+            previous_request = resetCode.objects.filter(user=user)
+            if previous_request:
+                code_already_sent = 'Please check your email, your code has already been sent.'
+            else:
+                resetCode.objects.create(user=user, code=reset_code, expiry_timestamp=expiry_timestamp)     
+                user_resetcode = resetCode.objects.get(user=user)
+                # email
+                subject = 'Password reset code'
+                message = f'Hi {user.first_name}, your password reset code is {user_resetcode.code}. '
+                from_email = 'mailsender227@gmail.com'
+                recipient_list = [user.email]
+                send_mail(subject, message, from_email, recipient_list) 
+
+        except User.DoesNotExist:
+            error_email = 'Email does not exist'
+        print(email)
+
+    context = {
+        'error_email': error_email,
+        'code_already_sent': code_already_sent,
+    }
+    return render(request, 'scholaractapp/reset_password.html', context)
+
 
 def popUp(request):
     return render(request, 'scholaractapp/popUp.html')
@@ -832,51 +879,7 @@ def logout(request):
 
     return redirect('login')
 
-# def updateMaterial(request, pk):
-#     # material = get_object_or_404(CourseMaterial, id=pk)
-#     material = CourseMaterial.objects.get(id=id)
 
-#     if request.method == "POST":
-#         title = request.POST.get('post_title')
-#         description = request.POST.get('post_description')
-#         file = request.FILES.get('post_file')
-
-#         if file:
-#             material.title = title
-#             material.description = description
-#             material.file = file
-#         material.save()
-#         related_class = material.related_class
-#     course = CourseMaterial.objects.filter(related_class=related_class)
-#     course_list = []
-#     for material in course:
-#         material_data = {
-#             'title': material.title,
-#             'description': material.description,
-#             'uploaded_by': material.uploaded_by.name(),
-
-#         }
-#         if material.file:
-#             material_data['file_name'] = material.file.name
-#             material_data['file_url'] = material.file.url
-#         course_list.append(material_data)
-
-#     course_json = json.dumps(course_list)
-
-#     return render(request, 'scholaractapp/class/stream.html', {'course_json': course_json, 'class': related_class})
-
-# @api_view(['GET'])
-# def api_endpoint(request):
-#     #API logic here
-#     task_submitted_json = request.GET.get('task_submitted_json')
-#     print("Task Submitted JSON:", task_submitted_json)
-#     data = {
-#         'message' : "Hello world!",
-#         'task_submitted_json':task_submitted_json,
-#         # 'task_id':task_id,
-#     }
-
-#     return JsonResponse(data)
 
 
 # @api_view(['GET'])

@@ -14,6 +14,7 @@ urlpatterns = [
     # path('support/', views.support, name="support"),
     path('signup/',views.signup, name="signup"),
     path('login/',views.login, name="login"),
+    path('resetPassword/', views.resetPassword, name="resetPassword"),
     path('success/',views.success, name="success"), # temporary url (might be changed later)
     path('classes/',views.classes, name="classes"), 
     path('class/<str:pk>/',views.single_class, name="class"), 
