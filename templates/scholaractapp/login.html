@@ -24,7 +24,7 @@
     <script src="/static/script/validate_login.js" defer></script>
 </head>
 <body>
-    <dialog class="modal">
+    <!-- <dialog class="modal">
         <h3>Forgot password</h3>
         <p>Enter your email and we'll send you a link to reset your password.</p>
         <form action="">
@@ -36,7 +36,7 @@
             <i class="fas fa-chevron-left"></i>
             Back to login
         </button>
-    </dialog>
+    </dialog> -->
     <div class="nav-bar-container">
         <nav>
             <a href="{% url 'landingPage' %}">
@@ -69,7 +69,7 @@
                 
                 <div class="btn-and-forgot-password-container">
                     <input type="submit" id="login-btn" class="btn login-btn" value="Login">
-                    <a  href="{% url 'resetPassword' %}">Forgot Password?</a>
+                    <a  href="{% url 'resetPassword' %}" class="forgot-password-link">Forgot Password?</a>
                 </div>
             </form>
             

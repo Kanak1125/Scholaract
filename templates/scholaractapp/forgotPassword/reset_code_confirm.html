@@ -5,14 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../../static/css/forgotPassword/reset_code_confirm.css">
 </head>
 <body>
-    <p>Please check your email, and enter the code sent</p>
-    <form action="" method="post">
-        {% csrf_token %}
-        <input type="text" name="reset_code" id="reset_code" placeholder="Enter the code">
-        <input type="submit">
-    </form>
-    {{ error_code }}
+    <div class="container">
+        <p>Please check your email, and enter the code sent</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="reset_code" id="reset_code" placeholder="Enter the code">
+            <input type="submit" class="btn">
+        </form>
+        <p class="error">
+            {{ error_code }}
+        </p>
+    </div>
 </body>
 </html>
