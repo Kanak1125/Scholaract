@@ -886,7 +886,7 @@ def resetPasswordWithCode(request):
     if request.method == "POST":
         reset_code = request.POST.get('reset_code')
         try:
-            code = ResetCode.objects.get(code=reset_code)
+            ResetCode.objects.get(code=reset_code)
             return redirect('resetPasswordNew')
 
         except ResetCode.DoesNotExist:
@@ -901,13 +901,18 @@ def resetPasswordNew(request):
         password = request.POST.get('password')
         hashed_pwd = make_password(password)
         email = request.session.get('reset_email')
-        print(request.session.keys())
-        print(email)
-        print('working')
-        user = User.objects.get(email=email)
-        user.password = hashed_pwd
-        user.save()
-        print("password changed")
+        # print(request.session.keys())
+        # print(email)
+        # print('working')
+        try:
+            user = User.objects.get(email=email)
+            user.password = hashed_pwd
+            user.save()
+            ResetCode.objects.filter(user=user).delete()
+        except User.DoesNotExist:
+            pass
+        # print("password changed")
+
         
 
     return render(request, 'scholaractapp/forgotPassword/reset_password_new.html')
@@ -959,5 +964,5 @@ def task_submission_update(request,pk):
         # task_submissions.approved = True
     return Response(serializer.data)
 
-def support():
-    pass
+def support(request):
+    return render(request, 'scholaractapp/support.html')
