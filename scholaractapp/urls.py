@@ -23,6 +23,7 @@ urlpatterns = [
     path('classes/',views.classes, name="classes"), 
     path('class/<str:pk>/',views.single_class, name="class"), 
     path('class/deleteMaterial/<str:pk>', views.deleteMaterial, name="deleteMaterial"),    
+    path('class/updateMaterial/<str:pk>', views.updateMaterial, name="updateMaterial"),    
     path('class/<str:pk>/task/', views.task, name="task"),
     # path('class/task/submitTask/<str:pk>', views.submitTask, name="submitTask"),
     path('class/task/deleteTask/<str:pk>', views.deleteTask, name="deleteTask"),

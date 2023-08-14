@@ -167,7 +167,7 @@ class TaskSubmission(models.Model):
 class Marks(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     subject = models.ForeignKey(Class, on_delete=models.CASCADE)
-    marks = models.DecimalField(max_digits=4, decimal_places=2)
+    marks = models.DecimalField(max_digits=4, decimal_places=2, default=0)
 
     def calculate_grade(self):
         if self.marks >= 4.0:

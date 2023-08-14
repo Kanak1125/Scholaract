@@ -1,6 +1,6 @@
 # we edited this file
 from django.contrib import admin
-from .models import User, Student, Teacher, Class, CourseMaterial, MaterialFile
+from .models import User, Student, Teacher, Class, CourseMaterial, MaterialFile, Task, TaskFile, TaskSubmission, Marks
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -137,9 +137,42 @@ class CourseMaterialAdmin(admin.ModelAdmin):
     # inlines = [MaterialFileInline]
     list_display=('title', 'related_class', 'uploaded_by' )
 
+class TaskFileInline(admin.StackedInline):
+    model = TaskFile
+    extra = 0
+
+class TaskAdmin(admin.ModelAdmin):
+    list_display=('title', 'description', 'related_class', 'due_date', 'display_task_files')
+
+    inlines = [TaskFileInline]
+    def display_task_files(self, obj):
+        task_files = TaskFile.objects.filter(task=obj)
+        return ", ".join([file.file.name for file in task_files])
+
+    display_task_files.short_description = 'Task Files'
+
+class TaskSubmissionAdmin(admin.ModelAdmin):
+    list_display=('student', 'task', 'date_of_submission', 'file', 'approved')
+
+# @admin.register(TaskFile)
+# class TaskFileAdmin(admin.ModelAdmin):
+#     list_display = ('file', 'task')
+#     list_filter = ('task',)
+#     search_fields = ('task__title',)
+
+class MarksAdmin(admin.ModelAdmin):
+    list_display=('student', 'subject', 'marks')
+    class Meta:
+        verbose_name = 'Marks'
+        verbose_name_plural = 'Marks'
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Student, StudentAdmin)
 admin.site.register(Teacher, TeacherAdmin)
 admin.site.register(Class, ClassAdmin)
 admin.site.register(CourseMaterial, CourseMaterialAdmin)
+admin.site.register(Task,TaskAdmin)
+admin.site.register(TaskSubmission, TaskSubmissionAdmin)
+admin.site.register(Marks, MarksAdmin)
 

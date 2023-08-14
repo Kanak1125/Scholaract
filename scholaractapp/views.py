@@ -338,9 +338,32 @@ def deleteMaterial(request, pk):
     return render(request, 'scholaractapp/class/stream.html')
 
 def updateMaterial(request, pk):
-    material = CourseMaterial.objects.get(id=pk)
+    print("Received pk:", pk)
+
     if request.method == 'POST':
-        pass
+        form_identifier = request.POST.get('form_identifier')
+        print("Form Identifier:", form_identifier)
+        if form_identifier == 'update_material_id_form_identifier':
+            material = CourseMaterial.objects.get(id=pk)
+        
+        elif form_identifier == 'update_material_form_identifier':
+            title = request.POST.get('post_title')
+            description = request.POST.get('post_description')
+            files = request.FILES.getlist('post_file')
+
+            # Update the material object with new data
+            material.title = title
+            material.description = description
+            material.save()
+
+            # Delete existing files associated with the material
+            existing_files = MaterialFile.objects.filter(course_material=material)
+            existing_files.delete()
+
+            # Create new MaterialFile objects for the updated material
+            for file in files:
+                MaterialFile.objects.create(file=file, course_material=material)
+            
 
     return render(request, 'scholaractapp/class/stream.html')
 
@@ -648,14 +671,26 @@ def task_student(request, pk):
             task_id = request.session.get('task_id') # accessing task id from session
             task = Task.objects.get(id=task_id)
             print(task_id)
-            files = request.FILES.getlist('post_file')
+            file = request.FILES.get('post_file')
             print(request.FILES)
             
-            
-            for file in files:
-                TaskSubmission.objects.create(file=file, task=task, student=uploaded_by, date_of_submission=date.today())
-                print(file)
+            print(file)
 
+            # Check if a previous TaskSubmission exists for the same student and task
+            try:
+                task_submission = TaskSubmission.objects.get(student=uploaded_by, task=task)
+                task_submission.approved = False
+                task_submission.date_of_submission = date.today()
+                task_submission.file = file  # Assuming only one file is submitted
+                task_submission.save()
+            except TaskSubmission.DoesNotExist:
+                TaskSubmission.objects.create(
+                    file=file,  # Assuming only one file is submitted
+                    task=task,
+                    student=uploaded_by,
+                    date_of_submission=date.today(),
+                    approved=False
+                )
             # class_pk = classObj.pk
             return redirect('task', pk=related_class.pk)
             
@@ -744,7 +779,7 @@ def report_teacher(request, pk):
     # related_class = classObj
 
     enrolled_students = classObj.student_set.all()
-
+    print(enrolled_students)
     if request.method == 'POST':
         print(request.POST)
         student_ids = request.POST.getlist('student_id')
@@ -765,19 +800,25 @@ def report_teacher(request, pk):
                 marks_instance.save()
         return redirect('report', pk=classObj.id)
 
-    student_marks = Marks.objects.filter(subject = pk)
+    student_marks = Marks.objects.filter(subject = classObj)
 
     # for student_n in student_marks:
     #     marks = student_n.marks
     #     print(marks)
     # print(student_marks)
     
-    student_data = [(student, marks) for student, marks in zip(enrolled_students, student_marks)]
+    student_data = []
+    student_marks_dict = {marks.student: marks for marks in student_marks}
+    for student in enrolled_students:
+        marks = student_marks_dict.get(student)
+        student_data.append((student, marks))
+    
     context = {
         'class': classObj,
         # 'enrolled_students': enrolled_students,
         # 'student_marks': student_marks,
         'student_data': student_data,
+        'enrolled_students': enrolled_students,
         # 'created_by': created_by,
     }
     return render(request, 'scholaractapp/class/report.html', context)
@@ -885,8 +926,12 @@ def resetPasswordWithCode(request):
     error_code = ''
     if request.method == "POST":
         reset_code = request.POST.get('reset_code')
+        email = request.session.get('reset_email')
+        user = User.objects.get(email=email)
         try:
-            ResetCode.objects.get(code=reset_code)
+            reset_code_obj=ResetCode.objects.get(code=reset_code)
+            if reset_code_obj.user.email != email:
+                print("please enter the code for valid email")
             return redirect('resetPasswordNew')
 
         except ResetCode.DoesNotExist:
@@ -897,15 +942,17 @@ def resetPasswordWithCode(request):
     return render(request, 'scholaractapp/forgotPassword/reset_code_confirm.html',context)
 
 def resetPasswordNew(request):
+    reset_email = request.session.get('reset_email')
+    # if email != reset_email:
+    #     print("please enter the code for valid email")
     if request.method == "POST":
         password = request.POST.get('password')
         hashed_pwd = make_password(password)
-        email = request.session.get('reset_email')
         # print(request.session.keys())
         # print(email)
         # print('working')
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(email=reset_email)
             user.password = hashed_pwd
             user.save()
             ResetCode.objects.filter(user=user).delete()
