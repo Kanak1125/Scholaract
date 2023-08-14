@@ -9,18 +9,17 @@ export function showPopup() {
         const p = popUp[i];
         
         uploadFiles.addEventListener('change', () => {
-                p.classList.add("show");
-                msg.textContent = uploadFiles.files.length > 1 ? 
-                'File(s) recently added' :
-                'File recently added'
-                taskSubmitBtn.classList.remove('btn-disabled');
-
-                clearInterval(timer);
-            
-                timer = setTimeout(() => {
-                    p.classList.remove('show');
-                }, 2500);
-            })
+            p.classList.add("show");
+            msg.textContent = uploadFiles.files.length > 1 ? 
+            'File(s) recently added' :
+            'File recently added'
+            taskSubmitBtn.classList.remove('btn-disabled');
+            clearInterval(timer);
+        
+            timer = setTimeout(() => {
+                p.classList.remove('show');
+            }, 2500);
+        })
             // const currentPopUp = [...document.querySelectorAll('.popup')][i];
             // currentPopUp.classList.add('show');
     

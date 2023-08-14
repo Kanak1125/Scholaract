@@ -356,6 +356,10 @@ ul > li > div p:nth-child(2) {
     float: right;
 }
 
+.task-approved {
+    color: var(--bg-color-op6);
+}
+
 .task-main {
     display: flex;
     /* border: 1px solid black; */
