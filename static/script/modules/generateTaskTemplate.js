@@ -32,6 +32,12 @@ function createTaskCard(taskData, templateContent, isTeacher) {
     // only if student...
     if (!isTeacher) {
       // console.log("student task modal");
+      const taskStatus = taskCard.querySelector('.task-status');
+      taskStatus.textContent = taskData.approved ? "Approved" : "Due";
+      if (taskData.approved) {
+        taskStatus.classList.add('task-approved');
+      }
+      console.log(taskStatus.textContent);
       const modalTaskTitle = taskCard.querySelector('.modal-task-title');
       const modalTaskDescription = taskCard.querySelector('.modal-description');
       modalTaskTitle.textContent = taskData.title;

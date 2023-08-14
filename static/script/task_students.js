@@ -263,6 +263,7 @@ function performFormSubmission(taskArr) {
         submitFormData(form, null);
 
         setTimeout(() => {
+          taskSubmitBtn.textContent = "Submitted";
           taskSubmitBtn.classList.add('btn-disabled');
         }, 200);
       })
