@@ -510,7 +510,11 @@ def task_teacher(request, pk):
 
             # filters the tasks submitted by student which has the same task id as the one being passed and counts them
             task_submitted = TaskSubmission.objects.filter(task_id=task_id)
-            total_submitted = task_submitted.count() 
+            total_submitted = task_submitted.count()
+            total_approved = TaskSubmission.objects.filter(approved=True).count()
+            print(f"total approved={total_approved}")
+            total_due = TaskSubmission.objects.filter(approved=False).count() 
+            print(f"total due={total_due}")
             print(f"The total number of entries is: {total_submitted}")
 
             task_submitted_list = []
