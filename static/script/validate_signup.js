@@ -8,6 +8,7 @@ const confirmPassword = document.getElementById('c_password');
 
 const popUp = document.querySelector('.popup');
 const msg = document.querySelector('.msg');
+const info = document.querySelector('.info');
 // submitBtn.setAttribute('disabled');
 // fires when the form is submitted...
 form.addEventListener('submit', function(e){
@@ -17,7 +18,8 @@ form.addEventListener('submit', function(e){
 
     if (validateInputs()){
         // var validated = document.getElementById('form')
-        msg.innerHTML = "Congratulations on signing up!<br><br>Keep an eye on your email for the admin-assigned role notification.";
+        msg.innerHTML = "Congratulations on signing up!<br>";
+        info.innerHTML = "Keep an eye on your email for the admin-assigned role notification.";
         popUp.classList.add('show');
         setTimeout(() => {
             form.submit();

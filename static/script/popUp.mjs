@@ -13,7 +13,7 @@ export function showPopup() {
             msg.textContent = uploadFiles.files.length > 1 ? 
             'File(s) recently added' :
             'File recently added'
-            taskSubmitBtn.classList.remove('btn-disabled');
+            if(taskSubmitBtn) taskSubmitBtn.classList.remove('btn-disabled');
             clearInterval(timer);
         
             timer = setTimeout(() => {
