@@ -33,9 +33,10 @@
 }
 
 .popup {
-  background: linear-gradient(to left, var(--accent-color), var(--primary-color));
+  background-color: var(--popup-info-bg-color);
   width: 500px;
-  box-shadow: var(--ternary-color) 0px 8px 24px;
+  /* box-shadow: var(--ternary-color) 0px 8px 24px; */
+  color: var(--popup-info-txt-color);
   padding: 10px 20px;
   position: fixed;
   top: 100px;
@@ -43,9 +44,15 @@
   transform: translateX(-50%) scale(0.4);
   z-index: 111;
   opacity: 0;
+  border: 1px solid var(--popup-info-txt-color);
   border-radius: 20px;
   transition: all 200ms ease-out;
   text-align: center;
+  box-shadow: var(--box-shadow-popup);
+}
+
+.info {
+  font-size: var(--fnt-size-v-s);
 }
 
 .popup.show {
