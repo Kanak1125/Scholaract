@@ -43,7 +43,6 @@
                 <img src="{% static '/images/logo.svg' %}" alt="" class="logo">
             </a>
             <form action="{% url 'signup' %}" method="get" class="sign-up-option">
-                {% csrf_token %}
                 <label for="sign-up-btn">Don't have an account?</label>
                 <button class="btn sign-up-btn" id="sign-up-btn">Sign up</button>
             </form>

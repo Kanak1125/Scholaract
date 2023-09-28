@@ -486,6 +486,9 @@ def task_teacher(request, pk):
 
     # print(request.POST)
     task_submitted_json = ""
+    total_due = 0
+    total_approved = 0
+    total_submitted = 0
     if request.method == "POST":
         form_identifier = request.POST.get('form_identifier')
         print("Form Identifier:", form_identifier)
@@ -554,7 +557,10 @@ def task_teacher(request, pk):
             'due_date': task.due_date,
             # 'file_name': material.file.name,
             # 'file_url': material.file.url,
-            'files': []
+            'files': [],
+            'total_due': total_due,
+            'total_approved': total_approved,
+            'total_submitted': total_submitted,
         }
 
         task_files = TaskFile.objects.filter(task=task)
@@ -570,11 +576,10 @@ def task_teacher(request, pk):
         task_list.append(task_data)
     # cls=DateEncoder is provided to specify a custom JSON encoder class for serializing objects that are not natively serializable by default. In this case, we have defined a custom encoder class called DateEncoder that subclasses DjangoJSONEncoder and overrides its default() method.
     task_json = json.dumps(task_list, cls=DateEncoder)
-    # print(task_json)
+    print(task_json)
 
     # total_tasks_submitted = TaskSubmission.objects.aggregate(total=Count(3))['total']
     # print(total_tasks_submitted)
-
     context = {
         'task_json': task_json,
         'class': classObj,
