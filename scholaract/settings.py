@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,10 +27,10 @@ MEDIA_ROOT = Path(BASE_DIR/'media')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9+*_=h(ol4tj&v8veq(o69tzhy)h%(hff=+^#m)_l1%0i+n%_r'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG= str(os.getenv('DEBUG'))
 
 ALLOWED_HOSTS = []
 
@@ -39,7 +42,7 @@ EMAIL_HOST = 'smtp.elasticemail.com'
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mailsender227@gmail.com'
-EMAIL_HOST_PASSWORD = 'C80238B57FA758C6AF8013E826A488A1FE22'
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
 
 
 DEFAULT_FROM_EMAIL = 'scholaract@gmail.com'
