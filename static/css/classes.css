@@ -102,10 +102,10 @@ nav {
     width: 300px;
     /* border: 1px solid black; */
     border-radius: 10px;
-    overflow: hidden;
     cursor: pointer;
     background-color: var(--primary-color);
     transition: all 300ms ease-out;
+    overflow: hidden;
 }
 
 .class-card:hover {
@@ -125,6 +125,12 @@ nav {
 
 .class-info {
     padding: 20px 15px;
+}
+
+.class-info h3 {
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-container {
