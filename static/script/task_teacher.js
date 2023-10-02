@@ -15,7 +15,7 @@ let currentAssignmentData = [];
 async function approveTaskSubmitted(submissionId, approveBtn) {
   // submissionIds.forEach(async id => {
     try {
-        const response = await fetch(`http://127.0.0.1:8000/api/${submissionId}/update/`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/task/${submissionId}/update/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -42,6 +42,11 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
     const data = await response.json(); // then the data is extracted and assigned to data by converting the response to json format...
     currentAssignmentData = data.reverse();
     console.log(currentAssignmentData);
+
+    const total_approved_assignments = currentAssignmentData.reduce((acc, item) => {
+      if (item.approved) acc += 1;
+      return acc;
+    }, 0)
 
     // const reducedAssignmentData = Object.values(currentAssignmentData.reduce((result, item) => {
     //   const {id, student, task, date_of_submission, file, approved} = item;
@@ -71,6 +76,10 @@ async function refreshTemplate(taskId, index) { // index to tell at which task m
     const numberOfTaskApproval = document.querySelectorAll('.num-of-approval')[index];
     
     numberOfTaskSubmission.textContent = currentAssignmentData.length;
+    numberOfTaskDue.textContent = currentAssignmentData.length - total_approved_assignments;
+    numberOfTaskApproval.textContent = total_approved_assignments;
+
+
     // console.log(closestAssignmentList);
 
     if (currentAssignmentData.length === 0) {
