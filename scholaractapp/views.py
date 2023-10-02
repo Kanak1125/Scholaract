@@ -836,6 +836,7 @@ def report_student(request, pk):
     classObj = Class.objects.get(id=pk)
     user_data = request.session.get('user')
     user_id = user_data['id']
+    
     print(user_id)
 
     subjects = Marks.objects.filter(student=user_id) # filtering instances of Marks model which has student field or attribute same as or corresponding to the user id
@@ -1011,7 +1012,7 @@ def task_submission_list(request, pk):
 
 from rest_framework import status
 
-@api_view(['POST', 'GET'])  
+@api_view(['POST'])  
 def task_submission_update(request,pk):
     task_submissions = TaskSubmission.objects.get(id=pk)
     serializer = TaskSubmissionSerializer(instance = task_submissions, data = request.data)
