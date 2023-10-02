@@ -5,8 +5,9 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
+    path('api/material/<str:pk>/update/', views.updateMaterial, name='material-update'),
     path('api/<str:pk>/', views.task_submission_list, name='api_endpoint'),
-    path('api/task/<str:pk>/update/', views.task_submission_update, name='api_update_endpoint'),
+    path('api/task/<str:pk>/update/', views.task_submission_update, name='task_submission_update'),
     path('', views.landingPage, name = "landingPage"),
     path('aboutUs/', views.aboutUs, name = "aboutUs"),
     path('support/', views.support, name = "support"),
@@ -23,7 +24,7 @@ urlpatterns = [
     path('classes/',views.classes, name="classes"), 
     path('class/<str:pk>/',views.single_class, name="class"), 
     path('class/deleteMaterial/<str:pk>', views.deleteMaterial, name="deleteMaterial"),    
-    path('class/updateMaterial/<str:pk>', views.updateMaterial, name="updateMaterial"),    
+    # path('class/updateMaterial/<str:pk>', views.updateMaterial, name="updateMaterial"),    
     path('class/<str:pk>/task/', views.task, name="task"),
     # path('class/task/submitTask/<str:pk>', views.submitTask, name="submitTask"),
     path('class/task/deleteTask/<str:pk>', views.deleteTask, name="deleteTask"),
