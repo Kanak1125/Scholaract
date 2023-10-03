@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.utils.html import strip_tags 
 from rest_framework import generics
-from .serializers import TaskSubmissionSerializer, TaskSerializer
+from .serializers import TaskSubmissionSerializer, TaskSerializer, CourseMaterialSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -322,6 +322,16 @@ def single_class(request, pk):
     }
     return render(request, 'scholaractapp/class/stream.html', context)
 
+@api_view(['POST' ,'GET'])
+def updateMaterial(request,pk):
+    material = CourseMaterial.objects.get(id=pk)
+    serializer = CourseMaterialSerializer(material, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
 # def updateMaterial(request, pk):
 #     material = CourseMaterial.objects.get(id=pk)
 #     if request.method == 'POST':
@@ -337,35 +347,35 @@ def deleteMaterial(request, pk):
     
     return render(request, 'scholaractapp/class/stream.html')
 
-def updateMaterial(request, pk):
-    print("Received pk:", pk)
+# def updateMaterial(request, pk):
+#     print("Received pk:", pk)
 
-    if request.method == 'POST':
-        form_identifier = request.POST.get('form_identifier')
-        print("Form Identifier:", form_identifier)
-        if form_identifier == 'update_material_id_form_identifier':
-            material = CourseMaterial.objects.get(id=pk)
+#     if request.method == 'POST':
+#         form_identifier = request.POST.get('form_identifier')
+#         print("Form Identifier:", form_identifier)
+#         if form_identifier == 'update_material_id_form_identifier':
+#             material = CourseMaterial.objects.get(id=pk)
         
-        elif form_identifier == 'update_material_form_identifier':
-            title = request.POST.get('post_title')
-            description = request.POST.get('post_description')
-            files = request.FILES.getlist('post_file')
+#         elif form_identifier == 'update_material_form_identifier':
+#             title = request.POST.get('post_title')
+#             description = request.POST.get('post_description')
+#             files = request.FILES.getlist('post_file')
 
-            # Update the material object with new data
-            material.title = title
-            material.description = description
-            material.save()
+#             # Update the material object with new data
+#             material.title = title
+#             material.description = description
+#             material.save()
 
-            # Delete existing files associated with the material
-            existing_files = MaterialFile.objects.filter(course_material=material)
-            existing_files.delete()
+#             # Delete existing files associated with the material
+#             existing_files = MaterialFile.objects.filter(course_material=material)
+#             existing_files.delete()
 
-            # Create new MaterialFile objects for the updated material
-            for file in files:
-                MaterialFile.objects.create(file=file, course_material=material)
+#             # Create new MaterialFile objects for the updated material
+#             for file in files:
+#                 MaterialFile.objects.create(file=file, course_material=material)
             
 
-    return render(request, 'scholaractapp/class/stream.html')
+#     return render(request, 'scholaractapp/class/stream.html')
 
 
 # class SingleClassEncoder(DjangoJSONEncoder):
@@ -1012,10 +1022,10 @@ def task_submission_list(request, pk):
 
 from rest_framework import status
 
-@api_view(['POST'])  
+@api_view(['POST', 'GET'])  
 def task_submission_update(request,pk):
-    task_submissions = TaskSubmission.objects.get(id=pk)
-    serializer = TaskSubmissionSerializer(instance = task_submissions, data = request.data)
+    task_submission = TaskSubmission.objects.get(id=pk)
+    serializer = TaskSubmissionSerializer(instance = task_submission, data = request.data)
     if serializer.is_valid():
         serializer.save()
         # task_submissions.approved = True
@@ -1023,3 +1033,11 @@ def task_submission_update(request,pk):
 
 def support(request):
     return render(request, 'scholaractapp/support.html')
+
+# @api_view(['POST'])
+# def task_update(request, class_pk, task_pk):
+#     task = Task.objects.get(id=task_pk)
+#     serializer = TaskSerializer(isinstance=task, data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     return Response(serializer.data)

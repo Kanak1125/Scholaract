@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import TaskSubmission, User, Task
+from .models import TaskSubmission, User, Task, CourseMaterial, MaterialFile
 
 
 
@@ -19,4 +19,16 @@ class TaskSubmissionSerializer(serializers.ModelSerializer):
     task = serializers.StringRelatedField()     # Display task's title
     class Meta:
         model=TaskSubmission
-        fields=('id', 'student', 'task', 'date_of_submission', 'file', 'approved')
+        fields=['id', 'student', 'task', 'date_of_submission', 'file', 'approved']
+
+class MaterialFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=MaterialFile
+        fields=['id', 'file', 'course_material']
+
+class CourseMaterialSerializer(serializers.ModelSerializer):
+    files = MaterialFileSerializer(many=True, read_only=True)
+
+    class Meta:
+        model=CourseMaterial
+        fields=['id', 'title', 'description', 'related_class', 'uploaded_by', 'files']

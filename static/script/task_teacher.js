@@ -11,6 +11,13 @@ console.log(taskArray);
 // console.log(taskArray.reverse());
 
 let currentAssignmentData = [];
+function getCookie(name) {
+  const cookieValue = document.cookie
+      .split('; ')
+      .find(cookie => cookie.startsWith(`${name}=`))
+      .split('=')[1];
+  return decodeURIComponent(cookieValue);
+}
 
 async function approveTaskSubmitted(submissionId, approveBtn) {
   // submissionIds.forEach(async id => {
