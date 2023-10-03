@@ -160,6 +160,7 @@ const closeModal = [...document.querySelectorAll('.close-modal')];
 
 function handleDropDownClick(e, btn, dropdown) {
   e.stopPropagation(); // prevent event bubbling
+  // if (btn.classList.contains('active')) return;
   btn.classList.toggle('active');
   $(dropdown).slideToggle('fast');
 }
