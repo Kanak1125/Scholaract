@@ -15,7 +15,7 @@ urlpatterns = [
     # path('support/', views.support, name="support"),
     path('signup/',views.signup, name="signup"),
     path('login/',views.login, name="login"),
-
+    # path('reset-password/<str:uidb64>/<str:token>/', views.reset_password, name='reset_password'),
     path('resetPassword/', views.resetPassword, name="resetPassword"),
     path('resetPassword/entercode', views.resetPasswordWithCode, name="resetPasswordWithCode"),
     path('resetPasswordNew/', views.resetPasswordNew, name="resetPasswordNew"),

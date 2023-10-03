@@ -130,11 +130,11 @@ class ClassAdmin(admin.ModelAdmin):
     list_display = ('class_name', 'class_code', 'teacher')
 
 
-# class MaterialFileInline(admin.StackedInline):
-#     model = MaterialFile
+class MaterialFileInline(admin.StackedInline):
+    model = MaterialFile
 
 class CourseMaterialAdmin(admin.ModelAdmin):
-    # inlines = [MaterialFileInline]
+    inlines = [MaterialFileInline]
     list_display=('title', 'related_class', 'uploaded_by' )
 
 class TaskFileInline(admin.StackedInline):
