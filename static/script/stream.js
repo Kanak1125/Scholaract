@@ -217,8 +217,8 @@ if ('content' in document.createElement('template')) {
 
             const updateMaterialform = clone.querySelector('.update_material_form')
             console.log(updateMaterialform);
-            const updateMaterialformAction = updateMaterialform.action.replace('__material.id__', materialId);
-            updateMaterialform.action = updateMaterialformAction;
+            // const updateMaterialformAction = updateMaterialform.action.replace('__material.id__', materialId);
+            // updateMaterialform.action = updateMaterialformAction;
             
             const deleteMaterialform = clone.querySelector('.delete_material_form');
             console.log(deleteMaterialform);
