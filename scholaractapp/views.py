@@ -487,7 +487,10 @@ def task(request, pk):
 def task_teacher(request, pk):
     classObj = Class.objects.get(id=pk)
     related_class = classObj
-
+    enrolled_students = classObj.student_set.all()
+    enrolled_count = enrolled_students.count()
+    print(enrolled_count)
+    
     # session data
     # user_data = request.session.get('user')
     # user_name = user_data['fname']
@@ -571,6 +574,7 @@ def task_teacher(request, pk):
             'total_due': total_due,
             'total_approved': total_approved,
             'total_submitted': total_submitted,
+            'enrolled_count': enrolled_count,
         }
 
         task_files = TaskFile.objects.filter(task=task)
@@ -890,7 +894,6 @@ def report_student(request, pk):
     
     return render(request, 'scholaractapp/class/report.html', context)
 
-
 def resetPassword(request):
     error_email = ''
     code_already_sent = ''
@@ -976,6 +979,7 @@ def resetPasswordNew(request):
             user.password = hashed_pwd
             user.save()
             ResetCode.objects.filter(user=user).delete()
+            return redirect('login')
         except User.DoesNotExist:
             pass
         # print("password changed")
